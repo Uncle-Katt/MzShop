@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class QuanLyViewController {
 
     @GetMapping("/quan-ly-view")
-    public String quanLySanPham(Model model) {
+    public String quanLyView(Model model) {
 
         return "quanLy";
     }

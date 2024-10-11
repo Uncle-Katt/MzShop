@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 @Getter
 @Setter
@@ -25,13 +27,16 @@ public class PhieuGiamGia {
 
     @Column(name = "phan_tram_giam")
     private double phanTramGiam;
-
     @Column(name = "ngay_bat_dau")
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     private Date ngayBatDau;
 
     @Column(name = "ngay_ket_thuc")
-    private Date ngayKetThuc;
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
 
+    private Date ngayKetThuc;
     @Column(name = "ngay_tao")
     private Date ngayTao;
 
