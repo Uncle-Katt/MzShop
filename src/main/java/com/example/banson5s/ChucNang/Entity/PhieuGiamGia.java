@@ -8,6 +8,7 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -17,7 +18,7 @@ import java.util.Date;
 public class PhieuGiamGia {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(name = "ma_phieu_giam_gia")
     private String maPhieuGiamGia;
@@ -27,14 +28,16 @@ public class PhieuGiamGia {
 
     @Column(name = "phan_tram_giam")
     private double phanTramGiam;
+    @Column(name = "loai_giam")
+    private Integer loaiGiam;
+    @Column(name = "dieu_kien_ap_dung")
+    private Integer dieuKienToiThieu;
     @Column(name = "ngay_bat_dau")
-    @Temporal(TemporalType.DATE)
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd") // Chỉ định định dạng ngày tháng
     private Date ngayBatDau;
 
     @Column(name = "ngay_ket_thuc")
-    @Temporal(TemporalType.DATE)
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd") // Chỉ định định dạng ngày tháng
 
     private Date ngayKetThuc;
     @Column(name = "ngay_tao")
