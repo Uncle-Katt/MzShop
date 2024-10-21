@@ -53,5 +53,9 @@ public class NhanVien {
     @Column(name = "trang_thai")
     private Integer trangThai;
 
+    public NhanVien(Long id) {
+        this.id = id;
+    }
+
     // Getters và Setters
 }

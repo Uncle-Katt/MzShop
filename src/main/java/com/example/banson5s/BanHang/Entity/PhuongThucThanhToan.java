@@ -21,18 +21,22 @@ public class PhuongThucThanhToan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "ten", nullable = false)
+    @Column(name = "ten")
     private String ten;
 
-    @Column(name = "ngay_tao", nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "ngay_tao")
     private Date ngayTao;
 
-    @Column(name = "ngay_sua", nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "ngay_sua")
+
     private Date ngaySua;
 
-    @Column(name = "trang_thai", nullable = false)
+    @Column(name = "trang_thai")
     private Integer trangThai;
+
+    public PhuongThucThanhToan(Long id) {
+        this.id = id;
+    }
+
 }
 

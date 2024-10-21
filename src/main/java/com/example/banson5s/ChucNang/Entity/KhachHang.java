@@ -38,11 +38,17 @@ public class KhachHang {
     @Column(name = "ngay_tao")
     private Date ngayTao;
 
+    @Column(name = "ngay_sua")
+    private Date ngaySua;
     @Column(name = "ngay_sinh")
     private Date ngaySinh;
 
     @Column(name = "trang_thai")
     private Integer trangThai;
+
+    public KhachHang(Long id) {
+        this.id = id;
+    }
 
     // Getters và Setters
 }
