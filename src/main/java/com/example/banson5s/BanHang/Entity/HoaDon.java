@@ -8,11 +8,14 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
+
 
 @Getter
 @Setter
-@NoArgsConstructor
+
 @AllArgsConstructor
 
 @Entity
@@ -34,9 +37,9 @@ public class HoaDon {
     @JoinColumn(name = "id_phuong_thuc_thanh_toan")
     private PhuongThucThanhToan phuongThucThanhToan;
 
-    @ManyToOne
-    @JoinColumn(name = "id_voucher")
-    private PhieuGiamGia voucher;
+
+    @Column(name = "ma")
+    private String maHD;
 
     @Column(name = "tong_tien")
     private double tongTien;
@@ -44,17 +47,32 @@ public class HoaDon {
     @Column(name = "thanh_tien")
     private double thanhTien;
 
+
+
+
     @Column(name = "ngay_tao")
+    @Temporal(TemporalType.DATE) // Thêm annotation này
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     private Date ngayTao;
 
     @Column(name = "ngay_sua")
+    @Temporal(TemporalType.DATE) // Thêm annotation này
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     private Date ngaySua;
 
     @Column(name = "ngay_thanh_toan")
+    @Temporal(TemporalType.DATE) // Thêm annotation này
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     private Date ngayThanhToan;
 
-    @Column(name = "trang_thai")
+    @Column(name = "loai_trang_thai")
     private Integer trangThai;
+    public HoaDon() {
+        this.ngayTao = new Date(); // Ngày tạo mặc định là ngày hiện tại
+        this.tongTien = 0.0; // Giá trị mặc định
+        this.thanhTien = 0.0; // Giá trị mặc định
+        this.trangThai = 0; // Trạng thái mặc định, ví dụ: chưa thanh toán
+    }
 
     // Getters và Setters
 }

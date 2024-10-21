@@ -46,8 +46,8 @@ public class SanPhamChiTiet {
     @Column(name = "trang_thai")
     private Integer trangThai;
 
-    @Column(name = "so_luong_da_ban", nullable = false)
-    private Integer soLuongDaBan;
+//    @Column(name = "so_luong_da_ban")
+//    private Integer soLuongDaBan;
 }
 
 

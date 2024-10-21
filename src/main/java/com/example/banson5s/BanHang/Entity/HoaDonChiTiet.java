@@ -9,7 +9,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
+
 @AllArgsConstructor
 
 @Entity
@@ -27,6 +27,9 @@ public class HoaDonChiTiet {
     @JoinColumn(name = "id_san_pham_chi_tiet")
     private SanPhamChiTiet sanPhamChiTiet;
 
+    @Column(name = "ma")
+    private String maHD1;
+
     @Column(name = "so_luong")
     private Integer soLuong;
 
@@ -35,6 +38,11 @@ public class HoaDonChiTiet {
 
     @Column(name = "trang_thai")
     private Integer trangThai;
+    public HoaDonChiTiet() {
+        this.soLuong = 0; // Giá trị mặc định
+        this.giaBan = 0.0; // Giá trị mặc định
+        this.trangThai = 0; // Trạng thái mặc định
+    }
 
     // Getters và Setters
 }
