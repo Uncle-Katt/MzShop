@@ -13,10 +13,10 @@ import java.util.Optional;
 @NoRepositoryBean
 public interface IBaseRepository<T extends BaseEntity, ID extends Serializable>
         extends JpaRepository<T, ID>, JpaSpecificationExecutor<T> {
-    @Query("select e from #{#entityName} e where e.id = ?1 and e.deleted = false")
+    @Query("select e from #{#entityName} e where e.id = ?1 and e.xoaMem = false")
     Optional<T> findByIdAndDeletedFalse(ID id);
 
-    @Query("select e from #{#entityName} e where e.deleted = false")
+    @Query("select e from #{#entityName} e where e.xoaMem = false")
     List<T> findAllByDeletedIsFalse();
 }
 

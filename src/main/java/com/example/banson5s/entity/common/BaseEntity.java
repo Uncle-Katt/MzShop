@@ -10,6 +10,7 @@ import lombok.Setter;
 @MappedSuperclass
 public class BaseEntity extends AbstractAuditingEntity {
 
+
     @Column(name = "xoa_mem")
     private boolean xoaMem;
 }

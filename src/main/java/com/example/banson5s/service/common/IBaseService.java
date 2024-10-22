@@ -7,6 +7,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.lang.Nullable;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Optional;
 
 public interface IBaseService<E extends BaseEntity, ID extends Serializable> {
@@ -21,6 +22,8 @@ public interface IBaseService<E extends BaseEntity, ID extends Serializable> {
     void delete(E entity);
 
     Optional<E> findById(ID id);
+
+    List<E> findAllLst();
 
     Boolean existsById(ID id);
 

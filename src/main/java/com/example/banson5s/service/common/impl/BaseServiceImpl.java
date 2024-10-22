@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Optional;
 
 public class BaseServiceImpl<E extends BaseEntity, ID extends Serializable, R extends IBaseRepository<E, ID>>
@@ -52,6 +53,11 @@ public class BaseServiceImpl<E extends BaseEntity, ID extends Serializable, R ex
     @Override
     public Optional<E> findById(ID id) {
         return repository.findByIdAndDeletedFalse(id);
+    }
+
+    @Override
+    public List<E> findAllLst() {
+        return repository.findAllByDeletedIsFalse();
     }
 
     @Override
