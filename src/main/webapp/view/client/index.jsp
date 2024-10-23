@@ -1,0 +1,1 @@
+Day la client chuyen sang "/admin"
