@@ -82,7 +82,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white h5" href="/san-pham/index" aria-label="Bán hàng tại quầy">
+                        <a class="nav-link text-white h5" href="/admin/sales" aria-label="Bán hàng tại quầy">
                             Bán hàng tại quầy
                         </a>
                     </li>
