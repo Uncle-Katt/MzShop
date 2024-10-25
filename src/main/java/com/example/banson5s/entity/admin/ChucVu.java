@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 public class ChucVu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Column(name = "ten_chuc_vu", length = 255)
     private String tenChucVu;

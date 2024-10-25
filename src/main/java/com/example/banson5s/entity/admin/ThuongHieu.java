@@ -19,7 +19,7 @@ import lombok.Setter;
 public class ThuongHieu extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Column(name = "ten_thuong_hieu", length = 255)
     private String tenThuongHieu;

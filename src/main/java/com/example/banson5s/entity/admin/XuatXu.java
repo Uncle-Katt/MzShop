@@ -21,7 +21,7 @@ import lombok.Setter;
 public class XuatXu extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Column(name = "ten_xuat_xu", length = 255)
     private String tenXuatXu;

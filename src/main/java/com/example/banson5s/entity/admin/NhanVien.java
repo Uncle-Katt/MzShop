@@ -23,7 +23,7 @@ import java.util.Date;
 public class NhanVien extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "id_chuc_vu", referencedColumnName = "id")

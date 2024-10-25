@@ -14,7 +14,7 @@ import lombok.Setter;
 public class DiaChi  extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "id_khach_hang", referencedColumnName = "id")
@@ -39,5 +39,5 @@ public class DiaChi  extends BaseEntity {
     private String tinh;
 
     @Column(name = "dia_chi_mac_dinh")
-    private boolean diaChiMacDinh;
+    private Boolean diaChiMacDinh;
 }

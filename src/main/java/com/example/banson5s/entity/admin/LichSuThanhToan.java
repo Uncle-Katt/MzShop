@@ -10,31 +10,34 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
+
 @Entity
-@Table(name = "SanPham")
+@Table(name = "LichSuThanhToan")
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SanPham extends BaseEntity {
+public class LichSuThanhToan extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "id_xuat_xu", referencedColumnName = "id")
-    private XuatXu xuatXu;
+    @JoinColumn(name = "id_hoa_don", nullable = false)
+    private HoaDon hoaDon;
 
-    @ManyToOne
-    @JoinColumn(name = "id_danh_muc", referencedColumnName = "id")
-    private DanhMuc danhMuc;
+    @Column(name = "loai_than_toan", length = 255)
+    private String loaiThanhToan;
 
-    @ManyToOne
-    @JoinColumn(name = "id_thuong_hieu", referencedColumnName = "id")
-    private ThuongHieu thuongHieu;
+    @Column(name = "so_tien_thanh_toan", precision = 18, scale = 2)
+    private BigDecimal soTienThanhToan;
 
-    @Column(name = "ten_san_pham", length = 255)
-    private String tenSanPham;
+    @Column(name = "mo_ta", length = 255)
+    private String moTa;
 }

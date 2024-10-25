@@ -21,7 +21,7 @@ public class GioHangChiTiet {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "id_san_pham_chi_tiet", referencedColumnName = "id")
@@ -32,6 +32,6 @@ public class GioHangChiTiet {
     private GioHang gioHang;
 
     @Column(name = "so_luong")
-    private int soLuong;
+    private Integer soLuong;
 
 }

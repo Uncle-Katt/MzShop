@@ -19,7 +19,7 @@ import lombok.Setter;
 public class MauSac extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Column(name = "ten_mau_sac", length = 255)
     private String tenMauSac;

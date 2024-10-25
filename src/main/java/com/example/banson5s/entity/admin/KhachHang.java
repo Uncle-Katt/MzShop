@@ -16,7 +16,7 @@ import java.util.Date;
 public class KhachHang extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Column(name = "Ma_khach_hang")
     private String maKhachHang;
