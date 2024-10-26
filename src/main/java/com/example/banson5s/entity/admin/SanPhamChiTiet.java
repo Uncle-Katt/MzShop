@@ -14,6 +14,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -48,8 +50,8 @@ public class SanPhamChiTiet extends BaseEntity {
     private String maVach;
 
     @Column(name = "gia_ban")
-    private Double giaBan;
+    private BigDecimal giaBan;
 
     @Column(name = "trang_thai")
-    private Boolean trangThai;
+    private Boolean trangThai = false;
 }

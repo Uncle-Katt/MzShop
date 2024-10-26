@@ -25,6 +25,10 @@
                             </button>
                         </div>
                         <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="searchProduct" class="form-label">Tìm kiếm</label>
+                                <input type="text" class="form-control w-50" placeholder="Nhập tên Sản Phẩm" id="searchProduct">
+                            </div>
                             <table class="table">
                                 <thead>
                                 <tr>
@@ -153,6 +157,7 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -174,10 +179,53 @@
 
             <div class="card-body">
                 <div class="form-group row">
-                    <label for="discountCode" class="col-sm-4 col-form-label">Phiếu giảm giá</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" id="discountCode" placeholder="Nhập mã phiếu giảm giá" style="border: 1px solid #b85555;">
+                    <label class="col-sm-4 col-form-label">Phiếu giảm giá</label>
+                    <div class="col-sm-8 text-right">
+                        <button class="btn btn-danger"  data-toggle="modal" data-target="#voucherModal" style="background-color: #b85555; color: white; border: none;">
+                            + Phiếu giảm giá</button>
                     </div>
+                    <div class="modal fade" id="voucherModal" tabindex="-1" aria-labelledby="voucherModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" style="max-width: 68%">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="voucherModalLabel">Chọn phiếu giảm giá</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span>&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="mb-3">
+                                        <label for="searchVoucher" class="form-label">Tìm kiếm</label>
+                                        <input type="text" class="form-control w-50" placeholder="Nhập mã phiếu giảm giá" id="searchVoucher">
+                                    </div>
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th>STT</th>
+                                            <th>Mã</th>
+                                            <th>Tên</th>
+                                            <th>Loại</th>
+                                            <th>Giá trị tối thiểu</th>
+                                            <th>Giá trị giảm</th>
+                                            <th>Số lượng</th>
+                                            <th>Ngày bắt đầu</th>
+                                            <th>Ngày kết thúc</th>
+                                            <th>Hành Động</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="voucherTable">
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary btn-voucher-null">Bỏ Giảm Giá</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
                 <div class="form-group row">
                     <label for="discountPercentage" class="col-sm-4 col-form-label">Phần trăm giảm</label>
@@ -199,13 +247,13 @@
                     </div>
 
                     <div class="col-md-6 text-right">
-                        <p id="total-money2">0</p>
-                        <p>0 VND</p>
-                        <p>0 VND</p>
-                        <p><strong style="color: #b85555;">0 VND</strong></p>
+                        <p id="total-money2">0 đ</p>
+                        <p id="ship-money">0 đ</p>
+                        <p id="voucher-money">0 đ</p>
+                        <p><strong style="color: #b85555;" id="total-amount">0 đ</strong></p>
 
                         <div class="input-group mb-3" style="border: 1px solid #b85555;">
-                            <input type="text" class="form-control" placeholder="0 VND" style="border: none;">
+                            <input type="text" class="form-control" id="moneyCustomerInput" placeholder="0 VND" style="border: none;">
                             <div class="input-group-append">
                             <span class="input-group-text" style="border: none;">
                                 <i class="fas fa-credit-card"></i>
@@ -213,12 +261,12 @@
                             </div>
                         </div>
 
-                        <p><strong style="color: #b85555;">0 VND</strong></p>
+                        <p><strong style="color: #b85555;" id="moneyCustomer">0 ₫</strong></p>
                     </div>
                 </div>
 
                 <div class="text-right mt-3">
-                    <button class="btn" style="background-color: #b85555; color: white; border: none;">Xác Nhận Đặt Hàng</button>
+                    <button class="btn btn-payment-invoice" style="background-color: #b85555; color: white; border: none;">Xác Nhận Đặt Hàng</button>
                 </div>
             </div>
         </div>
@@ -234,6 +282,9 @@
         let billId = null;
         let bill = {};
         let totalMoney = 0;
+        let totalAmount = 0;
+        let voucherMoney = 0;
+        let shipMoney = 0;
 
         $('#myTable').DataTable();
         async function loadInvoices() {
@@ -246,10 +297,12 @@
                     if (lstBill.length > 0){
                         billId = lstBill[0].id;
                         bill = lstBill[0];
+                        loadDataKhachHang(bill.khachHang)
                     }else {
                         billId = null;
+                        bill = {};
+                        loadDataKhachHang(null)
                     }
-                    loadDataKhachHang(bill.khachHang)
                     genTabBill(data.data);
                 },
                 error: function(err) {
@@ -349,7 +402,7 @@
                             totalMoney += product.tongTien;
                         });
                     }
-                    countTotalMoney(totalMoney)
+                    countTotalMoney()
                     // loadInvoices()
                 },
                 error: function(err) {
@@ -365,6 +418,7 @@
             loadDataKhachHang(bill.khachHang)
             genTabBill(lstBill)
             loadInvoicesItem()
+            countTotalMoney()
         });
         $(document).on('click', '.delete-invoice', function() {
             const invoiceId = $(this).data('invoice-id');
@@ -397,14 +451,14 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     let idDelete = $(this).data('delete-product-id');
-                    $('#loading').fadeIn();
+                    $('#loading').show();
                     $.ajax({
                         url: '/admin/sales/delete-product',
                         method: 'POST',
                         contentType: 'application/json',
                         data: JSON.stringify(idDelete),
                         success: function(response) {
-                            $('#loading').fadeOut();
+                            $('#loading').hide();
                             loadInvoicesItem()
                             toastr.success('Xóa sản phẩm thành công');
                         },
@@ -449,12 +503,17 @@
             });
 
         });
-
+        $('#searchProduct').on('input', function() {
+            loadProduct();
+        })
         function loadProduct() {
+            let search = $('#searchProduct').val();
+
             $.ajax({
                 url: '/admin/sales/products',
                 method: 'GET',
                 dataType: 'json',
+                data: { search: search },
                 success: function(data) {
                     var tableBody = $('#productTableBody');
                     tableBody.empty();
@@ -526,12 +585,6 @@
 
         }
 
-        function countTotalMoney(data){
-            $('#total-money').text(formatCurrency(data));
-            $('#total-money2').text(formatCurrency(data));
-        }
-        countTotalMoney(totalMoney);
-
 
     //     Khach Hang start
         function loadDataKhachHang(data){
@@ -546,14 +599,16 @@
                 $('#addressCustomer').text('Khách lẻ');
             }
         }
-
+        $('#customerModal').on('show.bs.modal', function (e) {
+            loadTableCustomer()
+        });
         function loadTableCustomer() {
-            const value = $('#searchCustomer').val();
+            const search = $('#searchCustomer').val();
             $.ajax({
                 url: '/admin/sales/customer',
                 method: 'GET',
                 dataType: 'json',
-                data: { value: value },
+                data: { search: search },
                 success: function(data) {
                     var tableBody = $('#customerTable');
                     tableBody.empty();
@@ -609,10 +664,163 @@
                 }
             });
         }
-        loadTableCustomer()
 
     //     Khach hang end
 
+    //     Thanh Toán start
 
+        function countTotalMoney(){
+            $('#total-money').text(formatCurrency(totalMoney));
+            $('#total-money2').text(formatCurrency(totalMoney));
+            $('#voucher-money').text(formatCurrency(voucherMoney));
+            $('#ship-money').text(formatCurrency(shipMoney));
+            totalAmount = totalMoney + shipMoney - voucherMoney;
+            $('#total-amount').text(formatCurrency(totalAmount));
+
+        }
+        function resetcountTotalMoney(){
+            totalMoney = 0;
+            voucherMoney = 0;
+            shipMoney = 0;
+            totalAmount = 0;
+            countTotalMoney();
+        }
+        countTotalMoney();
+
+        $('#moneyCustomerInput').on('input', function() {
+            let money = $('#moneyCustomerInput').val();
+            $('#moneyCustomer').text(formatCurrency(totalAmount - money));
+        })
+        $(document).on('click', '.btn-payment-invoice', function() {
+            if (totalAmount <= 0){
+                toastr.error('Chưa có gì để thanh toán');
+                return
+            }
+            paymentInvoice()
+        });
+        function paymentInvoice() {
+            Swal.fire({
+                title: 'Xác nhận đặt hàng ?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Xác nhận',
+                cancelButtonText: 'Hủy'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $('#loading').show();
+                    $.ajax({
+                        url: '/admin/sales/payment-invoices',
+                        method: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify({
+                            billId: billId,
+                            totalMoney: totalMoney,
+                            totalAmount: totalAmount,
+                            shipMoney: shipMoney,
+                            voucherMoney: voucherMoney,
+                        }),
+                        success: function(response) {
+                            resetcountTotalMoney();
+                            loadInvoices()
+                            $('#loading').hide();
+                            toastr.success('Đặt hàng thành công');
+                        },
+                        error: function(err) {
+                            $('#loading').hide();
+                            toastr.error('Đặt hàng thất bại');
+
+                        }
+                    });
+                }
+            });
+        }
+
+    //     Thanh Toán end
+
+
+    //     Voucher start
+        function loadDataKhachHang(data){
+
+            if (data == null){
+                $('#nameCustomer').text('Khách lẻ');
+                $('#phoneCustomer').text('Khách lẻ');
+                $('#addressCustomer').text('Khách lẻ');
+            }else {
+                $('#nameCustomer').text(data.hoVaTen);
+                $('#phoneCustomer').text(data.soDienThoai);
+                $('#addressCustomer').text('Khách lẻ');
+            }
+        }
+        $('#voucherModal').on('show.bs.modal', function (e) {
+            loadTableVoucher()
+        });
+        function loadTableVoucher() {
+            const search = $('#searchVoucher').val();
+            $.ajax({
+                url: '/admin/sales/voucher',
+                method: 'GET',
+                dataType: 'json',
+                data: { search: search },
+                success: function(data) {
+                    var tableBody = $('#voucherTable');
+                    tableBody.empty();
+                    $.each(data.data, function(index, voucher) {
+                        let item = '<tr>' +
+                            '<td>' + (index + 1) + '</td>' +
+                            '<td>' + voucher.maPhieuGiamGia + '</td>' +
+                            '<td>' + voucher.tenPhieuGiamGia + '</td>' +
+                            '<td>' + voucher.loaiPhieuGiamGia + '</td>' +
+                            '<td>' + voucher.dieuKienApDung + '</td>' +
+                            '<td>' + voucher.giaTriGiam + '</td>' +
+                            '<td>' + voucher.soLuong + '</td>' +
+                            '<td>' + voucher.ngayBatDau + '</td>' +
+                            '<td>' + voucher.ngayKetThuc + '</td>' +
+                            '<td>' +
+                            '<button  type="button" class="btn btn-success select-btn-customer" data-customer-id="' + voucher.id + '" >Chọn</button></td>' +
+                            '</tr>';
+                        tableBody.append(item);
+                    });
+                },
+                error: function(err) {
+                    toastr.error('Lỗi khi lấy dữ liệu khách hàng', err);
+                }
+            });
+        }
+        $('#searchVoucher').on('input', function() {
+            loadTableVoucher()
+        })
+
+        $(document).on('click', '.select-btn-voucher', function() {
+            let customerId = $(this).data('voucher-id');
+            selectKhachHang(customerId)
+        });
+        $(document).on('click', '.btn-voucher-null', function() {
+            selectKhachHang(null)
+        });
+        function selectVoucher(voucher){
+            $.ajax({
+                url: '/admin/sales/customer-invoices',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    voucherId: voucher,
+                    billId: billId,
+                }),
+                success: function(response) {
+                    $('#voucherModal').modal('hide');
+                    $('#loading').fadeOut();
+                    loadInvoices()
+                    toastr.success('Chọn khách hàng thành công');
+                },
+                error: function(err) {
+                    $('#loading').fadeOut();
+                    toastr.error('Chọn khách hàng thất bại');
+                }
+            });
+        }
+
+    //     Voucher end
     });
 </script>

@@ -106,7 +106,9 @@
         }
         .actice-bill-tab{
           background: #a84343;
-
+        }
+        .actice-bill-tab strong{
+            color: #e6e6e6;
         }
     </style>
 </head>

@@ -46,11 +46,11 @@ public class PhieuGiamGia extends BaseEntity {
     private String dieuKienApDung;
 
     @Column(name = "ngay_bat_dau")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date ngayBatDau;
 
     @Column(name = "ngay_ket_thuc")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date ngayKetThuc;
 
     @ManyToOne
@@ -60,9 +60,9 @@ public class PhieuGiamGia extends BaseEntity {
     @Column(name = "so_luong")
     private Integer soLuong;
 
-    @Column(name = "mo_ta", length = 255)
+    @Column(name = "mo_ta")
     private String moTa;
 
     @Column(name = "trang_thai")
-    private Integer trangThai = 1;
+    private String trangThai;
 }

@@ -1,5 +1,6 @@
 package com.example.banson5s.entity.common;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
@@ -18,6 +19,7 @@ import java.time.LocalDateTime;
 @Setter
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
+@JsonIgnoreProperties(value = {"nguoiTao", "ngayTao", "nguoiSua", "ngaySua"}, allowGetters = true)
 public abstract class AbstractAuditingEntity  implements Serializable {
     @CreatedBy
     @Column(name = "nguoi_tao", updatable = false)

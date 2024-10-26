@@ -1,18 +1,20 @@
 package com.example.banson5s.service.admin;
 
 import com.example.banson5s.dto.admin.sales.CustomerInvoicesDTO;
+import com.example.banson5s.dto.admin.sales.PaymentInvoiceDTO;
 import com.example.banson5s.dto.admin.sales.ProductInvoicesDTO;
 import com.example.banson5s.entity.admin.HoaDon;
 import com.example.banson5s.entity.admin.HoaDonChiTiet;
 import com.example.banson5s.entity.admin.IInvoiceItem;
 import com.example.banson5s.entity.admin.KhachHang;
+import com.example.banson5s.entity.admin.PhieuGiamGia;
 import com.example.banson5s.entity.admin.SanPhamChiTiet;
 
 import java.util.List;
 
 public interface ISalesService {
 
-    List<SanPhamChiTiet> lstSanPhamChiTiet();
+    List<SanPhamChiTiet> lstSanPhamChiTiet(String search);
 
     List<HoaDon> lstHoaDon();
 
@@ -31,5 +33,9 @@ public interface ISalesService {
     List<KhachHang> findAllCustomer(String value);
 
     Boolean cstomerInvoices(CustomerInvoicesDTO customerInvoicesDTO);
+
+    Boolean paymentInvoice(PaymentInvoiceDTO paymentInvoiceDTO);
+
+    List<PhieuGiamGia> findAllVoucherSales(String search);
 
 }

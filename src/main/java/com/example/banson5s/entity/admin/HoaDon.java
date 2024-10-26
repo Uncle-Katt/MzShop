@@ -16,6 +16,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Set;
 
@@ -52,19 +53,19 @@ public class HoaDon extends BaseEntity {
     private String dinhDangHoaDon;
 
     @Column(name = "tong_tien")
-    private double tongTien;
+    private BigDecimal tongTien;
 
     @Column(name = "phi_van_chuyen")
-    private double phiVanChuyen;
+    private BigDecimal phiVanChuyen;
 
     @Column(name = "thanh_tien")
-    private double thanhTien;
+    private BigDecimal thanhTien;
 
     @Column(name = "ngay_dat")
     private Date ngayDat;
 
     @Column(name = "trang_thai")
-    private byte trangThai;
+    private String trangThai;
 
     @Column(name = "mo_ta")
     private String moTa;

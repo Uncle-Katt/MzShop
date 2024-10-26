@@ -2,9 +2,11 @@ package com.example.banson5s.controller.admin.sales;
 
 import com.example.banson5s.dto.ResponseObject;
 import com.example.banson5s.dto.admin.sales.CustomerInvoicesDTO;
+import com.example.banson5s.dto.admin.sales.PaymentInvoiceDTO;
 import com.example.banson5s.dto.admin.sales.ProductInvoicesDTO;
 import com.example.banson5s.entity.admin.HoaDon;
 import com.example.banson5s.entity.admin.KhachHang;
+import com.example.banson5s.entity.admin.PhieuGiamGia;
 import com.example.banson5s.entity.admin.SanPhamChiTiet;
 import com.example.banson5s.service.admin.ISalesService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +38,8 @@ public class SalesController {
 
     @GetMapping("/products")
     @ResponseBody
-    public ResponseEntity<?> getLstProducts(Model model) {
-        List<SanPhamChiTiet> lst =  salesService.lstSanPhamChiTiet();
+    public ResponseEntity<?> getLstProducts(@RequestParam String search) {
+        List<SanPhamChiTiet> lst =  salesService.lstSanPhamChiTiet(search);
         return new ResponseEntity<>(ResponseObject.builder().data(lst).build(), HttpStatus.OK);
     }
 
@@ -90,8 +92,8 @@ public class SalesController {
 
     @GetMapping("/customer")
     @ResponseBody
-    public ResponseEntity<?> getCustomer(@RequestParam String value) {
-        List<KhachHang> lst = salesService.findAllCustomer(value);
+    public ResponseEntity<?> getCustomer(@RequestParam String search) {
+        List<KhachHang> lst = salesService.findAllCustomer(search);
         return new ResponseEntity<>(ResponseObject.builder().data(lst).build(), HttpStatus.OK);
     }
 
@@ -100,5 +102,19 @@ public class SalesController {
     public ResponseEntity<?> customerInvoices(@RequestBody CustomerInvoicesDTO customerInvoicesDTO) {
         salesService.cstomerInvoices(customerInvoicesDTO);
         return new ResponseEntity<>(ResponseObject.builder().data(customerInvoicesDTO).build(), HttpStatus.OK);
+    }
+
+    @PostMapping("/payment-invoices")
+    @ResponseBody
+    public ResponseEntity<?> paymentInvoice(@RequestBody PaymentInvoiceDTO paymentInvoiceDTO) {
+        salesService.paymentInvoice(paymentInvoiceDTO);
+        return new ResponseEntity<>(ResponseObject.builder().data(paymentInvoiceDTO).build(), HttpStatus.OK);
+    }
+
+    @GetMapping("/voucher")
+    @ResponseBody
+    public ResponseEntity<?> getVoucher(@RequestParam String search) {
+        List<PhieuGiamGia> lst = salesService.findAllVoucherSales(search);
+        return new ResponseEntity<>(ResponseObject.builder().data(lst).build(), HttpStatus.OK);
     }
 }
