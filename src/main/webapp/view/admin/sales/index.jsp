@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<div class="container mt-4">
+<div >
     <h2>Bán Hàng Tại Quầy</h2>
     <div class="row">
         <div class="col-md-12">
@@ -11,8 +11,7 @@
     <div class="card" style="border: 2px solid #b85555;">
         <div class="card-body">
             <div class="d-flex justify-content-end mb-3">
-                <button class="btn btn-secondary mr-2" style="border: 2px solid #b85555; background-color: white; color: #b85555">Làm Mới</button>
-                <button class="btn btn-info mr-2" style="border: 2px solid #b85555;background-color: white; color: #333333">QR Code</button>
+                <button class="btn btn-secondary mr-2 reset-btn-product" style="border: 2px solid #b85555; background-color: white; color: #b85555">Làm Mới</button>
                 <button class="btn btn-success" data-toggle="modal" data-target="#productModal" style="background-color: #b85555; color: white; border: none;">+ Thêm Sản Phẩm</button>
             </div>
             <!-- Popup Modal -->
@@ -73,12 +72,11 @@
 
             <div style="min-height: 150px;">
                 <div class="hoa-don" >
-                    <div id="invoiceList" style="display: flex">
-                        <!-- Dữ liệu hóa đơn sẽ được thêm vào đây bằng AJAX -->
-                    </div>
+                    <ul class="nav nav-tabs" id="invoiceList" style="display: flex">
+                    </ul>
 
                     <div class="mt-2">
-                        <table class="table">
+                        <table class="table" id="invoiceItemTable">
                             <thead>
                             <tr>
                                 <th>STT</th>
@@ -93,6 +91,9 @@
 
                             </tbody>
                         </table>
+                        <div id="invoiceItemTableNoData" style="text-align: center">
+                            Không có dữ liệu
+                        </div>
                     </div>
                 </div>
 
@@ -100,7 +101,7 @@
             </div>
 
             <div class="mt-3 text-right">
-                <h5>Tổng Tiền: <span style="color: #b85555;">0 đ</span></h5>
+                <h5>Tổng Tiền: <span style="color: #b85555;" id="total-money">0</span></h5>
             </div>
 
         </div>
@@ -109,22 +110,64 @@
         <div class="card-header bg-white">
             <div class="d-flex justify-content-between align-items-center">
                 <h5 class="mb-0">Thông Tin Khách Hàng</h5>
-                <div class="input-group" style="max-width: 400px;">
-                    <input type="text" class="form-control mr-2" placeholder="Nhập tên khách hàng">
-                    <div class="input-group-append">
-                        <button class="btn btn-danger">+ Thêm Khách Hàng</button>
+                <div  style="max-width: 400px;">
+                    <button class="btn btn-danger"  data-toggle="modal" data-target="#customerModal" style="background-color: #b85555; color: white; border: none;">
+                        + Chọn Khách Hàng</button>
+
+                    <div class="modal fade" id="customerModal" tabindex="-1" aria-labelledby="customerModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" style="max-width: 60%">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="customerModalLabel">Chọn Khách Hàng</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span>&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="mb-3">
+                                        <label for="searchCustomer" class="form-label">Tìm kiếm</label>
+                                        <input type="text" class="form-control" id="searchCustomer">
+                                    </div>
+                                    <table class="table" id="customerTable">
+                                        <thead>
+                                        <tr>
+                                            <th>STT</th>
+                                            <th>Mã</th>
+                                            <th>Tên</th>
+                                            <th>Ngày sinh</th>
+                                            <th>Số điện thoại</th>
+                                            <th>Email</th>
+                                            <th>Hành Động</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="card-body bg-white">
-            <table class="table mb-0">
-                <tr>
-                    <th class="w-50">Tên Khách Hàng</th>
-                    <td class="w-50">Khách Lẻ</td>
-                </tr>
-            </table>
+        <div class="card-body bg-white" >
+           <div class="d-flex" >
+                <div style="width: 300px"><strong>Tên khách hàng</strong></div>
+                <div id="nameCustomer">Khách lẻ</div>
+           </div>
+            <div class="d-flex">
+                <div style="width: 300px"><strong>Số điện thoại</strong></div>
+                <div id="phoneCustomer">Khách lẻ</div>
+            </div>
+            <div class="d-flex">
+                <div style="width: 300px" class=""><strong>Địa chỉ</strong></div>
+                <div id="addressCustomer">Khách lẻ</div>
+            </div>
         </div>
     </div>
     <div class="mt-4">
@@ -158,7 +201,7 @@
                     </div>
 
                     <div class="col-md-6 text-right">
-                        <p>0 VND</p>
+                        <p id="total-money2">0</p>
                         <p>0 VND</p>
                         <p>0 VND</p>
                         <p><strong style="color: #b85555;">0 VND</strong></p>
@@ -189,31 +232,27 @@
 <script>
     $(document).ready(function() {
         let selectedProductId = null;
+        let lstBill = [];
         let billId = null;
+        let bill = {};
+        let totalMoney = 0;
 
         $('#myTable').DataTable();
-
-        function loadInvoices() {
-            $.ajax({
-                url: '/admin/sales/invoices', // Địa chỉ API để lấy danh sách hóa đơn
+        async function loadInvoices() {
+            await $.ajax({
+                url: '/admin/sales/invoices',
                 method: 'GET',
                 dataType: 'json',
                 success: function(data) {
-                    var invoiceList = $('#invoiceList');
-                    invoiceList.empty();
-                    if (data.data.length === 0) {
-                        invoiceList.append('<div>Không có hóa đơn nào.</div>');
-                    } else {
-                        $.each(data.data, function(index, invoice) {
-                            let invoiceItem =
-                                '<div class="invoice-item">' +
-                                '<button style="border: #ffffff" class="select-btn-invoice" data-invoice-id="' + invoice.id + '">' +
-                                '<strong>' + invoice.maHoaDon  + '</strong>' +
-                                '</button>' +
-                                '</div>';
-                            invoiceList.append(invoiceItem);
-                        });
+                    lstBill = data.data
+                    if (lstBill.length > 0){
+                        billId = lstBill[0].id;
+                        bill = lstBill[0];
+                    }else {
+                        billId = null;
                     }
+                    loadDataKhachHang(bill.khachHang)
+                    genTabBill(data.data);
                 },
                 error: function(err) {
                     console.error('Lỗi khi lấy dữ liệu hóa đơn', err);
@@ -221,41 +260,197 @@
                 }
             });
         }
-        loadInvoices();
+        function genTabBill(data){
+            var invoiceList = $('#invoiceList');
+            var invoiceItemTable = $('#invoiceItemTable');
+
+            invoiceList.empty();
+            if (data.length === 0) {
+                invoiceList.append('<div>Không có hóa đơn nào.</div>');
+                invoiceItemTable.hide()
+            } else {
+
+                invoiceItemTable.show()
+                $.each(data, function(index, invoice) {
+                    let activeClass = invoice.id == billId ? 'actice-bill-tab' : '';
+                    let invoiceItem =
+                        '<li  class="invoice-item nav-item mr-2 bill-tab '+activeClass+'">' +
+                        '<button style="border: #ffffff" class=" btn select-btn-invoice position-relative" data-invoice-id="' + invoice.id + '">' +
+                        '<strong>' + invoice.maHoaDon  + '</strong>' +
+                        '<span style="top: -10px; width: 1.2rem; height: 1.2rem" class="text-white position-absolute badge rounded-pill text-bg-danger bg-danger delete-invoice" data-invoice-id="' + invoice.id + '">'+
+                        'x'+
+                        '</span>'+
+                        '</button>' +
+                        '</li>';
+                    invoiceList.append(invoiceItem);
+                });
+            }
+        }
+        async function loadDataInvoices() {
+            try {
+                await loadInvoices();
+                await loadInvoicesItem();
+            } catch (error) {
+                console.error('Lỗi khi tải dữ liệu hóa đơn:', error);
+            }
+        }
+        loadDataInvoices()
         $('#createInvoices').on('click', function() {
             createInvoices()
         });
         function createInvoices(){
+            if(lstBill.length >=5){
+                toastr.error('Chỉ có thể tạo tối đa 5 hóa đơn');
+                return;
+            }
             $.ajax({
                 url: '/admin/sales/create-invoices',
                 method: 'GET',
                 dataType: 'json',
                 success: function(data) {
                     loadInvoices()
+                    toastr.success('Tạo hóa đơn thành công')
                 },
                 error: function(err) {
-                    console.error('Lỗi khi lấy dữ liệu hóa đơn', err);
+                    toastr.error('Lỗi khi lấy dữ liệu hóa đơn', err);
                 }
             });
         }
-        $(document).on('click', '.select-btn-invoice', function() {
-            billId = $(this).data('invoice-id');
+
+        function loadInvoicesItem() {
+            totalMoney = 0;
+            if (billId == null){
+                return;
+            }
             $.ajax({
                 url: '/admin/sales/invoices-show',
                 method: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify(billId),
                 success: function(response) {
-                    console.log('Thành công: ', response);
-                    loadInvoices();
+                    var tableBody = $('#billProduct');
+                    var invoiceItemTableNoData = $('#invoiceItemTableNoData');
+                    tableBody.empty();
+                    if (response.data.length === 0) {
+                        invoiceItemTableNoData.show()
+                    } else {
+                        invoiceItemTableNoData.hide()
+                        $.each(response.data, function (index, product) {
+                            let item = '<tr>' +
+                                '<td>' + (index + 1) + '</td>' +
+                                '<td>' + product.tenSanPham + '</td>' +
+                                '<td>' + formatCurrency(product.giaBan) + '</td>' +
+                                '<td>' + product.soLuong + '</td>' +
+                                '<td>' + formatCurrency(product.tongTien) + '</td>' +
+                                // '<td>' + product.sanPham.thuongHieu.tenThuongHieu + '</td>' +
+                                // '<td>' + product.sanPham.danhMuc.tenDanhMuc + '</td>' +
+                                '<td>' +
+                                '<button  type="button" class="btn btn-danger delete-btn-product" data-delete-product-id="' + product.id + '" >Xóa</button></td>' +
+                                '</tr>';
+                            tableBody.append(item);
+                            totalMoney += product.tongTien;
+                        });
+                    }
+                    countTotalMoney(totalMoney)
+                    // loadInvoices()
                 },
                 error: function(err) {
-                    console.error('Lỗi khi gửi dữ liệu:', err);
-                    alert('Đã xảy ra lỗi, vui lòng thử lại.');
+                    toastr.error('Đã xảy ra lỗi, vui lòng thử lại.');
+                },
+
+
+            });
+        }
+        $(document).on('click', '.select-btn-invoice', function() {
+            billId = $(this).data('invoice-id');
+            bill = lstBill.find(item => item.id == billId);
+            loadDataKhachHang(bill.khachHang)
+            genTabBill(lstBill)
+            loadInvoicesItem()
+        });
+        $(document).on('click', '.delete-invoice', function() {
+            const invoiceId = $(this).data('invoice-id');
+            $.ajax({
+                url: '/admin/sales/delete-invoices',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(invoiceId),
+                success: function(response) {
+                    toastr.success('Xóa hóa đơn thành công');
+                    loadInvoices()
+                    loadInvoicesItem()
+                },
+                error: function(err) {
+                    toastr.error('Xóa hóa đơn thất bại');
                 }
             });
         });
 
+
+        $(document).on('click', '.delete-btn-product', function() {
+            Swal.fire({
+                title: 'Bạn có chắc muốn xóa?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Xác nhận',
+                cancelButtonText: 'Hủy'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    let idDelete = $(this).data('delete-product-id');
+                    $('#loading').fadeIn();
+                    $.ajax({
+                        url: '/admin/sales/delete-product',
+                        method: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify(idDelete),
+                        success: function(response) {
+                            $('#loading').fadeOut();
+                            loadInvoicesItem()
+                            toastr.success('Xóa sản phẩm thành công');
+                        },
+                        error: function(err) {
+                            $('#loading').fadeOut();
+                            toastr.error('Xóa sản phẩm thất bại');
+                        }
+                    });
+                }
+            });
+
+        });
+
+        $(document).on('click', '.reset-btn-product', function() {
+            Swal.fire({
+                title: 'Bạn có chắc muốn làm mới toàn bộ sản phẩm?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Xác nhận',
+                cancelButtonText: 'Hủy'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $('#loading').fadeIn();
+                    $.ajax({
+                        url: '/admin/sales/delete-all-product',
+                        method: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify(billId),
+                        success: function(response) {
+                            $('#loading').fadeOut();
+                            loadInvoicesItem()
+                            toastr.success('Làm mới toàn bộ sản phẩm thành công');
+                        },
+                        error: function(err) {
+                            $('#loading').fadeOut();
+                            toastr.error('Làm mới toàn bộ sản phẩm thất bại');
+                        }
+                    });
+                }
+            });
+
+        });
 
         function loadProduct() {
             $.ajax({
@@ -270,7 +465,7 @@
                         let item = '<tr>' +
                             '<td>' + (index + 1) + '</td>' +
                             '<td>' + product.sanPham.tenSanPham +'('+product.mauSac.tenMauSac+' ' +product.khoiLuong.tenKhoiLuong+ ')'+ '</td>' +
-                            '<td>' + product.giaBan + '</td>' +
+                            '<td>' + formatCurrency(product.giaBan) + '</td>' +
                             '<td>' + product.soLuong + '</td>' +
                             '<td>' + product.sanPham.xuatXu.tenXuatXu + '</td>' +
                             '<td>' + product.sanPham.thuongHieu.tenThuongHieu + '</td>' +
@@ -282,7 +477,7 @@
                     });
                 },
                 error: function(err) {
-                    console.error('Lỗi khi lấy dữ liệu sản phẩm', err);
+                    toastr.error('Lỗi khi lấy dữ liệu sản phẩm', err);
                 }
             });
         }
@@ -302,29 +497,59 @@
                 $('#inputQuantity').val(0);
                 $('#quantityModal').modal('hide');
             } else {
-                console.log('Vui lòng nhập số lượng hợp lệ.');
+                toastr.error('Vui lòng nhập số lượng hợp lệ.');
             }
         });
         function addProduct(productId, quantity) {
+            if (billId == null){
+                toastr.error('Vui lòng chọn hóa đơn');
+                $('#productModal').modal('hide');
+                return;
+            }
+            $.ajax({
+                url: '/admin/sales/product-to-invoices',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    productId: productId,
+                    quantity: quantity,
+                    billId: billId,
+                }),
+                success: function(response) {
+                    loadInvoicesItem()
+                    $('#productModal').modal('hide');
+                    toastr.success('Thêm sản phẩm thành công');
 
-            console.log(productId)
-            console.log(quantity)
-            console.log(billId)
-            // $.ajax({
-            //     url: '/api/your-endpoint', // Địa chỉ API mà bạn muốn gọi
-            //     method: 'POST',
-            //     contentType: 'application/json',
-            //     data: JSON.stringify({ productId: productId, quantity: quantity }),
-            //     success: function(response) {
-            //         console.log('Gửi thành công:', response);
-            //         // Có thể xử lý thêm ở đây nếu cần
-            //     },
-            //     error: function(err) {
-            //         console.error('Lỗi khi gửi dữ liệu:', err);
-            //     }
-            // });
+                },
+                error: function(err) {
+                    toastr.error('Thêm sản phẩm thất bại');
+                }
+            });
+
         }
 
+        function countTotalMoney(data){
+            $('#total-money').text(formatCurrency(data));
+            $('#total-money2').text(formatCurrency(data));
+        }
+        countTotalMoney(totalMoney);
+
+
+    //     Khach Hang start
+        function loadDataKhachHang(data){
+
+            if (data == null){
+                $('#nameCustomer').text('Khách lẻ');
+                $('#phoneCustomer').text('Khách lẻ');
+                $('#addressCustomer').text('Khách lẻ');
+            }else {
+                $('#nameCustomer').text(data.hoVaTen);
+                $('#phoneCustomer').text(data.soDienThoai);
+                $('#addressCustomer').text('Khách lẻ');
+            }
+        }
+
+    //     Khach hang end
 
 
     });

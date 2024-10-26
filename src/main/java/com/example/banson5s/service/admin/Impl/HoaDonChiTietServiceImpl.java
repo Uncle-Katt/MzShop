@@ -17,4 +17,10 @@ public class HoaDonChiTietServiceImpl extends BaseServiceImpl<HoaDonChiTiet, Lon
         List<IInvoiceItem> lst = repository.getLstIInvoiceItems(idHoaDon);
         return lst;
     }
+
+    @Override
+    public List<HoaDonChiTiet> findLstHdctByHd(Long idHoaDon) {
+        List<HoaDonChiTiet> lst = repository.findLstHdctByHd(idHoaDon);
+        return lst;
+    }
 }

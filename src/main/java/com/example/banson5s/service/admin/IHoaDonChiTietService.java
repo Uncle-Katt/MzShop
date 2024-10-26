@@ -9,4 +9,6 @@ import java.util.List;
 public interface IHoaDonChiTietService extends IBaseService<HoaDonChiTiet,Long> {
 
     List<IInvoiceItem> getLstIInvoiceItems(Long idHoaDon);
+
+    List<HoaDonChiTiet> findLstHdctByHd(Long idHoaDon);
 }

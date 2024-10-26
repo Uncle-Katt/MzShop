@@ -12,8 +12,13 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
         body {
             color: black;
             font-family: 'Roboto', sans-serif;
@@ -65,7 +70,44 @@
         #productManagement .nav-item {
             margin: 0;
         }
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
 
+        .loader {
+            border: 8px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 8px solid #3498db;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .bill-tab{
+            border-top: 1px solid #b85555;
+            border-left: 1px solid #b85555;
+            border-right: 1px solid #b85555;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+
+        }
+        .actice-bill-tab{
+          background: #a84343;
+
+        }
     </style>
 </head>
 <body>
@@ -142,12 +184,5 @@
                 </ul>
             </div>
         </nav>
-
-        <%--        <!-- Main content -->--%>
-        <%--        <main class="col-md-9 ml-sm-auto col-lg-10 px-4 content">--%>
-        <%--            <h2>Dashboard</h2>--%>
-        <%--            <p>Chào mừng đến với trang quản lý sản phẩm F Shoes!</p>--%>
-        <%--            <!-- Add additional content here -->--%>
-        <%--        </main>--%>
     </div>
 </div>

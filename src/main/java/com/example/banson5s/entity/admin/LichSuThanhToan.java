@@ -29,15 +29,15 @@ public class LichSuThanhToan extends BaseEntity {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "id_hoa_don", nullable = false)
+    @JoinColumn(name = "id_hoa_don")
     private HoaDon hoaDon;
 
-    @Column(name = "loai_than_toan", length = 255)
+    @Column(name = "loai_than_toan")
     private String loaiThanhToan;
 
-    @Column(name = "so_tien_thanh_toan", precision = 18, scale = 2)
+    @Column(name = "so_tien_thanh_toan")
     private BigDecimal soTienThanhToan;
 
-    @Column(name = "mo_ta", length = 255)
+    @Column(name = "mo_ta")
     private String moTa;
 }

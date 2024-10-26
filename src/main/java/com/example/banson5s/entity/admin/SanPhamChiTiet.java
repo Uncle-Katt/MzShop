@@ -27,27 +27,27 @@ public class SanPhamChiTiet extends BaseEntity {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "id_mau_sac", referencedColumnName = "id")
+    @JoinColumn(name = "id_mau_sac")
     private MauSac mauSac;
 
     @ManyToOne
-    @JoinColumn(name = "id_khoi_luong", referencedColumnName = "id")
+    @JoinColumn(name = "id_khoi_luong")
     private KhoiLuong khoiLuong;
 
     @ManyToOne
-    @JoinColumn(name = "id_san_pham", referencedColumnName = "id")
+    @JoinColumn(name = "id_san_pham")
     private SanPham sanPham;
 
-    @Column(name = "url_anh", length = 255)
+    @Column(name = "url_anh")
     private String urlAnh;
 
     @Column(name = "so_luong")
     private Integer soLuong;
 
-    @Column(name = "ma_vach", length = 255)
+    @Column(name = "ma_vach")
     private String maVach;
 
-    @Column(name = "gia_ban", precision = 18, scale = 2)
+    @Column(name = "gia_ban")
     private Double giaBan;
 
     @Column(name = "trang_thai")

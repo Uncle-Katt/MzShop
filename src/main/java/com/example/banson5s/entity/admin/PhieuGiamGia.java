@@ -30,19 +30,19 @@ public class PhieuGiamGia extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "ma_phieu_giam_gia", length = 255)
+    @Column(name = "ma_phieu_giam_gia")
     private String maPhieuGiamGia;
 
-    @Column(name = "ten_phieu_giam_gia", length = 255)
+    @Column(name = "ten_phieu_giam_gia")
     private String tenPhieuGiamGia;
 
-    @Column(name = "loai_phieu_giam_gia", length = 255)
+    @Column(name = "loai_phieu_giam_gia")
     private String loaiPhieuGiamGia;
 
-    @Column(name = "gia_tri_giam", precision = 18, scale = 2)
+    @Column(name = "gia_tri_giam")
     private BigDecimal giaTriGiam;
 
-    @Column(name = "dieu_kien_ap_dung", length = 255)
+    @Column(name = "dieu_kien_ap_dung")
     private String dieuKienApDung;
 
     @Column(name = "ngay_bat_dau")
@@ -54,7 +54,7 @@ public class PhieuGiamGia extends BaseEntity {
     private Date ngayKetThuc;
 
     @ManyToOne
-    @JoinColumn(name = "id_hoa_don", nullable = false)
+    @JoinColumn(name = "id_hoa_don")
     private HoaDon hoaDon;
 
     @Column(name = "so_luong")

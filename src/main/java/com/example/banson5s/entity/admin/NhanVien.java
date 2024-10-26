@@ -26,27 +26,27 @@ public class NhanVien extends BaseEntity {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "id_chuc_vu", referencedColumnName = "id")
+    @JoinColumn(name = "id_chuc_vu")
     private ChucVu chucVu;
 
-    @Column(name = "ten_nhan_vien", length = 255)
+    @Column(name = "ten_nhan_vien")
     private String tenNhanVien;
 
-    @Column(name = "sdt", length = 15)
+    @Column(name = "sdt")
     private String sdt;
 
-    @Column(name = "dia_chi", length = 255)
+    @Column(name = "dia_chi")
     private String diaChi;
 
-    @Column(name = "email", length = 255)
+    @Column(name = "email")
     private String email;
 
     @Column(name = "ngay_sinh")
     private Date ngaySinh;
 
-    @Column(name = "gioi_tinh", length = 10)
+    @Column(name = "gioi_tinh")
     private String gioiTinh;
 
-    @Column(name = "mat_khau", length = 255)
+    @Column(name = "mat_khau")
     private String matKhau;
 }

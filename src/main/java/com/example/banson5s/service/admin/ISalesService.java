@@ -1,5 +1,6 @@
 package com.example.banson5s.service.admin;
 
+import com.example.banson5s.dto.admin.sales.ProductInvoicesDTO;
 import com.example.banson5s.entity.admin.HoaDon;
 import com.example.banson5s.entity.admin.HoaDonChiTiet;
 import com.example.banson5s.entity.admin.IInvoiceItem;
@@ -17,8 +18,12 @@ public interface ISalesService {
 
     HoaDon createHoaDon();
 
-    Boolean addSanPhamToHoaDon(Long idHoaDon, Long idSanPhamChiTiet, Integer soLuong);
+    Boolean addSanPhamToHoaDon(ProductInvoicesDTO req);
 
+    Boolean deleteProduct(Long hdctId);
 
+    Boolean deleteAllProduct(Long hoaDonId);
+
+    Boolean deleteHoaDon(Long hoaDonId);
 
 }

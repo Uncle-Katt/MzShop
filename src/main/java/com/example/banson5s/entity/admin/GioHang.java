@@ -23,6 +23,6 @@ public class GioHang extends BaseEntity {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "id_khach_hang", referencedColumnName = "id")
+    @JoinColumn(name = "id_khach_hang")
     private KhachHang khachHang;
 }

@@ -23,6 +23,6 @@ public class XuatXu extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "ten_xuat_xu", length = 255)
+    @Column(name = "ten_xuat_xu")
     private String tenXuatXu;
 }

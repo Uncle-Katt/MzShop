@@ -20,6 +20,6 @@ public class ChucVu {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "ten_chuc_vu", length = 255)
+    @Column(name = "ten_chuc_vu")
     private String tenChucVu;
 }

@@ -22,6 +22,6 @@ public class DanhMuc extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "ten_danh_muc", length = 255)
+    @Column(name = "ten_danh_muc")
     private String tenDanhMuc;
 }

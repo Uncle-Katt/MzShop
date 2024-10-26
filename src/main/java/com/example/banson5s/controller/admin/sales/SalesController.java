@@ -1,6 +1,7 @@
 package com.example.banson5s.controller.admin.sales;
 
 import com.example.banson5s.dto.ResponseObject;
+import com.example.banson5s.dto.admin.sales.ProductInvoicesDTO;
 import com.example.banson5s.entity.admin.HoaDon;
 import com.example.banson5s.entity.admin.SanPhamChiTiet;
 import com.example.banson5s.service.admin.ISalesService;
@@ -32,7 +33,7 @@ public class SalesController {
 
     @GetMapping("/products")
     @ResponseBody
-    public ResponseEntity<?> getLstProducts() {
+    public ResponseEntity<?> getLstProducts(Model model) {
         List<SanPhamChiTiet> lst =  salesService.lstSanPhamChiTiet();
         return new ResponseEntity<>(ResponseObject.builder().data(lst).build(), HttpStatus.OK);
     }
@@ -55,5 +56,32 @@ public class SalesController {
     @ResponseBody
     public ResponseEntity<?> getShowBillItem(@RequestBody Long idHoaDon) {
         return new ResponseEntity<>(ResponseObject.builder().data(salesService.lstHoaDonChiTiet(idHoaDon)).build(), HttpStatus.OK);
+    }
+
+    @PostMapping("/product-to-invoices")
+    @ResponseBody
+    public ResponseEntity<?> getProductInvoices(@RequestBody ProductInvoicesDTO request) {
+        salesService.addSanPhamToHoaDon(request);
+        return new ResponseEntity<>(ResponseObject.builder().data(true).build(), HttpStatus.OK);
+    }
+
+    @PostMapping("/delete-product")
+    @ResponseBody
+    public ResponseEntity<?> deleteProductInvoices(@RequestBody Long productId) {
+        salesService.deleteProduct(productId);
+        return new ResponseEntity<>(ResponseObject.builder().data(productId).build(), HttpStatus.OK);
+    }
+    @PostMapping("/delete-all-product")
+    @ResponseBody
+    public ResponseEntity<?> deleteAllProductInvoices(@RequestBody Long billId) {
+        salesService.deleteAllProduct(billId);
+        return new ResponseEntity<>(ResponseObject.builder().data(billId).build(), HttpStatus.OK);
+    }
+
+    @PostMapping("/delete-invoices")
+    @ResponseBody
+    public ResponseEntity<?> deleteInvoices(@RequestBody Long billId) {
+        salesService.deleteHoaDon(billId);
+        return new ResponseEntity<>(ResponseObject.builder().data(billId).build(), HttpStatus.OK);
     }
 }

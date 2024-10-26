@@ -16,7 +16,7 @@ public interface IBaseRepository<T extends BaseEntity, ID extends Serializable>
     @Query("select e from #{#entityName} e where e.id = ?1 and e.xoaMem = false")
     Optional<T> findByIdAndDeletedFalse(ID id);
 
-    @Query("select e from #{#entityName} e where e.xoaMem = false")
+    @Query("select e from #{#entityName} e where e.xoaMem = false ORDER BY e.ngayTao DESC")
     List<T> findAllByDeletedIsFalse();
 }
 

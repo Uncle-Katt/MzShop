@@ -1,10 +1,12 @@
 package com.example.banson5s.entity.admin;
 
+import java.math.BigDecimal;
+
 public interface IInvoiceItem {
     String getId();
     String getTenSanPham();
-    String getSoLuong();
-    String getGiaBan();
-    String getTongTien();
+    Integer getSoLuong();
+    BigDecimal getGiaBan();
+    BigDecimal getTongTien();
 
 }

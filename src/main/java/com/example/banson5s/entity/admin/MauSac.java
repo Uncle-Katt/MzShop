@@ -21,6 +21,6 @@ public class MauSac extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "ten_mau_sac", length = 255)
+    @Column(name = "ten_mau_sac")
     private String tenMauSac;
 }

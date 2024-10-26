@@ -28,22 +28,22 @@ public class HoaDonChiTiet extends BaseEntity {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "id_hoa_don", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "id_hoa_don")
     private HoaDon hoaDon;
 
     @ManyToOne
-    @JoinColumn(name = "id_san_pham_chi_tiet", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "id_san_pham_chi_tiet")
     private SanPhamChiTiet sanPhamChiTiet;
 
-    @Column(name = "ma_hoa_don_chi_tiet", length = 255)
+    @Column(name = "ma_hoa_don_chi_tiet")
     private String maHoaDonChiTiet;
 
-    @Column(name = "gia_ban", precision = 18, scale = 2)
+    @Column(name = "gia_ban")
     private BigDecimal giaBan;
 
     @Column(name = "so_luong")
     private Integer soLuong;
 
-    @Column(name = "mo_ta", length = 255)
+    @Column(name = "mo_ta")
     private String moTa;
 }

@@ -1,5 +1,6 @@
 package com.example.banson5s.service.admin.Impl;
 
+import com.example.banson5s.dto.admin.sales.ProductInvoicesDTO;
 import com.example.banson5s.entity.admin.HoaDon;
 import com.example.banson5s.entity.admin.HoaDonChiTiet;
 import com.example.banson5s.entity.admin.IInvoiceItem;
@@ -60,13 +61,45 @@ public class SalesServiveImpl implements ISalesService {
     }
 
     @Override
-    public Boolean addSanPhamToHoaDon(Long idHoaDon, Long idSanPhamChiTiet,Integer soluong) {
-        SanPhamChiTiet sanPhamChiTiet = sanPhamChiTietService.findById(Long.valueOf(idSanPhamChiTiet)).get();
-        HoaDon hoaDon = hoaDonService.findById(Long.valueOf(idHoaDon)).get();
+    public Boolean addSanPhamToHoaDon(ProductInvoicesDTO req) {
+        SanPhamChiTiet sanPhamChiTiet = sanPhamChiTietService.findById(req.getProductId()).orElseThrow();
+        HoaDon hoaDon = hoaDonService.findById(req.getBillId()).orElseThrow();
         HoaDonChiTiet hoaDonChiTiet = HoaDonChiTiet.builder()
                 .sanPhamChiTiet(sanPhamChiTiet)
-                .giaBan(BigDecimal.valueOf(sanPhamChiTiet.getGiaBan())).soLuong(soluong).hoaDon(hoaDon).build();
+                .giaBan(BigDecimal.valueOf(sanPhamChiTiet.getGiaBan())).soLuong(req.getQuantity()).hoaDon(hoaDon).build();
         hoaDonChiTietService.createNew(hoaDonChiTiet);
+        sanPhamChiTiet.setSoLuong(sanPhamChiTiet.getSoLuong() - req.getQuantity());
+        sanPhamChiTietService.update(sanPhamChiTiet);
+        return true;
+    }
+
+    @Override
+    public Boolean deleteProduct(Long hdctId) {
+        HoaDonChiTiet hoaDonChiTiet = hoaDonChiTietService.findById(hdctId).orElseThrow();
+        SanPhamChiTiet sanPhamChiTiet = hoaDonChiTiet.getSanPhamChiTiet();
+        sanPhamChiTiet.setSoLuong(sanPhamChiTiet.getSoLuong() + hoaDonChiTiet.getSoLuong());
+        sanPhamChiTietService.update(sanPhamChiTiet);
+        hoaDonChiTietService.physicalDelete(hdctId);
+        return true;
+    }
+
+    @Override
+    public Boolean deleteAllProduct(Long hoaDonId) {
+        List<HoaDonChiTiet> lstHdct = hoaDonChiTietService.findLstHdctByHd(hoaDonId);
+        lstHdct.stream().forEach(hoaDonChiTiet -> {
+            SanPhamChiTiet sanPhamChiTiet = hoaDonChiTiet.getSanPhamChiTiet();
+            sanPhamChiTiet.setSoLuong(sanPhamChiTiet.getSoLuong() + hoaDonChiTiet.getSoLuong());
+            sanPhamChiTietService.update(sanPhamChiTiet);
+            hoaDonChiTietService.physicalDelete(hoaDonChiTiet.getId());
+        });
+        return true;
+    }
+
+    @Override
+    public Boolean deleteHoaDon(Long hoaDonId) {
+        HoaDon hoaDon = hoaDonService.findById(hoaDonId).orElseThrow();
+        deleteAllProduct(hoaDon.getId());
+        hoaDonService.delete(hoaDon);
         return true;
     }
 }

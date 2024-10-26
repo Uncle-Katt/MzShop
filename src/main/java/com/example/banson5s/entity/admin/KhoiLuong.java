@@ -21,6 +21,6 @@ public class KhoiLuong extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "ten_khoi_luong", length = 255)
+    @Column(name = "ten_khoi_luong")
     private String tenKhoiLuong;
 }

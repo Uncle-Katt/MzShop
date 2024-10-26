@@ -24,17 +24,17 @@ public class SanPham extends BaseEntity {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "id_xuat_xu", referencedColumnName = "id")
+    @JoinColumn(name = "id_xuat_xu")
     private XuatXu xuatXu;
 
     @ManyToOne
-    @JoinColumn(name = "id_danh_muc", referencedColumnName = "id")
+    @JoinColumn(name = "id_danh_muc")
     private DanhMuc danhMuc;
 
     @ManyToOne
-    @JoinColumn(name = "id_thuong_hieu", referencedColumnName = "id")
+    @JoinColumn(name = "id_thuong_hieu")
     private ThuongHieu thuongHieu;
 
-    @Column(name = "ten_san_pham", length = 255)
+    @Column(name = "ten_san_pham")
     private String tenSanPham;
 }

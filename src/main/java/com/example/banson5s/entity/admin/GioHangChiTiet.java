@@ -24,11 +24,11 @@ public class GioHangChiTiet {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "id_san_pham_chi_tiet", referencedColumnName = "id")
+    @JoinColumn(name = "id_san_pham_chi_tiet")
     private SanPhamChiTiet sanPhamChiTiet;
 
     @ManyToOne
-    @JoinColumn(name = "id_gio_hang", referencedColumnName = "id")
+    @JoinColumn(name = "id_gio_hang")
     private GioHang gioHang;
 
     @Column(name = "so_luong")

@@ -17,25 +17,25 @@ public class DiaChi  extends BaseEntity {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "id_khach_hang", referencedColumnName = "id")
+    @JoinColumn(name = "id_khach_hang")
     private KhachHang khachHang;
 
-    @Column(name = "ten_nguoi_nhan", length = 255)
+    @Column(name = "ten_nguoi_nhan")
     private String tenNguoiNhan;
 
-    @Column(name = "dien_thoai_nguoi_nhan", length = 15)
+    @Column(name = "dien_thoai_nguoi_nhan")
     private String dienThoaiNguoiNhan;
 
-    @Column(name = "dia_chi_chi_tiet", length = 255)
+    @Column(name = "dia_chi_chi_tiet")
     private String diaChiChiTiet;
 
-    @Column(name = "xa", length = 255)
+    @Column(name = "xa")
     private String xa;
 
-    @Column(name = "huyen", length = 255)
+    @Column(name = "huyen")
     private String huyen;
 
-    @Column(name = "tinh", length = 255)
+    @Column(name = "tinh")
     private String tinh;
 
     @Column(name = "dia_chi_mac_dinh")

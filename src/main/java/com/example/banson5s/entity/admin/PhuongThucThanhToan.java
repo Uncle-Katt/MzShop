@@ -21,9 +21,9 @@ public class PhuongThucThanhToan extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "ma", length = 255)
+    @Column(name = "ma")
     private String ma;
 
-    @Column(name = "ten", length = 255)
+    @Column(name = "ten")
     private String ten;
 }
