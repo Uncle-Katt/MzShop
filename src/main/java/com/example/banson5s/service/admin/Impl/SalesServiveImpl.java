@@ -1,12 +1,15 @@
 package com.example.banson5s.service.admin.Impl;
 
+import com.example.banson5s.dto.admin.sales.CustomerInvoicesDTO;
 import com.example.banson5s.dto.admin.sales.ProductInvoicesDTO;
 import com.example.banson5s.entity.admin.HoaDon;
 import com.example.banson5s.entity.admin.HoaDonChiTiet;
 import com.example.banson5s.entity.admin.IInvoiceItem;
+import com.example.banson5s.entity.admin.KhachHang;
 import com.example.banson5s.entity.admin.SanPhamChiTiet;
 import com.example.banson5s.service.admin.IHoaDonChiTietService;
 import com.example.banson5s.service.admin.IHoaDonService;
+import com.example.banson5s.service.admin.IKhachHangService;
 import com.example.banson5s.service.admin.ISalesService;
 import com.example.banson5s.service.admin.ISanPhamChiTietService;
 import com.example.banson5s.ultiltes.InvoiceGenerator;
@@ -34,6 +37,9 @@ public class SalesServiveImpl implements ISalesService {
 
     @Autowired
     InvoiceGenerator invoiceGenerator;
+
+    @Autowired
+    IKhachHangService khachHangService;
 
     @Override
     public List<SanPhamChiTiet> lstSanPhamChiTiet() {
@@ -100,6 +106,23 @@ public class SalesServiveImpl implements ISalesService {
         HoaDon hoaDon = hoaDonService.findById(hoaDonId).orElseThrow();
         deleteAllProduct(hoaDon.getId());
         hoaDonService.delete(hoaDon);
+        return true;
+    }
+
+    @Override
+    public List<KhachHang> findAllCustomer(String value) {
+        return khachHangService.findAllCustomer(value);
+    }
+
+    @Override
+    public Boolean cstomerInvoices(CustomerInvoicesDTO customerInvoicesDTO) {
+        HoaDon hoaDon = hoaDonService.findById(customerInvoicesDTO.getBillId()).orElseThrow();
+        KhachHang khachHang = null;
+        if (customerInvoicesDTO.getCustomerId() != null) {
+            khachHang = khachHangService.findById(customerInvoicesDTO.getCustomerId()).orElseThrow();
+        }
+        hoaDon.setKhachHang(khachHang);
+        hoaDonService.update(hoaDon);
         return true;
     }
 }

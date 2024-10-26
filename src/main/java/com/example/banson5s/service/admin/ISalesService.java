@@ -1,9 +1,11 @@
 package com.example.banson5s.service.admin;
 
+import com.example.banson5s.dto.admin.sales.CustomerInvoicesDTO;
 import com.example.banson5s.dto.admin.sales.ProductInvoicesDTO;
 import com.example.banson5s.entity.admin.HoaDon;
 import com.example.banson5s.entity.admin.HoaDonChiTiet;
 import com.example.banson5s.entity.admin.IInvoiceItem;
+import com.example.banson5s.entity.admin.KhachHang;
 import com.example.banson5s.entity.admin.SanPhamChiTiet;
 
 import java.util.List;
@@ -25,5 +27,9 @@ public interface ISalesService {
     Boolean deleteAllProduct(Long hoaDonId);
 
     Boolean deleteHoaDon(Long hoaDonId);
+
+    List<KhachHang> findAllCustomer(String value);
+
+    Boolean cstomerInvoices(CustomerInvoicesDTO customerInvoicesDTO);
 
 }

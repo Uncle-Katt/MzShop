@@ -1,8 +1,10 @@
 package com.example.banson5s.controller.admin.sales;
 
 import com.example.banson5s.dto.ResponseObject;
+import com.example.banson5s.dto.admin.sales.CustomerInvoicesDTO;
 import com.example.banson5s.dto.admin.sales.ProductInvoicesDTO;
 import com.example.banson5s.entity.admin.HoaDon;
+import com.example.banson5s.entity.admin.KhachHang;
 import com.example.banson5s.entity.admin.SanPhamChiTiet;
 import com.example.banson5s.service.admin.ISalesService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
@@ -83,5 +86,19 @@ public class SalesController {
     public ResponseEntity<?> deleteInvoices(@RequestBody Long billId) {
         salesService.deleteHoaDon(billId);
         return new ResponseEntity<>(ResponseObject.builder().data(billId).build(), HttpStatus.OK);
+    }
+
+    @GetMapping("/customer")
+    @ResponseBody
+    public ResponseEntity<?> getCustomer(@RequestParam String value) {
+        List<KhachHang> lst = salesService.findAllCustomer(value);
+        return new ResponseEntity<>(ResponseObject.builder().data(lst).build(), HttpStatus.OK);
+    }
+
+    @PostMapping("/customer-invoices")
+    @ResponseBody
+    public ResponseEntity<?> customerInvoices(@RequestBody CustomerInvoicesDTO customerInvoicesDTO) {
+        salesService.cstomerInvoices(customerInvoicesDTO);
+        return new ResponseEntity<>(ResponseObject.builder().data(customerInvoicesDTO).build(), HttpStatus.OK);
     }
 }

@@ -126,26 +126,28 @@
                                 <div class="modal-body">
                                     <div class="mb-3">
                                         <label for="searchCustomer" class="form-label">Tìm kiếm</label>
-                                        <input type="text" class="form-control" id="searchCustomer">
+                                        <input type="text" class="form-control w-50" placeholder="Tìm kiếm tên hoặc số điện thoại" id="searchCustomer">
                                     </div>
-                                    <table class="table" id="customerTable">
+                                    <table class="table">
                                         <thead>
                                         <tr>
                                             <th>STT</th>
                                             <th>Mã</th>
                                             <th>Tên</th>
+                                            <th>Giới tính</th>
                                             <th>Ngày sinh</th>
                                             <th>Số điện thoại</th>
                                             <th>Email</th>
                                             <th>Hành Động</th>
                                         </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody id="customerTable">
 
                                         </tbody>
                                     </table>
                                 </div>
                                 <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary btn-customer-null">Chọn Khách Lẻ</button>
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
                                 </div>
                             </div>
@@ -163,10 +165,6 @@
             <div class="d-flex">
                 <div style="width: 300px"><strong>Số điện thoại</strong></div>
                 <div id="phoneCustomer">Khách lẻ</div>
-            </div>
-            <div class="d-flex">
-                <div style="width: 300px" class=""><strong>Địa chỉ</strong></div>
-                <div id="addressCustomer">Khách lẻ</div>
             </div>
         </div>
     </div>
@@ -548,6 +546,70 @@
                 $('#addressCustomer').text('Khách lẻ');
             }
         }
+
+        function loadTableCustomer() {
+            const value = $('#searchCustomer').val();
+            $.ajax({
+                url: '/admin/sales/customer',
+                method: 'GET',
+                dataType: 'json',
+                data: { value: value },
+                success: function(data) {
+                    var tableBody = $('#customerTable');
+                    tableBody.empty();
+                    $.each(data.data, function(index, customer) {
+                        let item = '<tr>' +
+                            '<td>' + (index + 1) + '</td>' +
+                            '<td>' + customer.maKhachHang + '</td>' +
+                            '<td>' + customer.hoVaTen + '</td>' +
+                            '<td>' + customer.gioiTinh + '</td>' +
+                            '<td>' + customer.ngaySinh + '</td>' +
+                            '<td>' + customer.soDienThoai + '</td>' +
+                            '<td>' + customer.email + '</td>' +
+                            '<td>' +
+                            '<button  type="button" class="btn btn-success select-btn-customer" data-customer-id="' + customer.id + '" >Chọn</button></td>' +
+                            '</tr>';
+                        tableBody.append(item);
+                    });
+                },
+                error: function(err) {
+                    toastr.error('Lỗi khi lấy dữ liệu khách hàng', err);
+                }
+            });
+        }
+        $('#searchCustomer').on('input', function() {
+            loadTableCustomer()
+        })
+
+        $(document).on('click', '.select-btn-customer', function() {
+            let customerId = $(this).data('customer-id');
+            selectKhachHang(customerId)
+        });
+        $(document).on('click', '.btn-customer-null', function() {
+            selectKhachHang(null)
+        });
+        function selectKhachHang(customer){
+            $.ajax({
+                url: '/admin/sales/customer-invoices',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    customerId: customer,
+                    billId: billId,
+                }),
+                success: function(response) {
+                    $('#customerModal').modal('hide');
+                    $('#loading').fadeOut();
+                    loadInvoices()
+                    toastr.success('Chọn khách hàng thành công');
+                },
+                error: function(err) {
+                    $('#loading').fadeOut();
+                    toastr.error('Chọn khách hàng thất bại');
+                }
+            });
+        }
+        loadTableCustomer()
 
     //     Khach hang end
 
