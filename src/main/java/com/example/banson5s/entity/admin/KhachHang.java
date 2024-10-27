@@ -1,17 +1,23 @@
 package com.example.banson5s.entity.admin;
 
 import com.example.banson5s.entity.common.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.Set;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
+@Builder
 @Table(name = "KhachHang")
 public class KhachHang extends BaseEntity {
     @Id
@@ -39,5 +45,10 @@ public class KhachHang extends BaseEntity {
 
     @Column(name = "mat_khau")
     private String matKhau;
+
+
+    @OneToMany(mappedBy = "khachHang")
+    @JsonIgnore
+    private Set<DiaChi> lstDiaChi;
 
 }

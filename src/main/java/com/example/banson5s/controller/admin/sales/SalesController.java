@@ -1,6 +1,7 @@
 package com.example.banson5s.controller.admin.sales;
 
 import com.example.banson5s.dto.ResponseObject;
+import com.example.banson5s.dto.admin.khachHang.KhachHangDTO;
 import com.example.banson5s.dto.admin.sales.CustomerInvoicesDTO;
 import com.example.banson5s.dto.admin.sales.PaymentInvoiceDTO;
 import com.example.banson5s.dto.admin.sales.ProductInvoicesDTO;
@@ -93,7 +94,7 @@ public class SalesController {
     @GetMapping("/customer")
     @ResponseBody
     public ResponseEntity<?> getCustomer(@RequestParam String search) {
-        List<KhachHang> lst = salesService.findAllCustomer(search);
+        List<KhachHangDTO> lst = salesService.findAllCustomer(search);
         return new ResponseEntity<>(ResponseObject.builder().data(lst).build(), HttpStatus.OK);
     }
 

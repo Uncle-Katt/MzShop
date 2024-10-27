@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
-    @ExceptionHandler(value = Exception.class)
+    @ExceptionHandler(value = RuntimeException.class)
     ResponseEntity<ResponseObject> handlingRuntimeException(RuntimeException exception) {
         ResponseObject responseObject = ResponseObject.builder()
                 .errCode(ErrorCode.UNCATEGORIZED_EXCEPTION.getCode())
@@ -15,4 +15,6 @@ public class GlobalExceptionHandler {
                 .build();
         return ResponseEntity.badRequest().body(responseObject);
     }
+
+
 }

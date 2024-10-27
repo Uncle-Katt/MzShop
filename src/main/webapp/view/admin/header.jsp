@@ -10,9 +10,12 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
 
     <style>
         * {
@@ -20,7 +23,6 @@
             padding: 0;
         }
         body {
-            color: black;
             font-family: 'Roboto', sans-serif;
         }
         .sidebar {
@@ -34,17 +36,11 @@
             background-color: #b85555;
             padding: 20px;
         }
-        .text-center,
         .content {
             margin-left: 20%;
             padding: 10px;
-            border-radius: 5px;
-            color: black;
             background-color: white;
             max-width: 80%;
-        }
-        h2 {
-            color: black;
         }
         .nav-item {
             margin: 9px 0;
@@ -110,6 +106,50 @@
         .actice-bill-tab strong{
             color: #e6e6e6;
         }
+
+        /* Chỉnh toàn bộ khung phân trang */
+        .dataTables_wrapper .dataTables_paginate {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        /* Chỉnh các nút phân trang */
+        .dataTables_wrapper .dataTables_paginate .paginate_button {
+            padding: 8px 12px;
+            margin: 0 3px;
+            border: 1px solid rgba(163, 153, 153, 0.29);
+            background-color: #f8f9fa;
+            color: #007bff;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        /* Nút phân trang khi hover */
+        .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+            color: white;
+        }
+
+        /* Nút phân trang hiện tại */
+        .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+            background-color: #007bff;
+            color: white;
+            font-weight: bold;
+        }
+        .dataTables_wrapper .dataTables_paginate .paginate_button.disabled {
+            color: #ccc;
+            cursor: not-allowed;
+            background-color: #f8f9fa;
+        }
+        table.dataTable{
+            border-collapse: collapse;
+        }
+        table.dataTable.no-footer,
+        table.dataTable thead th, table.dataTable thead td {
+            border-bottom: 1px solid #c2c6cc;
+        }
+
     </style>
 </head>
 <body>

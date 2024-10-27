@@ -1,5 +1,6 @@
 package com.example.banson5s.service.admin.Impl;
 
+import com.example.banson5s.dto.admin.khachHang.KhachHangDTO;
 import com.example.banson5s.dto.admin.sales.CustomerInvoicesDTO;
 import com.example.banson5s.dto.admin.sales.PaymentInvoiceDTO;
 import com.example.banson5s.dto.admin.sales.ProductInvoicesDTO;
@@ -129,7 +130,7 @@ public class SalesServiveImpl implements ISalesService {
     }
 
     @Override
-    public List<KhachHang> findAllCustomer(String value) {
+    public List<KhachHangDTO> findAllCustomer(String value) {
         return khachHangService.findAllCustomer(value);
     }
 

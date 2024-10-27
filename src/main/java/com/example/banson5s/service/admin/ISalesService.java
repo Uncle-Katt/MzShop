@@ -1,5 +1,6 @@
 package com.example.banson5s.service.admin;
 
+import com.example.banson5s.dto.admin.khachHang.KhachHangDTO;
 import com.example.banson5s.dto.admin.sales.CustomerInvoicesDTO;
 import com.example.banson5s.dto.admin.sales.PaymentInvoiceDTO;
 import com.example.banson5s.dto.admin.sales.ProductInvoicesDTO;
@@ -30,7 +31,7 @@ public interface ISalesService {
 
     Boolean deleteHoaDon(Long hoaDonId);
 
-    List<KhachHang> findAllCustomer(String value);
+    List<KhachHangDTO> findAllCustomer(String value);
 
     Boolean cstomerInvoices(CustomerInvoicesDTO customerInvoicesDTO);
 
