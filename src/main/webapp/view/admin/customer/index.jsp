@@ -22,7 +22,8 @@
         <div class="card-body">
             <div class="d-flex justify-content-between mb-3">
                 <h5 class="card-title">Danh sách</h5>
-                <a href="/admin/customer/create" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Thêm khách hàng</a>
+                <a href="/admin/customer/create" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Thêm khách
+                    hàng</a>
             </div>
             <table class="table" id="customerTable">
                 <thead>
@@ -75,15 +76,15 @@
                             customer.gioiTinh,
                             customer.soDienThoai,
                             customer.email,
-                            '<button class="btn btn-warning btn-sm"><i class="fa-solid fa-info"></i></button>' +
-                            '<a href="/admin/customer/update/' + customer.id + '" class="btn btn-success btn-sm"><i class="fa-solid fa-pen"></i></a>' +
-                            '<button class="btn btn-danger btn-sm" data-customer-id="' + customer.id + '"><i class="fa-solid fa-trash"></i></button>'
+                            '<a  href="/admin/customer/detail/' + customer.id + '"  class="btn btn-warning btn-sm mr-2"><i class="fa-solid fa-info"></i></a>' +
+                            '<a href="/admin/customer/update/' + customer.id + '" class="btn btn-success btn-sm mr-2"><i class="fa-solid fa-pen"></i></a>' +
+                            '<button class="btn btn-danger btn-sm btn-delete-customer" data-customer-id="' + customer.id + '"><i class="fa-solid fa-trash"></i></button>'
                         ]);
                     });
                     customerTable.draw();
                 },
                 error: function (err) {
-                    toastr.error('Lỗi khi lấy dữ liệu khách hàng', err);
+                    // toastr.error('Lỗi khi lấy dữ liệu khách hàng', err);
                 }
             });
         }
@@ -92,6 +93,38 @@
             loadTableCustomer()
         });
         loadTableCustomer()
+
+        $(document).on('click', '.btn-delete-customer', function () {
+            let customerId = $(this).data('customer-id');
+            Swal.fire({
+                title: 'Bạn có chắc muốn xóa?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Xác nhận',
+                cancelButtonText: 'Hủy'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $('#loading').show();
+                    $.ajax({
+                        url: '/admin/customer/delete',
+                        method: 'PUT',
+                        contentType: 'application/json',
+                        data: JSON.stringify(customerId),
+                        success: function (data) {
+                            $('#loading').hide();
+                            toastr.success('Xóa khách hàng thành công');
+                            loadTableCustomer()
+                        },
+                        error: function (err) {
+                            $('#loading').hide();
+                            toastr.error('Xóa khách hàng lỗi', err);
+                        }
+                    });
+                }
+            });
+        });
     })
 
 </script>

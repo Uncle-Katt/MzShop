@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 public interface IKhachHangRepository extends IBaseRepository<KhachHang,Long> {
 
-    @Query(value = "SELECT kh FROM KhachHang kh WHERE (kh.hoVaTen LIKE %:value% OR kh.soDienThoai LIKE %:value%) order by kh.ngayTao desc ")
+    @Query(value = "SELECT kh FROM KhachHang kh WHERE (kh.hoVaTen LIKE %:value% OR kh.soDienThoai LIKE %:value%) and kh.xoaMem = false order by kh.ngayTao desc ")
     List<KhachHang> findAllCustomer(@Param("value") String value);
 }

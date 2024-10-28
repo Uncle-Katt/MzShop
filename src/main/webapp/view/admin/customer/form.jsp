@@ -6,6 +6,7 @@
     <div class="card">
         <div class="card-body">
             <form id="customerForm" action="${action}" method="post" >
+                <input type="hidden" class="form-control" name="id" id="id" value="${customer.id}">
                 <div class="mb-3">
                     <label for="nameKh" class="form-label">Tên khách hàng</label>
                     <input type="text" class="form-control" name="hoVaTen" id="nameKh" placeholder="Nhập tên khách hàng" value="${customer.hoVaTen}">
@@ -15,9 +16,9 @@
                     <div class="d-flex">
                         <c:forEach var="entry" items="${gender}">
                             <div class="mr-4">
-                                <input type="radio" id="gender${entry.key}" name="gioiTinh" value="${entry.value.value}"
-                                       <c:if test="${customer.gioiTinh == entry.value.value}">checked</c:if> >
-                                <label for="gender${entry.key}" class="form-check-label">${entry.value.label}</label>
+                                <input type="radio" id="gender${entry.key}" name="gioiTinh" value="${entry.key}"
+                                       <c:if test="${customer.gioiTinh == entry.key}">checked</c:if> >
+                                <label for="gender${entry.key}" class="form-check-label">${entry.value}</label>
                             </div>
                         </c:forEach>
                     </div>
@@ -38,7 +39,7 @@
                 </div>
 
                 <div class="d-flex justify-content-end mt-4">
-                    <button type="submit"  class="btn btn-primary">Thêm khách hàng</button>
+                    <button type="submit"  class="btn btn-primary">${btnText}</button>
                 </div>
             </form>
 
