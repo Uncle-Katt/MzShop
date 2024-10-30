@@ -73,7 +73,7 @@
                             index + 1,
                             customer.hoVaTen,
                             customer.ngaySinh,
-                            customer.gioiTinh,
+                            customer.gioiTinh == 'Male'? 'Nam': 'Nữ',
                             customer.soDienThoai,
                             customer.email,
                             '<a  href="/admin/customer/detail/' + customer.id + '"  class="btn btn-warning btn-sm mr-2"><i class="fa-solid fa-info"></i></a>' +

@@ -1,10 +1,11 @@
 package com.example.banson5s.controller.admin.customer;
 
 import com.example.banson5s.dto.ResponseObject;
+import com.example.banson5s.dto.admin.diaChi.DiaChiDTO;
 import com.example.banson5s.dto.admin.khachHang.KhachHangDTO;
-import com.example.banson5s.dto.admin.khachHang.KhachHangDiaChiDTO;
 import com.example.banson5s.entity.admin.KhachHang;
 import com.example.banson5s.enums.Gender;
+import com.example.banson5s.service.admin.IDiaChiService;
 import com.example.banson5s.service.admin.IKhachHangService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +33,9 @@ public class CustomerController {
 
     @Autowired
     private IKhachHangService customerService;
+
+    @Autowired
+    private IDiaChiService diaChiService;;
 
     @GetMapping()
     public String index(Model model) {
@@ -109,15 +112,24 @@ public class CustomerController {
     }
 
     @PutMapping("/delete")
+    @ResponseBody
     public ResponseEntity<?> delete(@RequestBody Long customerId) {
         customerService.delete(customerId);
         return new ResponseEntity<>(ResponseObject.builder().data(customerId).build(), HttpStatus.OK);
-
     }
 
     @PostMapping("/address")
-    public ResponseEntity<?> addressCustomer(@RequestBody KhachHangDiaChiDTO req) {
-
+    @ResponseBody
+    public ResponseEntity<?> addressCustomer(@RequestBody DiaChiDTO req) {
+        customerService.addressCustomer(req);
         return new ResponseEntity<>(ResponseObject.builder().data(req).build(), HttpStatus.OK);
+
     }
+    @PutMapping("/delete-address")
+    @ResponseBody
+    public ResponseEntity<?> deleteAddress(@RequestBody Long addressId) {
+        diaChiService.delete(addressId);
+        return new ResponseEntity<>(ResponseObject.builder().data(addressId).build(), HttpStatus.OK);
+    }
+
 }

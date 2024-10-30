@@ -1,11 +1,11 @@
-package com.example.banson5s.dto.admin.khachHang;
+package com.example.banson5s.dto.admin.diaChi;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class KhachHangDiaChiDTO {
+public class DiaChiDTO {
     private Long customerId;
     private Long id;
     private String tenNguoiNhan;

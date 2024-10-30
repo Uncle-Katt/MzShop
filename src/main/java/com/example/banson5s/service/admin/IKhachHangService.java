@@ -1,10 +1,9 @@
 package com.example.banson5s.service.admin;
 
+import com.example.banson5s.dto.admin.diaChi.DiaChiDTO;
 import com.example.banson5s.dto.admin.khachHang.KhachHangDTO;
-import com.example.banson5s.dto.admin.khachHang.KhachHangDiaChiDTO;
 import com.example.banson5s.entity.admin.KhachHang;
 import com.example.banson5s.service.common.IBaseService;
-import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -18,7 +17,8 @@ public interface IKhachHangService extends IBaseService<KhachHang,Long> {
 
     KhachHangDTO detailCustomer(Long customerId);
 
-    KhachHangDiaChiDTO addressCustomer(KhachHangDiaChiDTO req);
+    DiaChiDTO addressCustomer(DiaChiDTO req);
+
 
 }
 

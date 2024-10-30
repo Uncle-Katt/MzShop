@@ -1,7 +1,7 @@
 package com.example.banson5s.service.admin.Impl;
 
+import com.example.banson5s.dto.admin.diaChi.DiaChiDTO;
 import com.example.banson5s.dto.admin.khachHang.KhachHangDTO;
-import com.example.banson5s.dto.admin.khachHang.KhachHangDiaChiDTO;
 import com.example.banson5s.entity.admin.DiaChi;
 import com.example.banson5s.entity.admin.KhachHang;
 import com.example.banson5s.exception.AppException;
@@ -64,12 +64,15 @@ public class KhachHangServiceImpl extends BaseServiceImpl<KhachHang, Long, IKhac
     public KhachHangDTO detailCustomer(Long customerId) {
         KhachHang entity = findById(customerId).
                 orElseThrow(() -> new AppException(ErrorCode.INVALID_REQUEST));
-        return modelMapper.map(entity, KhachHangDTO.class);
+        KhachHangDTO khachHangDTO = modelMapper.map(entity, KhachHangDTO.class);
+        List<DiaChiDTO> lstAddRess = diaChiService.getLstAddressByCustomer(customerId);
+        khachHangDTO.setLstDiaChi(lstAddRess);
+        return khachHangDTO;
     }
 
     @Override
     @Transactional
-    public KhachHangDiaChiDTO addressCustomer(KhachHangDiaChiDTO req) {
+    public DiaChiDTO addressCustomer(DiaChiDTO req) {
         KhachHang entity = findById(req.getCustomerId()).
                 orElseThrow(() -> new AppException(ErrorCode.INVALID_REQUEST));
         List<DiaChi> lstDiaChi = entity.getLstDiaChi().stream().toList();
@@ -81,13 +84,16 @@ public class KhachHangServiceImpl extends BaseServiceImpl<KhachHang, Long, IKhac
             }
             diaChiService.createNew(diaChi);
         }else {
-            DiaChi diaChi = diaChiService.findById(req.getId()).orElseThrow(() -> new AppException(ErrorCode.INVALID_REQUEST));
+            DiaChi diaChi = diaChiService.findById(req.getId())
+                    .orElseThrow(() -> new AppException(ErrorCode.INVALID_REQUEST));
             modelMapper.map(req, diaChi);
             if (diaChi.getDiaChiMacDinh()){
                 lstDiaChi.stream().forEach(item -> item.setDiaChiMacDinh(false));
+                diaChi.setDiaChiMacDinh(true);
             }
             diaChiService.update(diaChi);
         }
-        return null;
+        return req;
     }
+
 }

@@ -1,10 +1,12 @@
 package com.example.banson5s.dto.admin.khachHang;
 
+import com.example.banson5s.dto.admin.diaChi.DiaChiDTO;
 import com.example.banson5s.entity.admin.DiaChi;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -16,5 +18,5 @@ public class KhachHangDTO {
     private String gioiTinh;
     private String email;
     private String soDienThoai;
-    private Set<DiaChi> lstDiaChi;
+    private List<DiaChiDTO> lstDiaChi;
 }
