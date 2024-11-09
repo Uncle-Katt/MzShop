@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 public class KhachHangServiceImpl extends BaseServiceImpl<KhachHang, Long, IKhachHangRepository>
@@ -44,11 +45,19 @@ public class KhachHangServiceImpl extends BaseServiceImpl<KhachHang, Long, IKhac
 
     @Override
     public KhachHangDTO createCustomer(KhachHangDTO khachHangDTO) {
-            String password = randomStringGenerator.generateRandomString(8);
+        String password = randomStringGenerator.generateRandomString(8);
+        CompletableFuture<KhachHangDTO> saveTask = CompletableFuture.supplyAsync(() -> {
             KhachHang entity = modelMapper.map(khachHangDTO, KhachHang.class);
             entity.setMatKhau(passwordEncoder.encode(password));
             createNew(entity);
             return khachHangDTO;
+        });
+        saveTask.thenRunAsync(() -> {
+            if (khachHangDTO.getEmail() != null) {
+
+            }
+        });
+        return saveTask.join();
     }
 
     @Override

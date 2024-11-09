@@ -222,9 +222,9 @@
             $('#idAddress').val(data.id);
             $('#nameAddress').val(data.tenNguoiNhan);
             $('#phoneAddress').val(data.dienThoaiNguoiNhan);
-            $('#provinceAddress').val(data.tinh);
-            $('#districtAddress').val(data.huyen);
-            $('#wardAddress').val(data.xa);
+            // $('#provinceAddress').val(data.tinh);
+            // $('#districtAddress').val(data.huyen);
+            // $('#wardAddress').val(data.xa);
             $('#detailAddress').val(data.diaChiChiTiet);
             $('#defaultAddress').prop('checked', data.diaChiMacDinh);
         }
@@ -252,9 +252,9 @@
             let idAddress = $('#idAddress').val();
             let nameAddress = $('#nameAddress').val();
             let phoneAddress = $('#phoneAddress').val();
-            let provinceAddress = $('#provinceAddress').val();
-            let districtAddress = $('#districtAddress').val();
-            let wardAddress = $('#wardAddress').val();
+            let provinceAddress = $('#provinceAddress option:selected').text();
+            let districtAddress = $('#districtAddress option:selected').text();
+            let wardAddress = $('#wardAddress option:selected').text();
             let detailAddress = $('#detailAddress').val();
             let defaultAddress = $('#defaultAddress').prop('checked')
             $('#loading').show();
@@ -320,21 +320,38 @@
             });
         })
 
-        $(document).on('click', '.btn-update-address', function () {
+        $(document).on('click', '.btn-update-address', async function () {
             let addressId = $(this).data('address-id');
             let address = lstAddress.find(address => address.id == addressId);
-            fillDataAddress(address);
             $('#addressModal').modal('show');
+            await getDataProvince()
+            provinceId = lstProvince.find(item => item.label == address.tinh)?.value;
+            console.log(address)
+            console.log(lstProvince)
+            console.log(provinceId)
+            await getDataDistrict()
+            districtId = lstDistrict.find(item => item.label == address.huyen)?.value;
+            await getDataWard()
+            wardId = lstWard.find(item => item.label == address.xa)?.value;
+
+            $('#provinceAddress').val(provinceId);
+            $('#districtAddress').val(districtId);
+            $('#wardAddress').val(wardId);
+            $('#idAddress').val(address.id);
+            $('#nameAddress').val(address.tenNguoiNhan);
+            $('#phoneAddress').val(address.dienThoaiNguoiNhan);
+            $('#detailAddress').val(address.diaChiChiTiet);
+            $('#defaultAddress').prop('checked', address.diaChiMacDinh);
         })
 
         $('#addressModal').on('show.bs.modal', function (e) {
             getDataProvince()
         });
         //get data province
-        function getDataProvince() {
+        async function getDataProvince() {
             $('#provinceAddress').empty();
             $('#provinceAddress').append('<option value="" selected>Chọn tỉnh</option>');
-            $.ajax({
+            await $.ajax({
                 url: GHN_API+'/province',
                 type: 'GET',
                 headers: {
@@ -347,7 +364,6 @@
                             label: result.ProvinceName
                         };
                     });
-
                     lstProvince.forEach(function (province) {
                         $('#provinceAddress').append(
                             $('<option></option>').val(province.value).text(province.label)
@@ -364,13 +380,13 @@
             getDataDistrict()
         })
 
-        function getDataDistrict() {
+        async function getDataDistrict() {
             $('#districtAddress').empty();
             $('#districtAddress').append('<option value="" selected>Chọn huyện</option>');
             $('#wardAddress').empty();
             $('#wardAddress').append('<option value="" selected>Chọn xã</option>');
             if (provinceId != null && provinceId !="") {
-                $.ajax({
+                await $.ajax({
                     url: GHN_API+'/district',
                     type: 'GET',
                     headers: {
@@ -402,11 +418,11 @@
             districtId = $(this).val();
             getDataWard()
         })
-        function getDataWard() {
+        async function getDataWard() {
             $('#wardAddress').empty();
             $('#wardAddress').append('<option value="" selected>Chọn xã</option>');
             if (districtId != null && districtId !="") {
-                $.ajax({
+                await $.ajax({
                     url: GHN_API+'/ward',
                     type: 'GET',
                     headers: {
