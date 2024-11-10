@@ -209,18 +209,18 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white h5" href="/admin/customer" aria-label="Khach Hang">
-                            Khách hàng
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link text-white h5" href="/phieu-giam-gia/list" aria-label="Giảm giá">
                             Giảm giá
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white h5" href="/san-pham/index" aria-label="Tài khoản">
-                            Tài khoản
+                        <a class="nav-link text-white h5" href="/admin/customer" aria-label="Khach Hang">
+                            Khách hàng
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white h5" href="/admin/staff" aria-label="Nhân Viên">
+                            Nhân Viên
                         </a>
                     </li>
                 </ul>

@@ -2,6 +2,7 @@ package com.example.banson5s.service.admin.Impl;
 
 import com.example.banson5s.dto.admin.diaChi.DiaChiDTO;
 import com.example.banson5s.dto.admin.khachHang.KhachHangDTO;
+import com.example.banson5s.dto.admin.mail.MailInputDTO;
 import com.example.banson5s.entity.admin.DiaChi;
 import com.example.banson5s.entity.admin.KhachHang;
 import com.example.banson5s.exception.AppException;
@@ -9,6 +10,7 @@ import com.example.banson5s.exception.ErrorCode;
 import com.example.banson5s.repository.admin.IKhachHangRepository;
 import com.example.banson5s.service.admin.IDiaChiService;
 import com.example.banson5s.service.admin.IKhachHangService;
+import com.example.banson5s.service.common.IMailService;
 import com.example.banson5s.service.common.impl.BaseServiceImpl;
 import com.example.banson5s.ultiltes.RandomStringGenerator;
 import org.modelmapper.ModelMapper;
@@ -36,6 +38,8 @@ public class KhachHangServiceImpl extends BaseServiceImpl<KhachHang, Long, IKhac
     @Autowired
     IDiaChiService diaChiService;
 
+    @Autowired
+    private IMailService mailService;
     @Override
     public List<KhachHangDTO> findAllCustomer(String value) {
         List<KhachHangDTO> lst = repository.findAllCustomer(value).stream()
@@ -54,7 +58,11 @@ public class KhachHangServiceImpl extends BaseServiceImpl<KhachHang, Long, IKhac
         });
         saveTask.thenRunAsync(() -> {
             if (khachHangDTO.getEmail() != null) {
-
+                MailInputDTO mailInput = new MailInputDTO();
+                mailInput.setEmail(khachHangDTO.getEmail());
+                mailInput.setPassword(password);
+                mailInput.setName(khachHangDTO.getHoVaTen());
+                mailService.create(mailInput);
             }
         });
         return saveTask.join();

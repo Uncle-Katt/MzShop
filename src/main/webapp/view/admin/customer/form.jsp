@@ -27,7 +27,7 @@
                 <div class="mb-3">
                     <label for="nameKh" class="form-label">Ngày sinh</label>
                     <input type="date" style="width: 200px" class="form-control " id="dateKh" name="ngaySinh"
-                           value="${customer.ngaySinh}" placeholder="Nhập Ngày sinh">
+                           value="${customer.ngaySinh != null ? customer.ngaySinh : '1990-01-01'}" placeholder="Nhập Ngày sinh">
                 </div>
                 <div class="mb-3">
                     <label for="nameKh" class="form-label">Số điện thoại</label>
