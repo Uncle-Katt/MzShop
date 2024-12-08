@@ -15,7 +15,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "MauSac")
+@Table(name = "mau_sac")
 public class MauSac extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

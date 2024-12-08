@@ -20,7 +20,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
-@Table(name = "PhieuGiamGia")
+@Table(name = "phieu_giam_gia")
 @Data
 @Builder
 @NoArgsConstructor

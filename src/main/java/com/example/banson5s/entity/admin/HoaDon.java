@@ -21,7 +21,7 @@ import java.util.Date;
 import java.util.Set;
 
 @Entity
-@Table(name = "HoaDon")
+@Table(name = "hoa_don")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

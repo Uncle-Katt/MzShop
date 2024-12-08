@@ -18,7 +18,7 @@ import java.math.BigDecimal;
 
 
 @Entity
-@Table(name = "LichSuThanhToan")
+@Table(name = "lich_su_thanh_toan")
 @Data
 @Builder
 @NoArgsConstructor

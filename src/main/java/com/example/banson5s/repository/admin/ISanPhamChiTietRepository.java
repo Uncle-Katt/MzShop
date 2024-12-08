@@ -15,8 +15,8 @@ public interface ISanPhamChiTietRepository extends IBaseRepository<SanPhamChiTie
     select spct from SanPhamChiTiet spct
     where spct.xoaMem = false 
     and spct.soLuong > 0 
-    and spct.trangThai = :sts
+    and spct.trangThai LIKE %:sts%
     and (spct.sanPham.tenSanPham LIKE %:search% OR spct.maVach LIKE %:search%)
     """)
-    List<SanPhamChiTiet> findLstSanPhamChiTiet(@Param("search") String value,@Param("sts") Boolean sts);
+    List<SanPhamChiTiet> findLstSanPhamChiTiet(@Param("search") String value,@Param("sts") String sts);
 }

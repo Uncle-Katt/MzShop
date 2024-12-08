@@ -18,13 +18,13 @@ import java.util.Set;
 @AllArgsConstructor
 @Entity
 @Builder
-@Table(name = "KhachHang")
+@Table(name = "khach_hang")
 public class KhachHang extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "Ma_khach_hang")
+    @Column(name = "ma_khach_hang")
     private String maKhachHang;
 
     @Column(name = "ho_va_ten")
@@ -40,7 +40,7 @@ public class KhachHang extends BaseEntity {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "So_dien_thoai")
+    @Column(name = "so_dien_thoai")
     private String soDienThoai;
 
     @Column(name = "mat_khau")

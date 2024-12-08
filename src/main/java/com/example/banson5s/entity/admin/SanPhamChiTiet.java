@@ -21,7 +21,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "SanPhamChiTiet")
+@Table(name = "san_pham_chi_tiet")
 public class SanPhamChiTiet extends BaseEntity {
 
     @Id
@@ -53,5 +53,5 @@ public class SanPhamChiTiet extends BaseEntity {
     private BigDecimal giaBan;
 
     @Column(name = "trang_thai")
-    private Boolean trangThai = false;
+    private String trangThai;
 }

@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "DiaChi")
+@Table(name = "dia_chi")
 public class DiaChi  extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

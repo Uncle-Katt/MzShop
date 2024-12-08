@@ -13,7 +13,7 @@ public class SanPhamChiTietServiceImpl extends BaseServiceImpl<SanPhamChiTiet, L
         implements ISanPhamChiTietService {
     @Override
     public List<SanPhamChiTiet> findLstSanPhamChiTiet(String search) {
-        List<SanPhamChiTiet> lst = repository.findLstSanPhamChiTiet(search,true);
+        List<SanPhamChiTiet> lst = repository.findLstSanPhamChiTiet(search,"Available");
         return lst;
     }
 }

@@ -16,7 +16,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "MauSac")
+@Table(name = "gio_hang")
 public class GioHang extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
