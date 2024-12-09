@@ -32,6 +32,9 @@ public class LichSuThanhToan extends BaseEntity {
     @JoinColumn(name = "id_hoa_don")
     private HoaDon hoaDon;
 
+    @Column(name = "ma_giao_dich")
+    private String maGiaoDich;
+
     @Column(name = "loai_than_toan")
     private String loaiThanhToan;
 

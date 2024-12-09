@@ -79,26 +79,26 @@
                                     <div class="col-4">
                                         <label for="provinceAddress" class="form-label">Tỉnh/Thành</label>
                                         <select class="form-select" id="provinceAddress">
-                                            <option value="" selected>Chọn tỉnh</option>
+                                            <option value="" selected disabled>Chọn tỉnh</option>
                                         </select>
                                     </div>
                                     <div class="col-4">
                                         <label class="form-label" for="districtAddress">Quận/Huyện</label>
                                         <select class="form-select" id="districtAddress">
-                                            <option value="" selected>Chọn huyện</option>
+                                            <option value="" selected disabled>Chọn huyện</option>
                                         </select>
                                     </div>
                                     <div class="col-4">
                                         <label for="wardAddress" class="form-label">Xã/Phường</label>
                                         <select class="form-select" id="wardAddress">
-                                            <option value="" selected>Chọn xã</option>
+                                            <option value="" selected disabled>Chọn xã</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="mb-3">
                                     <label for="detailAddress" class="form-label">Địa chỉ chi tiết</label>
                                     <input type="text" class="form-control" id="detailAddress"
-                                           placeholder="Nhập Số điện thoại">
+                                           placeholder="Nhập địa chỉ chi tiết">
                                 </div>
                                 <div class="mb-3">
                                     <div class="form-check">

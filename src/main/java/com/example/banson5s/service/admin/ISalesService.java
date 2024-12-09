@@ -1,5 +1,6 @@
 package com.example.banson5s.service.admin;
 
+import com.example.banson5s.dto.admin.diaChi.DiaChiDTO;
 import com.example.banson5s.dto.admin.khachHang.KhachHangDTO;
 import com.example.banson5s.dto.admin.sales.CustomerInvoicesDTO;
 import com.example.banson5s.dto.admin.sales.PaymentInvoiceDTO;
@@ -38,5 +39,7 @@ public interface ISalesService {
     Boolean paymentInvoice(PaymentInvoiceDTO paymentInvoiceDTO);
 
     List<PhieuGiamGia> findAllVoucherSales(String search);
+
+    List<DiaChiDTO> findAddressByCustomer(Long customerId);
 
 }

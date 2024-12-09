@@ -53,10 +53,6 @@ public class PhieuGiamGia extends BaseEntity {
     @Temporal(TemporalType.TIMESTAMP)
     private Date ngayKetThuc;
 
-    @ManyToOne
-    @JoinColumn(name = "id_hoa_don")
-    private HoaDon hoaDon;
-
     @Column(name = "so_luong")
     private Integer soLuong;
 

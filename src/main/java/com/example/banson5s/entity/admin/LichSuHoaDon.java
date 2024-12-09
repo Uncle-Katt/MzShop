@@ -6,24 +6,35 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
+
 @Entity
-@Table(name = "phuong_thuc_thanh_toan")
+@Table(name = "lich_su_hoa_don")
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PhuongThucThanhToan extends BaseEntity {
+public class LichSuHoaDon extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "ma")
-    private String ma;
+    @ManyToOne
+    @JoinColumn(name = "id_hoa_don")
+    private HoaDon hoaDon;
 
-    @Column(name = "ten")
-    private String ten;
+    @Column(name = "loai")
+    private String loai;
+
+    @Column(name = "mo_ta")
+    private String moTa;
 }

@@ -1,6 +1,7 @@
 package com.example.banson5s.controller.admin.sales;
 
 import com.example.banson5s.dto.ResponseObject;
+import com.example.banson5s.dto.admin.diaChi.DiaChiDTO;
 import com.example.banson5s.dto.admin.khachHang.KhachHangDTO;
 import com.example.banson5s.dto.admin.sales.CustomerInvoicesDTO;
 import com.example.banson5s.dto.admin.sales.PaymentInvoiceDTO;
@@ -117,5 +118,12 @@ public class SalesController {
     public ResponseEntity<?> getVoucher(@RequestParam String search) {
         List<PhieuGiamGia> lst = salesService.findAllVoucherSales(search);
         return new ResponseEntity<>(ResponseObject.builder().data(lst).build(), HttpStatus.OK);
+    }
+
+    @PostMapping("/address-customer")
+    @ResponseBody
+    public ResponseEntity<?> addressCustomer(@RequestBody Long customId) {
+        List<DiaChiDTO> data = salesService.findAddressByCustomer(customId);
+        return new ResponseEntity<>(ResponseObject.builder().data(data).build(), HttpStatus.OK);
     }
 }

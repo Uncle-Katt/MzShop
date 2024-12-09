@@ -1,5 +1,6 @@
 package com.example.banson5s.service.admin.Impl;
 
+import com.example.banson5s.dto.admin.diaChi.DiaChiDTO;
 import com.example.banson5s.dto.admin.khachHang.KhachHangDTO;
 import com.example.banson5s.dto.admin.sales.CustomerInvoicesDTO;
 import com.example.banson5s.dto.admin.sales.PaymentInvoiceDTO;
@@ -8,15 +9,21 @@ import com.example.banson5s.entity.admin.HoaDon;
 import com.example.banson5s.entity.admin.HoaDonChiTiet;
 import com.example.banson5s.entity.admin.IInvoiceItem;
 import com.example.banson5s.entity.admin.KhachHang;
+import com.example.banson5s.entity.admin.LichSuHoaDon;
+import com.example.banson5s.entity.admin.LichSuThanhToan;
 import com.example.banson5s.entity.admin.PhieuGiamGia;
 import com.example.banson5s.entity.admin.SanPhamChiTiet;
+import com.example.banson5s.enums.BillType;
 import com.example.banson5s.enums.CouponStatus;
 import com.example.banson5s.enums.InvoiceStatus;
 import com.example.banson5s.exception.AppException;
 import com.example.banson5s.exception.ErrorCode;
+import com.example.banson5s.service.admin.IDiaChiService;
 import com.example.banson5s.service.admin.IHoaDonChiTietService;
 import com.example.banson5s.service.admin.IHoaDonService;
 import com.example.banson5s.service.admin.IKhachHangService;
+import com.example.banson5s.service.admin.ILichSuHoaDonService;
+import com.example.banson5s.service.admin.ILichSuThanhToanService;
 import com.example.banson5s.service.admin.IPhieuGiamGiaService;
 import com.example.banson5s.service.admin.ISalesService;
 import com.example.banson5s.service.admin.ISanPhamChiTietService;
@@ -24,9 +31,11 @@ import com.example.banson5s.ultiltes.InvoiceGenerator;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SalesServiveImpl implements ISalesService {
@@ -52,6 +61,15 @@ public class SalesServiveImpl implements ISalesService {
     @Autowired
     IPhieuGiamGiaService phieuGiamGiaService;
 
+    @Autowired
+    ILichSuHoaDonService lichSuHoaDonService;
+
+    @Autowired
+    ILichSuThanhToanService lichSuThanhToanService;
+
+    @Autowired
+    private IDiaChiService diaChiService;
+
     @Override
     public List<SanPhamChiTiet> lstSanPhamChiTiet(String search) {
         List<SanPhamChiTiet> lst = sanPhamChiTietService.findLstSanPhamChiTiet(search);
@@ -76,7 +94,11 @@ public class SalesServiveImpl implements ISalesService {
         HoaDon hoaDon = HoaDon.builder()
                 .trangThai(InvoiceStatus.NEW.getLabel())
                 .maHoaDon(invoiceGenerator.generateInvoiceNumber()).build();
-        return hoaDonService.createNew(hoaDon);
+        hoaDon = hoaDonService.createNew(hoaDon);
+        LichSuHoaDon lichSuHoaDon = LichSuHoaDon.builder()
+                .loai(InvoiceStatus.TAO_DON_HANG.toString()).hoaDon(hoaDon).build();
+        lichSuHoaDonService.createNew(lichSuHoaDon);
+        return hoaDon;
     }
 
     @Override
@@ -88,10 +110,18 @@ public class SalesServiveImpl implements ISalesService {
         }
         HoaDon hoaDon = hoaDonService.findById(req.getBillId())
                 .orElseThrow(() -> new AppException(ErrorCode.INVALID_REQUEST));
-        HoaDonChiTiet hoaDonChiTiet = HoaDonChiTiet.builder()
-                .sanPhamChiTiet(sanPhamChiTiet)
-                .giaBan(sanPhamChiTiet.getGiaBan()).soLuong(req.getQuantity()).hoaDon(hoaDon).build();
-        hoaDonChiTietService.createNew(hoaDonChiTiet);
+        Optional<HoaDonChiTiet> hoaDonChiTietOpt = hoaDonChiTietService.findHoaDonChiTietByHdAndSanPham(req.getBillId(), req.getProductId());
+        if (hoaDonChiTietOpt.isPresent()){
+            HoaDonChiTiet hoaDonChiTiet = hoaDonChiTietOpt.get();
+            hoaDonChiTiet.setSoLuong(hoaDonChiTiet.getSoLuong() + req.getQuantity());
+            hoaDonChiTiet.setGiaBan(sanPhamChiTiet.getGiaBan());
+            hoaDonChiTietService.update(hoaDonChiTiet);
+        }else {
+            HoaDonChiTiet hoaDonChiTiet = HoaDonChiTiet.builder()
+                    .sanPhamChiTiet(sanPhamChiTiet)
+                    .giaBan(sanPhamChiTiet.getGiaBan()).soLuong(req.getQuantity()).hoaDon(hoaDon).build();
+            hoaDonChiTietService.createNew(hoaDonChiTiet);
+        }
         sanPhamChiTiet.setSoLuong(sanPhamChiTiet.getSoLuong() - req.getQuantity());
         sanPhamChiTietService.update(sanPhamChiTiet);
         return true;
@@ -121,10 +151,12 @@ public class SalesServiveImpl implements ISalesService {
     }
 
     @Override
+    @Transactional
     public Boolean deleteHoaDon(Long hoaDonId) {
         HoaDon hoaDon = hoaDonService.findById(hoaDonId)
                 .orElseThrow(() -> new AppException(ErrorCode.INVALID_REQUEST));
         deleteAllProduct(hoaDon.getId());
+        lichSuHoaDonService.deleteLichSuHoaDonByHoaDon(hoaDonId);
         hoaDonService.physicalDelete(hoaDon.getId());
         return true;
     }
@@ -149,13 +181,22 @@ public class SalesServiveImpl implements ISalesService {
     }
 
     @Override
-    public Boolean paymentInvoice(PaymentInvoiceDTO paymentInvoiceDTO) {
-        HoaDon hoaDon = hoaDonService.findById(paymentInvoiceDTO.getBillId())
+    public Boolean paymentInvoice(PaymentInvoiceDTO dto) {
+        HoaDon hoaDon = hoaDonService.findById(dto.getBillId())
                 .orElseThrow(() -> new AppException(ErrorCode.INVALID_REQUEST));
-        hoaDon.setPhiVanChuyen(paymentInvoiceDTO.getShipMoney());
-        hoaDon.setTongTien(paymentInvoiceDTO.getTotalMoney());
-        hoaDon.setThanhTien(paymentInvoiceDTO.getTotalAmount());
-        hoaDon.setTrangThai(InvoiceStatus.DA_XAC_NHAN.getLabel());
+        modelMapper.map(dto, hoaDon);
+        hoaDon.setLoaiHoaDon(BillType.OFFLINE.toString());
+        LichSuHoaDon lichSuHoaDon = LichSuHoaDon.builder().hoaDon(hoaDon).build();
+        if (dto.getIsGiaoHang()){
+            hoaDon.setTrangThai(InvoiceStatus.DA_XAC_NHAN.getLabel());
+            hoaDon.setHinhThucHoaDon(BillType.DELIVERY.toString());
+            lichSuHoaDon.setLoai(InvoiceStatus.DA_XAC_NHAN.getLabel());
+        }else {
+            hoaDon.setTrangThai(InvoiceStatus.HOAN_THANH.getLabel());
+            hoaDon.setHinhThucHoaDon(BillType.OFFLINE.toString());
+            lichSuHoaDon.setLoai(InvoiceStatus.HOAN_THANH.getLabel());
+        }
+        lichSuHoaDonService.createNew(lichSuHoaDon);
         hoaDonService.update(hoaDon);
         return true;
     }
@@ -163,5 +204,10 @@ public class SalesServiveImpl implements ISalesService {
     @Override
     public List<PhieuGiamGia> findAllVoucherSales(String search) {
         return phieuGiamGiaService.findAllVoucherSales(CouponStatus.DANG_DIEN_RA.getLabel(), search);
+    }
+
+    @Override
+    public List<DiaChiDTO> findAddressByCustomer(Long customerId) {
+        return diaChiService.getLstAddressByCustomer(customerId);
     }
 }

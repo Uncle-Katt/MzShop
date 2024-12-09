@@ -9,8 +9,13 @@ import java.math.BigDecimal;
 @Getter
 public class PaymentInvoiceDTO {
     private Long billId;
-    private BigDecimal totalMoney;
-    private BigDecimal totalAmount;
-    private BigDecimal shipMoney;
-    private BigDecimal voucherMoney;
+    private BigDecimal tongTien;
+    private BigDecimal phiVanChuyen;
+    private BigDecimal tienGiam;
+    private BigDecimal thanhTien;
+    private String phuongThucThanhToan;
+    private String tenNguoiNhan;
+    private String soDienThoaiNguoiNhan;
+    private String diaChiNguoiNhan;
+    private Boolean isGiaoHang = Boolean.FALSE;
 }

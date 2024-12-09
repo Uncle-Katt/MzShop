@@ -38,11 +38,14 @@ public class HoaDonChiTiet extends BaseEntity {
     @JoinColumn(name = "id_san_pham_chi_tiet")
     private SanPhamChiTiet sanPhamChiTiet;
 
-    @Column(name = "ma_hoa_don_chi_tiet")
-    private String maHoaDonChiTiet;
-
     @Column(name = "gia_ban")
     private BigDecimal giaBan;
+
+    @Column(name = "gia_goc")
+    private BigDecimal giaGoc;
+
+    @Column(name = "gia_giam")
+    private BigDecimal giaGiam;
 
     @Column(name = "so_luong")
     private Integer soLuong;
