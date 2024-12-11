@@ -6,6 +6,7 @@ import com.example.banson5s.dto.admin.khachHang.KhachHangDTO;
 import com.example.banson5s.dto.admin.sales.CustomerInvoicesDTO;
 import com.example.banson5s.dto.admin.sales.PaymentInvoiceDTO;
 import com.example.banson5s.dto.admin.sales.ProductInvoicesDTO;
+import com.example.banson5s.dto.admin.sales.VoucherInvoicesDTO;
 import com.example.banson5s.entity.admin.HoaDon;
 import com.example.banson5s.entity.admin.KhachHang;
 import com.example.banson5s.entity.admin.PhieuGiamGia;
@@ -120,6 +121,12 @@ public class SalesController {
         return new ResponseEntity<>(ResponseObject.builder().data(lst).build(), HttpStatus.OK);
     }
 
+    @PostMapping("/voucher-invoices")
+    @ResponseBody
+    public ResponseEntity<?> voucherInvoices(@RequestBody VoucherInvoicesDTO voucherInvoicesDTO) {
+        salesService.voucherInvoices(voucherInvoicesDTO);
+        return new ResponseEntity<>(ResponseObject.builder().data(voucherInvoicesDTO).build(), HttpStatus.OK);
+    }
     @PostMapping("/address-customer")
     @ResponseBody
     public ResponseEntity<?> addressCustomer(@RequestBody Long customId) {

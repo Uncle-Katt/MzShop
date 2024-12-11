@@ -5,6 +5,7 @@ import com.example.banson5s.dto.admin.khachHang.KhachHangDTO;
 import com.example.banson5s.dto.admin.sales.CustomerInvoicesDTO;
 import com.example.banson5s.dto.admin.sales.PaymentInvoiceDTO;
 import com.example.banson5s.dto.admin.sales.ProductInvoicesDTO;
+import com.example.banson5s.dto.admin.sales.VoucherInvoicesDTO;
 import com.example.banson5s.entity.admin.HoaDon;
 import com.example.banson5s.entity.admin.HoaDonChiTiet;
 import com.example.banson5s.entity.admin.IInvoiceItem;
@@ -181,6 +182,20 @@ public class SalesServiveImpl implements ISalesService {
     }
 
     @Override
+    public Boolean voucherInvoices(VoucherInvoicesDTO voucherInvoicesDTO) {
+        HoaDon hoaDon = hoaDonService.findById(voucherInvoicesDTO.getBillId())
+                .orElseThrow(() -> new AppException(ErrorCode.INVALID_REQUEST));
+        PhieuGiamGia phieuGiamGia = null;
+        if (voucherInvoicesDTO.getVoucherId() != null) {
+            phieuGiamGia = phieuGiamGiaService.findById(voucherInvoicesDTO.getVoucherId())
+                    .orElseThrow(() -> new AppException(ErrorCode.INVALID_REQUEST));
+        }
+        hoaDon.setPhieuGiamGia(phieuGiamGia);
+        hoaDonService.update(hoaDon);
+        return true;
+    }
+
+    @Override
     public Boolean paymentInvoice(PaymentInvoiceDTO dto) {
         HoaDon hoaDon = hoaDonService.findById(dto.getBillId())
                 .orElseThrow(() -> new AppException(ErrorCode.INVALID_REQUEST));
@@ -195,6 +210,16 @@ public class SalesServiveImpl implements ISalesService {
             hoaDon.setTrangThai(InvoiceStatus.HOAN_THANH.getLabel());
             hoaDon.setHinhThucHoaDon(BillType.OFFLINE.toString());
             lichSuHoaDon.setLoai(InvoiceStatus.HOAN_THANH.getLabel());
+        }
+        if (hoaDon.getPhieuGiamGia() != null){
+            PhieuGiamGia phieuGiamGia = hoaDon.getPhieuGiamGia();
+            if (phieuGiamGia.getSoLuong() <= 0){
+                hoaDon.setPhieuGiamGia(null);
+                hoaDonService.update(hoaDon);
+                throw new AppException(ErrorCode.INVALID_REQUEST);
+            }
+            phieuGiamGia.setSoLuong(phieuGiamGia.getSoLuong() - 1);
+            phieuGiamGiaService.update(phieuGiamGia);
         }
         lichSuHoaDonService.createNew(lichSuHoaDon);
         hoaDonService.update(hoaDon);

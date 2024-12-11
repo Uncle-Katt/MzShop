@@ -196,7 +196,9 @@
                         <div style="display: flex; justify-content: space-between; align-items: end; margin-bottom: 10px">
                             <strong>Địa chỉ giao hàng</strong>
                             <div>
-                                <button class="btn btn-primary" id="selectAddressKhachHang" data-toggle="modal" data-target="#addressTableModal" style="display: none">Chọn địa chỉ</button>
+                                <button class="btn btn-primary" id="selectAddressKhachHang" data-toggle="modal"
+                                        data-target="#addressTableModal" style="display: none">Chọn địa chỉ
+                                </button>
                             </div>
                         </div>
                         <div>
@@ -236,11 +238,12 @@
                                        placeholder="Nhập địa chỉ chi tiết">
                             </div>
                             <div class="mt-2">
-                            <label id="textTimeDhn"></label>
-                        </div>
+                                <label id="textTimeDhn"></label>
+                            </div>
                         </div>
                         <div>
-                            <div class="modal fade" id="addressTableModal" tabindex="-1" aria-labelledby="addressTableLabel"
+                            <div class="modal fade" id="addressTableModal" tabindex="-1"
+                                 aria-labelledby="addressTableLabel"
                                  aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" style="max-width: 80%">
                                     <div class="modal-content">
@@ -288,17 +291,21 @@
                                 <label class="form-check-label" for="switchGiaoHang">Giao hàng</label>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label class="col-sm-4 col-form-label">Phiếu giảm giá</label>
-                            <div class="col-sm-8 text-right">
+                        <div>
+                            <div style="display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 10px">
+                                <div>Phiếu giảm giá</div>
                                 <button class="btn btn-danger" data-toggle="modal" data-target="#voucherModal"
                                         style="background-color: #b85555; color: white; border: none;">
                                     + Phiếu giảm giá
                                 </button>
                             </div>
+                            <div class="alert alert-warning" role="alert" id="voucherInfo" style="display: none">
+                                <div id="voucherInfoCode"></div>
+                                <div id="voucherInfoName"></div>
+                            </div>
                             <div class="modal fade" id="voucherModal" tabindex="-1" aria-labelledby="voucherModalLabel"
                                  aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered" style="max-width: 68%">
+                                <div class="modal-dialog modal-dialog-centered" style="max-width: 70%">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="voucherModalLabel">Chọn phiếu giảm giá</h5>
@@ -312,13 +319,12 @@
                                                 <input type="text" class="form-control w-50"
                                                        placeholder="Nhập mã phiếu giảm giá" id="searchVoucher">
                                             </div>
-                                            <table class="table">
+                                            <table class="table" id="voucherTable">
                                                 <thead>
                                                 <tr>
                                                     <th>STT</th>
                                                     <th>Mã</th>
                                                     <th>Tên</th>
-                                                    <th>Loại</th>
                                                     <th>Giá trị tối thiểu</th>
                                                     <th>Giá trị giảm</th>
                                                     <th>Số lượng</th>
@@ -327,7 +333,7 @@
                                                     <th>Hành Động</th>
                                                 </tr>
                                                 </thead>
-                                                <tbody id="voucherTable">
+                                                <tbody>
 
                                                 </tbody>
                                             </table>
@@ -343,25 +349,17 @@
                             </div>
 
                         </div>
-                        <div class="form-group row">
-                            <label for="discountPercentage" class="col-sm-4 col-form-label">Phần trăm giảm</label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control" id="discountPercentage"
-                                       placeholder="Phần trăm giảm"
-                                       style="border: 1px solid #b85555;">
-                            </div>
-                        </div>
 
                         <hr>
 
                         <div class="row">
                             <div class="col-md-6">
-                                <p>Tiền hàng</p>
+                                <p>Tổng tiền</p>
                                 <p>Phí vận chuyển</p>
                                 <p>Giảm giá</p>
-                                <p><strong>Tổng số tiền</strong></p>
-                                <p><strong>Khách thanh toán:</strong></p>
-                                <p>Tiền thiếu</p>
+                                <p><strong>Thành tiền</strong></p>
+                                <p><strong>Tiền khách đưa:</strong></p>
+                                <p>Tiền thừa</p>
                             </div>
 
                             <div class="col-md-6 text-right">
@@ -370,7 +368,7 @@
                                 <p id="voucher-money">0 đ</p>
                                 <p><strong style="color: #b85555;" id="total-amount">0 đ</strong></p>
                                 <div class="input-group mb-3" style="border: 1px solid #b85555;">
-                                    <input type="text" class="form-control" id="moneyCustomerInput" placeholder="0 VND"
+                                    <input type="number" class="form-control" id="moneyCustomerInput" placeholder="0 VND"
                                            style="border: none;">
                                     <div class="input-group-append">
                                         <span class="input-group-text" style="border: none;">
@@ -408,6 +406,7 @@
         let voucherMoney = 0;
         let shipMoney = 0;
         let khachHang = null;
+        let voucher = null;
         let lstAddress = [];
         let isGiaoHang = false;
 
@@ -424,12 +423,15 @@
                         billId = lstBill[0].id;
                         bill = lstBill[0];
                         loadDataKhachHang(bill.khachHang)
+                        loadDataVoucher(bill.phieuGiamGia)
                     } else {
                         billId = null;
                         bill = {};
                         loadDataKhachHang(null)
+                        loadDataVoucher(null)
                     }
                     genTabBill(data.data);
+                    countTotalMoney();
                 },
                 error: function (err) {
                     console.error('Lỗi khi lấy dữ liệu hóa đơn', err);
@@ -549,9 +551,12 @@
             billId = $(this).data('invoice-id');
             bill = lstBill.find(item => item.id == billId);
             loadDataKhachHang(bill.khachHang)
+            loadDataVoucher(bill.phieuGiamGia)
             genTabBill(lstBill)
             loadInvoicesItem()
             countTotalMoney()
+            $('#moneyCustomerInput').val('');
+            $('#moneyCustomer').text(0);
         });
         $(document).on('click', '.delete-invoice', function () {
             const invoiceId = $(this).data('invoice-id');
@@ -808,10 +813,11 @@
                 }
             });
         }
-        function hideBtnAddressCustomer(customer){
-            if (customer != null){
+
+        function hideBtnAddressCustomer(customer) {
+            if (customer != null) {
                 $("#selectAddressKhachHang").show()
-            }else {
+            } else {
                 $("#selectAddressKhachHang").hide()
             }
         }
@@ -826,11 +832,13 @@
             $('#voucher-money').text(formatCurrency(voucherMoney));
             $('#ship-money').text(formatCurrency(shipMoney));
             totalAmount = totalMoney + shipMoney - voucherMoney;
-            if (totalAmount <= 0){
+            if (totalAmount <= 0) {
                 totalAmount = 0
             }
             $('#total-amount').text(formatCurrency(totalAmount));
-
+            let money = $('#moneyCustomerInput').val();
+            let moneyResult = totalAmount - money;
+            $('#moneyCustomer').text(formatCurrency(moneyResult));
         }
 
         function resetcountTotalMoney() {
@@ -838,23 +846,29 @@
             voucherMoney = 0;
             shipMoney = 0;
             totalAmount = 0;
-            $('#moneyCustomerInput').val();
+            $('#moneyCustomerInput').val('');
             $('#moneyCustomer').text(0);
             countTotalMoney();
-        }
 
+        }
 
 
         countTotalMoney();
 
         $('#moneyCustomerInput').on('input', function () {
             let money = $('#moneyCustomerInput').val();
-            $('#moneyCustomer').text(formatCurrency(totalAmount - money));
+            let moneyResult = totalAmount - money;
+            $('#moneyCustomer').text(formatCurrency(moneyResult));
         })
         $(document).on('click', '.btn-payment-invoice', function () {
-            if (totalAmount <= 0) {
+            if (totalMoney <= 0) {
                 toastr.error('Chưa có gì để thanh toán');
                 return
+            }
+            let money = $('#moneyCustomerInput').val();
+            if (money < totalAmount){
+                toastr.error('Vui lòng nhập đủ số tiền cần thanh toán');
+                return;
             }
             paymentInvoice()
         });
@@ -878,7 +892,7 @@
                     let wardAddress = $('#wardAddress option:selected').text();
                     let detailAddress = $('#detailAddress').val();
                     let address = null;
-                    if (isGiaoHang){
+                    if (isGiaoHang) {
                         address = detailAddress + ", " + wardAddress + ", " + districtAddress + ", " + provinceAddress
                     }
 
@@ -900,12 +914,11 @@
                             isGiaoHang: isGiaoHang,
                         }),
                         success: function (response) {
-                            resetcountTotalMoney();
                             loadDataInvoices()
+                            $('#loading').hide();
+                            resetcountTotalMoney();
                             $('#switchGiaoHang').prop('checked', false);
                             handelSwitchGiaoHang(false)
-
-                            $('#loading').hide();
                             toastr.success('Đặt hàng thành công');
                             setTimeout(() => {
                                 window.scrollTo({
@@ -915,9 +928,15 @@
                             }, 500);
                         },
                         error: function (err) {
-                            $('#loading').hide();
+                            loadDataInvoices()
                             toastr.error('Đặt hàng thất bại');
-
+                            $('#loading').hide();
+                            setTimeout(() => {
+                                window.scrollTo({
+                                    top: 0,
+                                    behavior: 'smooth'
+                                });
+                            }, 500);
                         }
                     });
                 }
@@ -933,6 +952,15 @@
         $('#voucherModal').on('show.bs.modal', function (e) {
             loadTableVoucher()
         });
+        let voucherTable = $('#voucherTable').DataTable({
+            "paging": true,        // Bật phân trang
+            "searching": false,     // Bật tìm kiếm
+            "ordering": false,      // Bật sắp xếp
+            "info": false,          // Bật thông tin tổng quan
+            "lengthChange": false,  // Cho phép thay đổi số lượng bản ghi hiển thị
+            "pageLength": 5,       // Số lượng bản ghi trên mỗi trang
+
+        });
 
         function loadTableVoucher() {
             const search = $('#searchVoucher').val();
@@ -942,27 +970,24 @@
                 dataType: 'json',
                 data: {search: search},
                 success: function (data) {
-                    var tableBody = $('#voucherTable');
-                    tableBody.empty();
+                    voucherTable.clear();
                     $.each(data.data, function (index, voucher) {
-                        let item = '<tr>' +
-                            '<td>' + (index + 1) + '</td>' +
-                            '<td>' + voucher.maPhieuGiamGia + '</td>' +
-                            '<td>' + voucher.tenPhieuGiamGia + '</td>' +
-                            '<td>' + voucher.loaiPhieuGiamGia + '</td>' +
-                            '<td>' + voucher.dieuKienApDung + '</td>' +
-                            '<td>' + voucher.giaTriGiam + '</td>' +
-                            '<td>' + voucher.soLuong + '</td>' +
-                            '<td>' + voucher.ngayBatDau + '</td>' +
-                            '<td>' + voucher.ngayKetThuc + '</td>' +
-                            '<td>' +
-                            '<button  type="button" class="btn btn-success select-btn-customer" data-customer-id="' + voucher.id + '" >Chọn</button></td>' +
-                            '</tr>';
-                        tableBody.append(item);
+                        voucherTable.row.add([
+                            index + 1,
+                            voucher.maPhieuGiamGia,
+                            voucher.tenPhieuGiamGia,
+                            formatCurrency(voucher.dieuKienApDung),
+                            formatCurrency(voucher.giaTriGiam),
+                            voucher.soLuong,
+                            formatDateOnly(voucher.ngayBatDau),
+                            formatDateOnly(voucher.ngayKetThuc),
+                            '<button  type="button" class="btn btn-success select-btn-voucher" data-voucher-id="' + voucher.id + '" data-voucher-value="' + voucher.dieuKienApDung + '" >Chọn</button>'
+                        ])
+                        voucherTable.draw();
                     });
                 },
                 error: function (err) {
-                    toastr.error('Lỗi khi lấy dữ liệu khách hàng', err);
+                    toastr.error('Lỗi khi lấy dữ liệu', err);
                 }
             });
         }
@@ -972,33 +997,56 @@
         })
 
         $(document).on('click', '.select-btn-voucher', function () {
-            let customerId = $(this).data('voucher-id');
-            selectKhachHang(customerId)
+            let voucherId = $(this).data('voucher-id');
+            let voucherValue = $(this).data('voucher-value');
+            selectVoucher(voucherId,voucherValue)
         });
         $(document).on('click', '.btn-voucher-null', function () {
-            selectKhachHang(null)
+            selectVoucher(null, null)
         });
 
-        function selectVoucher(voucher) {
+        function selectVoucher(voucherId,voucherValue) {
+            console.log(voucherValue)
+            if (voucherValue != null && voucherValue > totalMoney){
+                toastr.error('Đơn hàng của bạn không đủ điều kiện để sử dụng phiếu giảm giá này');
+                return;
+            }
             $.ajax({
-                url: '/admin/sales/customer-invoices',
+                url: '/admin/sales/voucher-invoices',
                 method: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify({
-                    voucherId: voucher,
+                    voucherId: voucherId,
                     billId: billId,
                 }),
                 success: function (response) {
                     $('#voucherModal').modal('hide');
                     $('#loading').fadeOut();
                     loadInvoices()
-                    toastr.success('Chọn khách hàng thành công');
+                    countTotalMoney();
+                    toastr.success('Chọn phiếu giảm giá thành công');
                 },
                 error: function (err) {
                     $('#loading').fadeOut();
-                    toastr.error('Chọn khách hàng thất bại');
+                    toastr.error('Chọn phiếu giảm giá thất bại');
                 }
             });
+        }
+
+        function loadDataVoucher(data) {
+            voucher = data;
+            if (data == null) {
+                voucherMoney = 0
+                $('#voucherInfo').hide()
+                $('#voucherInfoCode').text('');
+                $('#voucherInfoName').text('');
+            } else {
+                $('#voucherInfo').show()
+                voucherMoney = data.giaTriGiam
+                $('#voucherInfoCode').text("Mã: "+data.maPhieuGiamGia);
+                $('#voucherInfoName').text("Tên: "+data.tenPhieuGiamGia);
+            }
+            countTotalMoney();
         }
 
         //     Voucher end
@@ -1007,7 +1055,8 @@
         $("#switchGiaoHang").change(function () {
             handelSwitchGiaoHang($(this).is(":checked"))
         });
-        function handelSwitchGiaoHang(isCheck){
+
+        function handelSwitchGiaoHang(isCheck) {
             isGiaoHang = isCheck
             if (isCheck) {
                 getDataProvince()
@@ -1021,6 +1070,7 @@
             }
             hideBtnAddressCustomer(khachHang)
         }
+
         function resetFormAddress() {
             $('#nameAddress').val('');
             $('#phoneAddress').val('');
@@ -1030,6 +1080,7 @@
             $('#detailAddress').val('');
 
         }
+
         // switchGiaoHang end
         // call address api ghn start
 
@@ -1179,11 +1230,11 @@
                         from_district: 3440,
                         to_district: valueDistrict
                     },
-                    success: function(response) {
+                    success: function (response) {
                         serviceId = response.data[0].service_id;
                         console.log(serviceId + '-' + response.data[0].short_name);
                     },
-                    error: function(error) {
+                    error: function (error) {
                         console.log(error.responseJSON);
                     }
                 });
@@ -1206,7 +1257,7 @@
             console.log("Cân nặng: " + weightProduct);
 
             if (valueDistrict != null) {
-                await  $.ajax({
+                await $.ajax({
                     url: 'https://online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee',
                     method: 'GET',
                     headers: {
@@ -1222,14 +1273,14 @@
                         to_ward_code: "",
                         weight: weightProduct
                     },
-                    success: function(response) {
+                    success: function (response) {
                         shipMoney = response.data.total
                         countTotalMoney()
                     },
-                    error: function(error) {
+                    error: function (error) {
                         console.log(error.responseJSON);
                     },
-                    complete: function() {
+                    complete: function () {
                         setTimeout(() => {
 
                         }, 400);
@@ -1237,6 +1288,7 @@
                 });
             }
         }
+
         function fetchLeadtime(valueDistrict, valueWard, serviceId) {
             if (valueDistrict != null && valueWard != null) {
                 console.log(valueWard);
@@ -1253,31 +1305,25 @@
                         to_ward_code: valueWard,
                         service_id: serviceId
                     },
-                    success: function(response) {
+                    success: function (response) {
                         const time = response.data.leadtime_order
                         const fromDateOnly = formatDateOnly(time.from_estimate_date);
                         const toDateOnly = formatDateOnly(time.to_estimate_date);
-                        $("#textTimeDhn").text("Dự kiến giao hàng từ: "+ fromDateOnly +" đến: " + toDateOnly)
+                        $("#textTimeDhn").text("Dự kiến giao hàng từ: " + fromDateOnly + " đến: " + toDateOnly)
                     },
-                    error: function(error) {
+                    error: function (error) {
                         console.log(error.responseJSON);
                     }
                 });
             }
         }
 
-        async function calculateShippingToAddress(){
+        async function calculateShippingToAddress() {
             await fetchAvailableServices(districtId)
             await calculateShippingFee(lstBillDetail, districtId, wardId, serviceId)
             await fetchLeadtime(districtId, wardId, serviceId)
         }
-        function formatDateOnly(isoString) {
-            const date = new Date(isoString);
-            const day = String(date.getUTCDate()).padStart(2, '0'); // Lấy ngày (2 chữ số)
-            const month = String(date.getUTCMonth() + 1).padStart(2, '0'); // Lấy tháng (2 chữ số, cộng thêm 1 vì tháng bắt đầu từ 0)
-            const year = date.getUTCFullYear(); // Lấy năm
-            return day+"/"+month+"/"+year;
-        }
+
         // call address api ghn end
         // address start
         let addressTable = $('#addressTable').DataTable({
@@ -1332,6 +1378,7 @@
             });
             addressTable.draw();
         }
+
         $(document).on('click', '.btn-select-address', async function () {
             let addressId = $(this).data('address-id');
             let address = lstAddress.find(address => address.id == addressId);
@@ -1357,8 +1404,14 @@
         });
 
 
-
         // address end
 
+        function formatDateOnly(isoString) {
+            const date = new Date(isoString);
+            const day = String(date.getUTCDate()).padStart(2, '0'); // Lấy ngày (2 chữ số)
+            const month = String(date.getUTCMonth() + 1).padStart(2, '0'); // Lấy tháng (2 chữ số, cộng thêm 1 vì tháng bắt đầu từ 0)
+            const year = date.getUTCFullYear(); // Lấy năm
+            return day + "/" + month + "/" + year;
+        }
     });
 </script>

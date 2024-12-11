@@ -5,6 +5,7 @@ import com.example.banson5s.dto.admin.khachHang.KhachHangDTO;
 import com.example.banson5s.dto.admin.sales.CustomerInvoicesDTO;
 import com.example.banson5s.dto.admin.sales.PaymentInvoiceDTO;
 import com.example.banson5s.dto.admin.sales.ProductInvoicesDTO;
+import com.example.banson5s.dto.admin.sales.VoucherInvoicesDTO;
 import com.example.banson5s.entity.admin.HoaDon;
 import com.example.banson5s.entity.admin.HoaDonChiTiet;
 import com.example.banson5s.entity.admin.IInvoiceItem;
@@ -35,6 +36,8 @@ public interface ISalesService {
     List<KhachHangDTO> findAllCustomer(String value);
 
     Boolean cstomerInvoices(CustomerInvoicesDTO customerInvoicesDTO);
+
+    Boolean voucherInvoices(VoucherInvoicesDTO voucherInvoicesDTO);
 
     Boolean paymentInvoice(PaymentInvoiceDTO paymentInvoiceDTO);
 

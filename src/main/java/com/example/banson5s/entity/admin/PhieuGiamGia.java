@@ -36,9 +36,6 @@ public class PhieuGiamGia extends BaseEntity {
     @Column(name = "ten_phieu_giam_gia")
     private String tenPhieuGiamGia;
 
-    @Column(name = "loai_phieu_giam_gia")
-    private String loaiPhieuGiamGia;
-
     @Column(name = "gia_tri_giam")
     private BigDecimal giaTriGiam;
 
