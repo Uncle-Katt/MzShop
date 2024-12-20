@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -258,6 +259,41 @@
                     <div class="product-card">
                         <img src="album/5.jpg" alt="Product 4">
                         <h5>Son Màu Cam Cá Tính</h5>
+                        <p class="price">370,000 VND</p>
+                        <button><i class="bi bi-cart-fill"></i></button>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row mt-4">
+                <div class="col-md-3">
+                    <div class="product-card">
+                        <img src="album/6.jpg" alt="Product 1">
+                        <h5>Son Màu Đỏ Tint Quý Phái</h5>
+                        <p class="price">350,000 VND</p>
+                        <button><i class="bi bi-cart-fill"></i></button>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="product-card">
+                        <img src="album/7.jpg" alt="Product 2">
+                        <h5>Son Màu Đỏ Quyến Rũ</h5>
+                        <p class="price">320,000 VND</p>
+                        <button><i class="bi bi-cart-fill"></i></button>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="product-card">
+                        <img src="album/8.jpg" alt="Product 3">
+                        <h5>Son Màu Nude Sang Trọng</h5>
+                        <p class="price">400,000 VND</p>
+                        <button><i class="bi bi-cart-fill"></i></button>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="product-card">
+                        <img src="album/9.jpg" alt="Product 4">
+                        <h5>Son Màu Đỏ Cá Tính</h5>
                         <p class="price">370,000 VND</p>
                         <button><i class="bi bi-cart-fill"></i></button>
                     </div>
