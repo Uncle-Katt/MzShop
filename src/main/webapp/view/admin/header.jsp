@@ -163,7 +163,7 @@
                 </div>
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link active text-white h5" href="/san-pham/index" aria-label="Thống kê">
+                        <a class="nav-link active text-white h5" href="/admin/thongke" aria-label="Thống kê">
                             Thống kê
                         </a>
                     </li>
@@ -173,7 +173,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white h5" href="/san-pham/index" aria-label="Quản lý đơn hàng">
+                        <a class="nav-link text-white h5" href="/admin/order" aria-label="Quản lý đơn hàng">
                             Quản lý đơn hàng
                         </a>
                     </li>
@@ -185,25 +185,23 @@
                         <div class="collapse" id="productManagement">
                             <ul class="nav flex-column ml-3">
                                 <li class="nav-item">
-                                    <a class="nav-link text-white h5" href="/san-pham/index" aria-label="Sản phẩm">Sản phẩm</a>
+                                    <a class="nav-link text-white h5" href="/admin/sanpham" aria-label="Sản phẩm">Sản phẩm</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link text-white h5" href="/admin/khoiluong" aria-label="Khối lượng">Khối lượng</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-white h5" href="/khoi-luong/index" aria-label="Khối lượng">Khối lượng</a>
+                                    <a class="nav-link text-white h5" href="/admin/mausac" aria-label="Màu Sắc">Màu Sắc</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-white h5" href="/mui-huong/index" aria-label="Mùi Hương">Mùi Hương</a>
+                                    <a class="nav-link text-white h5" href="/admin/xuatxu" aria-label="Xuất Xứ">Xuất Xứ</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-white h5" href="/mau-sac/index" aria-label="Màu Sắc">Màu Sắc</a>
+                                    <a class="nav-link text-white h5" href="/admin/thuonghieu" aria-label="Thương Hiệu">Thương Hiệu</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-white h5" href="/xuat-xu/index" aria-label="Xuất Xứ">Xuất Xứ</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-white h5" href="/thuong-hieu/index" aria-label="Thương Hiệu">Thương Hiệu</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-white h5" href="/danh-muc/index" aria-label="Danh Mục">Danh Mục</a>
+                                    <a class="nav-link text-white h5" href="/admin/danhmuc" aria-label="Danh Mục">Danh Mục</a>
                                 </li>
                             </ul>
                         </div>
