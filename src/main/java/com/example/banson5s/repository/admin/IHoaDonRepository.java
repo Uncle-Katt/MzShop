@@ -12,4 +12,6 @@ import java.util.List;
 public interface IHoaDonRepository extends IBaseRepository<HoaDon,Long> {
     @Query("select hd from HoaDon hd where hd.trangThai = :sts")
     List<HoaDon> findAllLstHoaDonSts(@Param("sts") String sts);
+
+    HoaDon findHoaDonByMaHoaDon(String maHoaDon);
 }

@@ -2,6 +2,7 @@ package com.example.banson5s.entity.admin;
 
 import com.example.banson5s.entity.common.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -16,7 +17,9 @@ import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.DynamicUpdate;
 
 import java.math.BigDecimal;
@@ -25,10 +28,11 @@ import java.util.Set;
 
 @Entity
 @Table(name = "hoa_don")
-@Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@Getter
+@Setter
 @DynamicUpdate
 public class HoaDon extends BaseEntity {
     @Id
@@ -101,5 +105,13 @@ public class HoaDon extends BaseEntity {
     @OneToMany(mappedBy = "hoaDon")
     @JsonIgnore
     private Set<HoaDonChiTiet> lstHoaDonChiTiet;
+
+    @OneToMany(mappedBy = "hoaDon")
+    @JsonIgnore
+    private Set<LichSuHoaDon> lstLichSuHoaDon;
+
+    @OneToMany(mappedBy = "hoaDon")
+    @JsonIgnore
+    private Set<LichSuThanhToan> lstLichSuThanhToan;
 
 }

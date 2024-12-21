@@ -2,15 +2,19 @@ package com.example.banson5s.entity.admin;
 
 import com.example.banson5s.entity.common.BaseEntity;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.DynamicUpdate;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "dia_chi")
+@DynamicUpdate
 public class DiaChi  extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -8,4 +8,5 @@ import java.util.List;
 public interface IHoaDonService extends IBaseService<HoaDon,Long> {
 
     List<HoaDon> findAllLstHoaDonSts(String sts);
+    HoaDon findHoaDonByCode(String code);
 }
