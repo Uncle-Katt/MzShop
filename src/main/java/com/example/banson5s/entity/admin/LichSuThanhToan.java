@@ -12,17 +12,22 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.DynamicUpdate;
 
 import java.math.BigDecimal;
 
 
 @Entity
 @Table(name = "lich_su_thanh_toan")
-@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@DynamicUpdate
+@Getter
+@Setter
 public class LichSuThanhToan extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

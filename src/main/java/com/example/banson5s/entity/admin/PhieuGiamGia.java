@@ -14,17 +14,22 @@ import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.DynamicUpdate;
 
 import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
 @Table(name = "phieu_giam_gia")
-@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@DynamicUpdate
+@Getter
+@Setter
 public class PhieuGiamGia extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

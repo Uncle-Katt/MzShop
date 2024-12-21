@@ -15,4 +15,9 @@ public class HoaDonServiceImpl extends BaseServiceImpl<HoaDon, Long, IHoaDonRepo
     public List<HoaDon> findAllLstHoaDonSts(String sts) {
         return repository.findAllLstHoaDonSts(sts);
     }
+
+    @Override
+    public HoaDon findHoaDonByCode(String code) {
+        return repository.findHoaDonByMaHoaDon(code);
+    }
 }

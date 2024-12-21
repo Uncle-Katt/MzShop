@@ -173,7 +173,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white h5" href="/san-pham/index" aria-label="Quản lý đơn hàng">
+                        <a class="nav-link text-white h5" href="/admin/order" aria-label="Quản lý đơn hàng">
                             Quản lý đơn hàng
                         </a>
                     </li>
