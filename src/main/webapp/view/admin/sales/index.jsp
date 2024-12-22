@@ -979,8 +979,8 @@
                             formatCurrency(voucher.dieuKienApDung),
                             formatCurrency(voucher.giaTriGiam),
                             voucher.soLuong,
-                            formatDateOnly(voucher.ngayBatDau),
-                            formatDateOnly(voucher.ngayKetThuc),
+                            formatDate(voucher.ngayBatDau),
+                            formatDate(voucher.ngayKetThuc),
                             '<button  type="button" class="btn btn-success select-btn-voucher" data-voucher-id="' + voucher.id + '" data-voucher-value="' + voucher.dieuKienApDung + '" >Chọn</button>'
                         ])
                         voucherTable.draw();
@@ -1307,8 +1307,8 @@
                     },
                     success: function (response) {
                         const time = response.data.leadtime_order
-                        const fromDateOnly = formatDateOnly(time.from_estimate_date);
-                        const toDateOnly = formatDateOnly(time.to_estimate_date);
+                        const fromDateOnly = formatDate(time.from_estimate_date);
+                        const toDateOnly = formatDate(time.to_estimate_date);
                         $("#textTimeDhn").text("Dự kiến giao hàng từ: " + fromDateOnly + " đến: " + toDateOnly)
                     },
                     error: function (error) {
@@ -1405,13 +1405,5 @@
 
 
         // address end
-
-        function formatDateOnly(isoString) {
-            const date = new Date(isoString);
-            const day = String(date.getUTCDate()).padStart(2, '0'); // Lấy ngày (2 chữ số)
-            const month = String(date.getUTCMonth() + 1).padStart(2, '0'); // Lấy tháng (2 chữ số, cộng thêm 1 vì tháng bắt đầu từ 0)
-            const year = date.getUTCFullYear(); // Lấy năm
-            return day + "/" + month + "/" + year;
-        }
     });
 </script>

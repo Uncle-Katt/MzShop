@@ -14,4 +14,7 @@ public interface IHoaDonRepository extends IBaseRepository<HoaDon,Long> {
     List<HoaDon> findAllLstHoaDonSts(@Param("sts") String sts);
 
     HoaDon findHoaDonByMaHoaDon(String maHoaDon);
+
+    @Query("select hd from HoaDon hd where hd.maHoaDon like %:value% and hd.loaiHoaDon like %:type% and hd.trangThai like %:sts% and hd.trangThai <> :notSts")
+    List<HoaDon> findAllLstHoaDonByCodeAndStsAndType(@Param("value") String value,@Param("type") String type,@Param("sts") String sts,@Param("notSts") String notSts);
 }

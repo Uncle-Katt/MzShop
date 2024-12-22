@@ -226,7 +226,7 @@
         function getDataBill() {
             console.log(codeBill)
             $.ajax({
-                url: '/admin/order',
+                url: '/admin/order/detail',
                 method: 'POST',
                 contentType: 'application/json',
                 data: codeBill,
