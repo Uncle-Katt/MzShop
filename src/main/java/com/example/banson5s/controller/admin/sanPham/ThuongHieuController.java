@@ -1,8 +1,8 @@
-package com.example.banson5s.controller.admin.sanpham;
+package com.example.banson5s.controller.admin.sanPham;
 
+//import com.example.banson5s.repository.admin.IThuongHieuRepo;
+//import org.springframework.beans.factory.annotation.Autowired;
 import com.example.banson5s.enums.Gender;
-//import com.example.banson5s.repository.admin.IXuatXuRepo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,17 +12,17 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/admin/xuatxu")
-public class XuatXuController {
+@RequestMapping("/admin/thuonghieu")
+public class ThuongHieuController {
 //    @Autowired
-//    private IXuatXuRepo xxRepo;
+//    private IThuongHieuRepo thRepo;
     @GetMapping()
     public String hienThi(Model model) {
         Map<String, Gender> gender = new LinkedHashMap<>();
         gender.put(Gender.Male.toString(), Gender.Male);
         gender.put(Gender.Female.toString(), Gender.Female);
         model.addAttribute("gender", gender);
-        model.addAttribute("page", "SanPham/xuat_xu/index");
+        model.addAttribute("page", "SanPham/thuong_hieu/index");
         return "admin/main";
     }
 }
