@@ -10,6 +10,7 @@ import java.util.List;
 
 @Repository
 public interface INhanVienRepository extends IBaseRepository<NhanVien,Long> {
-    @Query(value = "SELECT nv FROM NhanVien nv WHERE (nv.tenNhanVien LIKE %:value% OR nv.sdt LIKE %:value%) and UPPER(nv.chucVu.tenChucVu) != 'ADMIN' and nv.xoaMem = false order by nv.ngayTao desc ")
+    @Query("SELECT nv FROM NhanVien nv WHERE (nv.tenNhanVien LIKE %:value% OR nv.sdt LIKE %:value%) AND NOT UPPER(nv.chucVu.tenChucVu) = 'ADMIN' AND nv.xoaMem = false ORDER BY nv.ngayTao DESC")
     List<NhanVien> findAllStaff(@Param("value") String value);
+
 }

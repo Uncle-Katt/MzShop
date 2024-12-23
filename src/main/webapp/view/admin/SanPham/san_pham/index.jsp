@@ -1,34 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<style>
-    .custom-border {
-        border: 1px solid #b85555;
-        padding: 20px;
-        margin-bottom: 20px;
-    }
 
-    .btn-teal {
-        background-color: #008080;
-        border-radius: 20px;
-        width: 50px;
-        height: 30px;
-    }
-
-    .btn-purple {
-        background-color: #800080;
-        border-radius: 20px;
-        width: 50px;
-        height: 30px;
-    }
-
-    .btn-orange {
-        background-color: #FFA500;
-        border-radius: 20px;
-        width: 50px;
-        height: 30px;
-    }
-</style>
 
 <div class="container mt-4">
     <!-- Tiêu đề Quản lý Sản Phẩm -->
@@ -100,7 +73,7 @@
             </div>
 
             <div class="table-responsive">
-                <table class="table table-bordered">
+                <table class="table">
                     <thead style="background-color: #b85555; color: white;">
                     <tr>
                         <th>#</th>

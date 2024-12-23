@@ -13,10 +13,6 @@ import java.util.Map;
 public class KhoiLuongController {
     @GetMapping()
     public String hienThi(Model model) {
-        Map<String, Gender> gender = new LinkedHashMap<>();
-        gender.put(Gender.Male.toString(), Gender.Male);
-        gender.put(Gender.Female.toString(), Gender.Female);
-        model.addAttribute("gender", gender);
         model.addAttribute("page", "SanPham/khoi_luong/index");
         return "admin/main";
     }
