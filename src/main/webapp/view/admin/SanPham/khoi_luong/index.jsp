@@ -1,9 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <div class="container mt-4">
     <h2 class="mb-4">Quản Lý Khối Lượng</h2>
-
-
     <div class="card mb-4" style="border: 1px solid #b85555; background-color: white;">
         <div class="card-body">
             <h5 class="mb-3">
