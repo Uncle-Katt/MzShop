@@ -1,12 +1,11 @@
 package com.example.banson5s.dto.admin.order;
 
-import com.example.banson5s.entity.admin.HoaDonChiTiet;
 import com.example.banson5s.entity.admin.KhachHang;
-import com.example.banson5s.entity.admin.LichSuHoaDon;
-import com.example.banson5s.entity.admin.LichSuThanhToan;
 import com.example.banson5s.entity.admin.NhanVien;
 import com.example.banson5s.entity.admin.PhieuGiamGia;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
@@ -15,6 +14,8 @@ import java.util.Set;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class OrderBillDTO {
     private Long id;
 

@@ -40,7 +40,7 @@ public class LichSuThanhToan extends BaseEntity {
     @Column(name = "ma_giao_dich")
     private String maGiaoDich;
 
-    @Column(name = "loai_than_toan")
+    @Column(name = "loai_thanh_toan")
     private String loaiThanhToan;
 
     @Column(name = "so_tien_thanh_toan")

@@ -39,6 +39,7 @@
 
     /* Each status step */
     .status-step {
+        padding-top: 20px;
         position: relative;
         z-index: 1;
         text-align: center;
@@ -74,6 +75,16 @@
         font-weight: bold;
         color: #b85555;
     }
+
+    .order-title{
+        width: 35%;
+    }
+    .order-sub {
+        width: 65%;
+        white-space: wrap;      /* Không xuống dòng */
+        overflow: hidden;         /* Ẩn phần nội dung thừa */
+        display: inline-block;    /* Đảm bảo hiệu ứng hoạt động */
+    }
 </style>
 <div>
     <h3>Quản lý đơn hàng</h3>
@@ -88,13 +99,55 @@
             <div class="mt-4" style="display: flex; justify-content: space-between">
                <div>
                    <button class="btn btn-primary mb-2"
-                           style="background-color: #b85555; color: white; border: none;">Hủy
+                           id="btnCancel"
+                           style="background-color: #b85555; color: white; border: none; display: none">Hủy
+                   </button>
+
+                   <button class="btn btn-primary mb-2"
+                           id="btnAction"
+                           style="background-color: #b85555; color: white; border: none;" >Hành động
+                   </button>
+                   <button class="btn btn-primary mb-2"
+                           id="btnActionBack"
+                           style="background-color: #b85555; color: white; border: none;" >Quay lại trạng thái
                    </button>
                </div>
                 <div>
                     <button class="btn btn-primary mb-2"
+                            data-toggle="modal" data-target="#historyBillModal"
                             style="background-color: #b85555; color: white; border: none;">Chi tiết
                     </button>
+                    <div class="modal fade" id="historyBillModal" tabindex="-1" aria-labelledby="historyBillModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog" style="max-width: 50%">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="voucherModalLabel">Lịch sử hóa đơn</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span>&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <table class="table" id="historyBillTable">
+                                        <thead>
+                                        <tr>
+                                            <th>STT</th>
+                                            <th>Tên</th>
+                                            <th>Mô tả</th>
+                                            <th>Ngày tạo</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -111,20 +164,15 @@
                     <thead>
                     <tr>
                         <th>STT</th>
-                        <th>Tên Sản Phẩm</th>
-                        <th>Đơn Giá</th>
-                        <th>Số Lượng</th>
-                        <th>Tổng tiền</th>
-                        <th>Hành Động</th>
+                        <th>Mã giao dịch</th>
+                        <th>Loại</th>
+                        <th>Số tiền</th>
+                        <th>Mô tả</th>
                     </tr>
                     </thead>
-                    <tbody id="historyPayBill">
-
+                    <tbody>
                     </tbody>
                 </table>
-                <div id="historyPayBillTableNoData" style="text-align: center">
-                    Không có dữ liệu
-                </div>
             </div>
         </div>
     </div>
@@ -132,19 +180,43 @@
 
     <div class="card mt-4" style="border: 2px solid #b85555; background-color: white;">
         <div class="card-header bg-white">
-            <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center">
                 <h5 class="mb-0">Thông Tin Đơn Hàng</h5>
+                <span class="mr-2 ml-2"> - </span>
+                <span id="labelBillCode"></span>
             </div>
         </div>
 
-        <div class="card-body bg-white">
-            <div class="d-flex">
-                <div style="width: 300px">Tên khách hàng</div>
-                <div >Khách lẻ</div>
-            </div>
-            <div class="d-flex">
-                <div style="width: 300px">Số điện thoại</div>
-                <div >Khách lẻ</div>
+        <div class=" card-body bg-white ">
+            <div class="row">
+                <div class="col-6">
+                    <div class="d-flex ">
+                        <div class="order-title">Tên khách hàng</div>
+                        <div id="orderName" class="order-sub"></div>
+                    </div>
+                    <div class="d-flex">
+                        <div class="order-title">Số điện thoại</div>
+                        <div id="orderPhone" class="order-sub"></div>
+                    </div>
+                    <div class="d-flex">
+                        <div class="order-title">Địa chỉ</div>
+                        <div id="orderAddress" class="order-sub"></div>
+                    </div>
+                </div>
+                <div class="col-6 mt-2">
+                    <div class="d-flex">
+                        <div class="order-title">Hình thức</div>
+                        <div id="orderType" class="order-sub"></div>
+                    </div>
+                    <div class="d-flex">
+                        <div class="order-title">Trạng thái</div>
+                        <div id="orderStatus" class="order-sub"></div>
+                    </div>
+                    <div class="d-flex">
+                        <div class="order-title">Mô tả</div>
+                        <div id="orderDec" class="order-sub"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -157,7 +229,7 @@
         </div>
         <div class="card-body">
             <div class="mt-2">
-                <table class="table" id="invoiceItemTable">
+                <table class="table" id="orderTableProduct">
                     <thead>
                     <tr>
                         <th>STT</th>
@@ -165,16 +237,11 @@
                         <th>Đơn Giá</th>
                         <th>Số Lượng</th>
                         <th>Tổng tiền</th>
-                        <th>Hành Động</th>
                     </tr>
                     </thead>
-                    <tbody id="billProduct">
-
+                    <tbody>
                     </tbody>
                 </table>
-                <div id="invoiceItemTableNoData" style="text-align: center">
-                    Không có dữ liệu
-                </div>
             </div>
         </div>
     </div>
@@ -203,7 +270,7 @@
                         </div>
 
                         <div class="col-md-6 text-right">
-                            <p id="total-money2">0 đ</p>
+                            <p id="total-money">0 đ</p>
                             <p id="ship-money">0 đ</p>
                             <p id="voucher-money">0 đ</p>
                             <p><strong style="color: #b85555;" id="total-amount">0 đ</strong></p>
@@ -233,6 +300,14 @@
                 success: function (data) {
                     console.log(data.data)
                     createStatusSteps(data.data.lstLichSuHoaDon)
+                    loadTableProduct(data.data.lstHoaDonChiTiet)
+                    loadTableHistoryPay(data.data.lstLichSuThanhToan)
+                    loadMoneyBill(data.data)
+                    loadDataVoucher(data.data.phieuGiamGia)
+                    loadTableHistoryBill(data.data.lstLichSuHoaDon)
+                    loadMoneyInfoOrder(data.data)
+                    loadTableHistoryPay(data.data.lstLichSuThanhToan)
+                    loadHideShowBtnOrderDetail(data.data)
                 },
                 error: function (err) {
                     toastr.error('Lỗi khi lấy dữ liệu', err);
@@ -256,7 +331,8 @@
                 // }
                 stepDiv.html(
                     '<div class="status-circle">' + (index + 1) + '</div>' +
-                    '<div class="status-label">' + status.loai + '</div>'
+                    '<div class="status-label">' + convertTypeInvoiceStatus(status.loai) + '</div>'+
+                    '<div class="status-label">' + formatDate(status.ngayTao) + '</div>'
                 );
 
                 // Thêm bước vào container
@@ -273,8 +349,126 @@
             });
             statusContainer.css('width', totalWidth + 'px');
         };
-        // Gọi hàm tạo các bước trạng thái khi trang tải
-        createStatusSteps(statuses);
 
+        let orderTableProduct = $('#orderTableProduct').DataTable({
+            "paging": true,        // Bật phân trang
+            "searching": false,     // Bật tìm kiếm
+            "ordering": false,      // Bật sắp xếp
+            "info": false,          // Bật thông tin tổng quan
+            "lengthChange": false,  // Cho phép thay đổi số lượng bản ghi hiển thị
+            "pageLength": 5,       // Số lượng bản ghi trên mỗi trang
+            "columnDefs": [
+                {"className": "text-center", "targets": "_all"}
+            ],
+        });
+        const loadTableProduct = (data) => {
+            console.log(data)
+            orderTableProduct.clear();
+            $.each(data, function (index, item) {
+                orderTableProduct.row.add([
+                    index + 1,
+                    item.sanPhamChiTiet.sanPham.tenSanPham,
+                    formatCurrency(item.giaBan),
+                    item.soLuong,
+                    formatCurrency(item.giaBan*item.soLuong),
+
+                ]);
+            });
+            orderTableProduct.draw();
+        }
+        let historyBillTable = $('#historyBillTable').DataTable({
+            "paging": true,        // Bật phân trang
+            "searching": false,     // Bật tìm kiếm
+            "ordering": false,      // Bật sắp xếp
+            "info": false,          // Bật thông tin tổng quan
+            "lengthChange": false,  // Cho phép thay đổi số lượng bản ghi hiển thị
+            "pageLength": 5,       // Số lượng bản ghi trên mỗi trang
+            "columnDefs": [
+                {"className": "text-center", "targets": "_all"}
+            ],
+        });
+        const loadTableHistoryBill = (data) => {
+            data.sort((a, b) => a.id - b.id);
+            historyBillTable.clear();
+            $.each(data, function (index, item) {
+                historyBillTable.row.add([
+                    index + 1,
+                    convertTypeInvoiceStatus(item.loai),
+                    item.moTa,
+                    formatDate(item.ngayTao)
+
+                ]);
+            });
+            historyBillTable.draw();
+        }
+        let historyPayBillTable = $('#historyPayBillTable').DataTable({
+            "paging": true,        // Bật phân trang
+            "searching": false,     // Bật tìm kiếm
+            "ordering": false,      // Bật sắp xếp
+            "info": false,          // Bật thông tin tổng quan
+            "lengthChange": false,  // Cho phép thay đổi số lượng bản ghi hiển thị
+            "pageLength": 5,       // Số lượng bản ghi trên mỗi trang
+            "columnDefs": [
+                {"className": "text-center", "targets": "_all"}
+            ],
+        });
+        const loadTableHistoryPay = (data) => {
+            historyPayBillTable.clear();
+            $.each(data, function (index, item) {
+                historyPayBillTable.row.add([
+                    index + 1,
+                    item.maGiaoDich,
+                    convertPaymentMethod(item.loaiThanhToan),
+                    formatCurrency(item.soTienThanhToan),
+                    item.moTa,
+
+                ]);
+            });
+            historyPayBillTable.draw();
+        }
+
+        const loadMoneyBill= (data) => {
+            $("#total-money").text(formatCurrency(data.tongTien))
+            $("#voucher-money").text(formatCurrency(data.tienGiam))
+            $("#ship-money").text(formatCurrency(data.phiVanChuyen))
+            $("#total-amount").text(formatCurrency(data.thanhTien))
+        }
+
+        function loadDataVoucher(data) {
+            if (data == null) {
+                $('#voucherInfo').hide()
+                $('#voucherInfoCode').text('');
+                $('#voucherInfoName').text('');
+            } else {
+                $('#voucherInfo').show()
+                $('#voucherInfoCode').text("Mã: "+data.maPhieuGiamGia);
+                $('#voucherInfoName').text("Tên: "+data.tenPhieuGiamGia);
+            }
+        }
+        const loadMoneyInfoOrder = (data) => {
+            $("#orderName").text(data.tenNguoiNhan ? data.tenNguoiNhan : "Khách lẻ");
+            $("#orderPhone").text(data.soDienThoaiNguoiNhan ? data.soDienThoaiNguoiNhan : "Khách lẻ");
+            $("#orderAddress").text(data.diaChiNguoiNhan)
+            $("#orderType").text(data.hinhThucHoaDon)
+            $("#orderStatus").text(convertTypeInvoiceStatus(data.trangThai))
+            $("#orderDec").text(data.moTa)
+            $("#labelBillCode").text(data.maHoaDon)
+        }
+
+        const loadHideShowBtnOrderDetail = (data) => {
+            let billStatus = data.trangThai;
+            if (billStatus == "CHO_XAC_NHAN"){
+                $("#btnCancel").show()
+            }else {
+                $("#btnCancel").hide()
+            }
+            if (billStatus == "HOAN_THANH"){
+                $("#btnAction").hide()
+                $("#btnActionBack").hide()
+            }else {
+                $("#btnAction").show()
+                $("#btnActionBack").show()
+            }
+        }
     });
 </script>

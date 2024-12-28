@@ -2,7 +2,9 @@ package com.example.banson5s.controller.admin.order;
 
 import com.example.banson5s.dto.ResponseObject;
 import com.example.banson5s.dto.admin.order.OrderBillDTO;
+import com.example.banson5s.dto.admin.order.OrderChangeStatusDTO;
 import com.example.banson5s.entity.admin.HoaDon;
+import com.example.banson5s.enums.BillType;
 import com.example.banson5s.enums.InvoiceStatus;
 import com.example.banson5s.service.admin.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +37,9 @@ public class OrderController {
         model.addAttribute("HOAN_THANH", InvoiceStatus.HOAN_THANH);
         model.addAttribute("CHO_THANH_TOAN", InvoiceStatus.CHO_THANH_TOAN);
         model.addAttribute("HUY", InvoiceStatus.HUY);
+
+        model.addAttribute("ONLINE", BillType.ONLINE);
+        model.addAttribute("OFFLINE", BillType.OFFLINE);
         model.addAttribute("page", "order/index");
         return "admin/main";
     }
@@ -62,5 +67,12 @@ public class OrderController {
         return new ResponseEntity<>(ResponseObject.builder()
                 .data(orderService.findAllLstHoaDonByCodeAndStsAndType(value, type, sts))
                 .build(), HttpStatus.OK);
+    }
+
+    @PostMapping("/change-status")
+    @ResponseBody
+    public ResponseEntity<?> changeStatus(@RequestBody OrderChangeStatusDTO dto) {
+       orderService.changeStatusOrder(dto);
+        return new ResponseEntity<>(ResponseObject.builder().data(dto).build(), HttpStatus.OK);
     }
 }

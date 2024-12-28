@@ -17,6 +17,7 @@ import com.example.banson5s.entity.admin.SanPhamChiTiet;
 import com.example.banson5s.enums.BillType;
 import com.example.banson5s.enums.CouponStatus;
 import com.example.banson5s.enums.InvoiceStatus;
+import com.example.banson5s.enums.PaymentMethod;
 import com.example.banson5s.exception.AppException;
 import com.example.banson5s.exception.ErrorCode;
 import com.example.banson5s.service.admin.IDiaChiService;
@@ -212,6 +213,9 @@ public class SalesServiveImpl implements ISalesService {
             hoaDon.setTrangThai(InvoiceStatus.HOAN_THANH.getLabel());
             hoaDon.setHinhThucHoaDon(BillType.OFFLINE.toString());
             lichSuHoaDon.setLoai(InvoiceStatus.HOAN_THANH.getLabel());
+            LichSuThanhToan lichSuThanhToan = LichSuThanhToan.builder().soTienThanhToan(dto.getTongTien()).loaiThanhToan(
+                    PaymentMethod.TIEN_MAT.getLabel()).hoaDon(hoaDon).build();
+            lichSuThanhToanService.createNew(lichSuThanhToan);
         }
         if (hoaDon.getPhieuGiamGia() != null){
             PhieuGiamGia phieuGiamGia = hoaDon.getPhieuGiamGia();

@@ -18,7 +18,7 @@
         font-weight: 400;
     }
 </style>
-<div class="container mt-4 order">
+<div class=" order">
     <h2 class="mb-4">Quản Lý Đơn Hàng</h2>
 
     <div class="card mb-4" style="border: 1px solid #b85555; background-color: white;">
@@ -29,29 +29,29 @@
             <div class="row" style="align-items: center">
             <div class="col-md-6">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control"  name="key" placeholder="Nhập mã đơn hàng...">
-                    <button class="btn btn-outline-secondary" type="button" style="background-color: #b85555; color: white;"><i class="fas fa-search"></i> Tìm kiếm</button>
+                    <input type="text" id="input_search_order" class="form-control"  name="key" placeholder="Nhập mã đơn hàng...">
+                    <button class="btn btn-outline-secondary" id="btn_search_order" type="button" style="background-color: #b85555; color: white;"><i class="fas fa-search"></i> Tìm kiếm</button>
                 </div>
             </div>
             <div class="col-md-6 pl-4">
-                <div class="col">
-                    <label><h5>Loại:</h5></label>
-                    <div class="d-flex">
+                <div class="col d-flex">
+                    <label style="font-size: 18px">Loại:</label>
+                    <div class="d-flex ml-4">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="order_type" checked>
-                            <label class="form-check-label">
+                            <input class="form-check-input" id="order_type_all" type="radio" name="order_type"  value="" checked>
+                            <label class="form-check-label" for="order_type_all">
                                 Tất Cả
                             </label>
                         </div>
                         <div class="form-check ml-2">
-                            <input class="form-check-input" type="radio" name="order_type">
-                            <label class="form-check-label">
+                            <input class="form-check-input" id="order_type_online" type="radio" name="order_type" value="${ONLINE}">
+                            <label class="form-check-label" for="order_type_online">
                                 Online
                             </label>
                         </div>
                         <div class="form-check ml-2">
-                            <input class="form-check-input" type="radio" name="order_type">
-                            <label class="form-check-label">
+                            <input class="form-check-input" id="order_type_offline" type="radio" name="order_type" value="${OFFLINE}">
+                            <label class="form-check-label" for="order_type_offline">
                                 Offline
                             </label>
                         </div>
@@ -132,15 +132,17 @@
             ],
         });
         // Hàm gọi API theo giá trị của tab
-        function loadTableOrder(tabValue) {
+        function loadTableOrder() {
+            const typeValue = $('input[name="order_type"]:checked').val();
+            const keyValue = $('#input_search_order').val();
             $.ajax({
                 url: `/admin/order/list`,
                 method: 'GET',
                 dataType: 'json',
                 data: {
-                    value: "",
-                    type: "",
-                    sts:tabValue,
+                    value: keyValue,
+                    type: typeValue,
+                    sts: valueTab,
                 },
                 success: function (data) {
                     orderTable.clear();
@@ -163,21 +165,27 @@
                 },
             });
         }
-
+        $('input[name="order_type"]').change(function () {
+            loadTableOrder();
+        });
         // Tự động kích hoạt tab đầu tiên
         const defaultTab = $('.tab-btn').first();
-        const defaultValue = defaultTab.data('value');
+        let valueTab = defaultTab.data('value');
         defaultTab.addClass('active'); // Đánh dấu tab đầu tiên là active
-        loadTableOrder(defaultValue);
+        loadTableOrder();
         // Lắng nghe sự kiện click trên các tab
         $('.tab-btn').on('click', function () {
             // Đánh dấu tab hiện tại là active và bỏ active các tab khác
             $('.tab-btn').removeClass('active');
             $(this).addClass('active');
             // Gọi API theo tab được chọn
-            const tabValue = $(this).data('value');
-            loadTableOrder(tabValue);
+            valueTab = $(this).data('value');
+            loadTableOrder();
+        })
+        $('#btn_search_order').click(function () {
+            loadTableOrder();
         });
+
     });
 
 

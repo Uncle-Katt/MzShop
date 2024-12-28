@@ -21,6 +21,40 @@
         const year = date.getUTCFullYear(); // Lấy năm
         return day + "-" + month + "-" + year;
     }
+    const convertTypeInvoiceStatus = (type) =>
+    {
+        switch (type) {
+            case "CHO_XAC_NHAN":
+                return "Chờ Xác Nhận";
+            case "DA_XAC_NHAN":
+                return "Đã Xác Nhận";
+            case "CHO_GIA0":
+                return "Chờ Giao";
+            case "DANG_GIAO":
+                return "Đang Giao";
+            case "HOAN_THANH":
+                return "Hoàn Thành";
+            case "CHO_THANH_TOAN":
+                return "Chờ Thanh Toán";
+            case "HUY":
+                return "Hủy";
+            case "TAO_DON_HANG":
+                return "Tạo Đơn Hàng";
+            default:
+                return "Không Xác Định";
+        }
+    }
+    const convertPaymentMethod = (type) =>
+    {
+        switch (type) {
+            case "TIEN_MAT":
+                return "Tiền Mặt";
+            case "CHUYEN_KHOAN":
+                return "Chuyển Khoản";
+            default:
+                return "Không Xác Định";
+        }
+    }
 </script>
 </body>
 </html>
