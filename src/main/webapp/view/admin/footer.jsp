@@ -40,6 +40,8 @@
                 return "Hủy";
             case "TAO_DON_HANG":
                 return "Tạo Đơn Hàng";
+            case "DA_THANH_TOAN":
+                return "Đã Thanh Toán";
             default:
                 return "Không Xác Định";
         }

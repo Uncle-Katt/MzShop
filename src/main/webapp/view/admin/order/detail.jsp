@@ -89,10 +89,13 @@
 <div>
     <h3>Quản lý đơn hàng</h3>
     <div class="card" style="border: 2px solid #b85555; background-color: white;">
-        <div class="card-body bg-white" style="padding-top: 10px; padding-bottom: 0">
-          <span style="font-weight: bold" id="codeBill"></span>
+        <div class="card-header bg-white">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Lịch sử đơn hàng</h5>
+            </div>
         </div>
         <div class="card-body bg-white">
+
             <div class="status-container">
                 <div id="statusContainer" class="status-line"></div>
             </div>
@@ -105,7 +108,7 @@
 
                    <button class="btn btn-primary mb-2"
                            id="btnAction"
-                           style="background-color: #b85555; color: white; border: none;" >Hành động
+                           style="background-color: #b85555; color: white; border: none;">Hành động
                    </button>
                    <button class="btn btn-primary mb-2"
                            id="btnActionBack"
@@ -122,7 +125,7 @@
                         <div class="modal-dialog" style="max-width: 50%">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="voucherModalLabel">Lịch sử hóa đơn</h5>
+                                    <h5 class="modal-title">Lịch sử hóa đơn</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span>&times;</span>
                                     </button>
@@ -154,8 +157,54 @@
     </div>
     <div class="card mt-4" style="border: 2px solid #b85555; background-color: white;">
         <div class="card-header bg-white">
-            <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-between" style="align-items: flex-start">
                 <h5 class="mb-0">Lịch sử thanh toán</h5>
+                <button class="btn btn-primary mb-2"
+                        style="background-color: #b85555; color: white; border: none;"
+                        data-toggle="modal" data-target="#confirmPaymentModal"
+                        id="btnConfirmPaymentModal"
+                >Xác nhận thanh toán
+                </button>
+                <div class="modal fade" id="confirmPaymentModal" tabindex="-1" aria-labelledby="confirmPaymentModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog" style="max-width: 50%">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Xác nhận thanh toán</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span>&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="d-flex">
+                                    <div class="mr-2">Số tiền cần thanh toán: </div>
+                                    <div id="paymentAmount"></div>
+                                    <input type="hidden" class="form-control" id="paymentAmountInput" value="0">
+                                </div>
+                                <div class="mt-2">
+                                    <label class="form-label">Tiền khách đưa:</label>
+                                    <input type="number" class="form-control"
+                                           id="paymentAmountCustomer"
+                                           placeholder="Nhập số tiền khách đưa" value="0">
+                                </div>
+                                <div class="mt-2">
+                                    <label class="form-label">Tiền thừa: </label>
+                                    <input type="number" class="form-control" value="0" id="paymentAmountReturn" disabled>
+                                </div>
+                                <div class="mt-2">
+                                    <label class="form-label">Ghi chú:</label>
+                                    <textarea class="form-control" placeholder="Nhập ghi chú" id="decConfirmPayment"></textarea>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" id="btn-confirm-payment">Xác nhận
+                                </button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="card-body">
@@ -190,15 +239,19 @@
         <div class=" card-body bg-white ">
             <div class="row">
                 <div class="col-6">
-                    <div class="d-flex ">
+                    <div class="d-flex">
                         <div class="order-title">Tên khách hàng</div>
+                        <div id="orderNameCutommer" class="order-sub"></div>
+                    </div>
+                    <div class="d-flex mt-2">
+                        <div class="order-title">Tên người nhận</div>
                         <div id="orderName" class="order-sub"></div>
                     </div>
-                    <div class="d-flex">
+                    <div class="d-flex mt-2">
                         <div class="order-title">Số điện thoại</div>
                         <div id="orderPhone" class="order-sub"></div>
                     </div>
-                    <div class="d-flex">
+                    <div class="d-flex mt-2">
                         <div class="order-title">Địa chỉ</div>
                         <div id="orderAddress" class="order-sub"></div>
                     </div>
@@ -208,11 +261,15 @@
                         <div class="order-title">Hình thức</div>
                         <div id="orderType" class="order-sub"></div>
                     </div>
-                    <div class="d-flex">
+                    <div class="d-flex mt-2">
                         <div class="order-title">Trạng thái</div>
-                        <div id="orderStatus" class="order-sub"></div>
+                        <div>
+                            <span  style="min-width: 100px" class="badge rounded-pill text-bg-secondary order-sub" id="orderStatus">
+
+                            </span>
+                        </div>
                     </div>
-                    <div class="d-flex">
+                    <div class="d-flex mt-2">
                         <div class="order-title">Mô tả</div>
                         <div id="orderDec" class="order-sub"></div>
                     </div>
@@ -253,7 +310,6 @@
                     <div>
                         <div style="display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 10px">
                             <div>Phiếu giảm giá</div>
-
                         </div>
                         <div class="alert alert-warning" role="alert" id="voucherInfo" style="display: none">
                             <div id="voucherInfoCode"></div>
@@ -287,11 +343,21 @@
 <script>
     let codeBill =  "${codeBill}";
     let hoaDon = null;
-
+    //Trạng thái của hóa đơn phục vụ cho chuyển trạng thái
+    let statusBill = [
+        "TAO_DON_HANG",
+        "CHO_XAC_NHAN",
+        "DA_XAC_NHAN",
+        "CHO_GIA0",
+        "DANG_GIAO",
+        "HOAN_THANH",
+        "HUY",
+    ]
     $(document).ready(function () {
         getDataBill()
         function getDataBill() {
             console.log(codeBill)
+            $('#loading').show();
             $.ajax({
                 url: '/admin/order/detail',
                 method: 'POST',
@@ -299,6 +365,7 @@
                 data: codeBill,
                 success: function (data) {
                     console.log(data.data)
+                    hoaDon = data.data
                     createStatusSteps(data.data.lstLichSuHoaDon)
                     loadTableProduct(data.data.lstHoaDonChiTiet)
                     loadTableHistoryPay(data.data.lstLichSuThanhToan)
@@ -308,10 +375,16 @@
                     loadMoneyInfoOrder(data.data)
                     loadTableHistoryPay(data.data.lstLichSuThanhToan)
                     loadHideShowBtnOrderDetail(data.data)
+                    setTimeout(() => {
+                        $('#loading').hide();
+                    }, 500);
                 },
                 error: function (err) {
-                    toastr.error('Lỗi khi lấy dữ liệu', err);
-                }
+                    setTimeout(() => {
+                        $('#loading').hide();
+                    }, 500);
+                    console.log('Lỗi khi lấy dữ liệu', err);
+                },
             });
         }
 
@@ -413,6 +486,7 @@
             ],
         });
         const loadTableHistoryPay = (data) => {
+            data.sort((a,b) => a.id - b.id)
             historyPayBillTable.clear();
             $.each(data, function (index, item) {
                 historyPayBillTable.row.add([
@@ -432,6 +506,8 @@
             $("#voucher-money").text(formatCurrency(data.tienGiam))
             $("#ship-money").text(formatCurrency(data.phiVanChuyen))
             $("#total-amount").text(formatCurrency(data.thanhTien))
+            $("#paymentAmount").text(formatCurrency(data.thanhTien))
+            $("#paymentAmountInput").val(data.thanhTien)
         }
 
         function loadDataVoucher(data) {
@@ -446,29 +522,213 @@
             }
         }
         const loadMoneyInfoOrder = (data) => {
-            $("#orderName").text(data.tenNguoiNhan ? data.tenNguoiNhan : "Khách lẻ");
-            $("#orderPhone").text(data.soDienThoaiNguoiNhan ? data.soDienThoaiNguoiNhan : "Khách lẻ");
+            $("#orderNameCutommer").text(data?.khachHang ? data.khachHang.hoVaTen : "Khách lẻ");
+            $("#orderName").text(data.tenNguoiNhan ? data.tenNguoiNhan : "");
+            $("#orderPhone").text(data.soDienThoaiNguoiNhan ? data.soDienThoaiNguoiNhan : "");
             $("#orderAddress").text(data.diaChiNguoiNhan)
             $("#orderType").text(data.hinhThucHoaDon)
             $("#orderStatus").text(convertTypeInvoiceStatus(data.trangThai))
             $("#orderDec").text(data.moTa)
             $("#labelBillCode").text(data.maHoaDon)
         }
+        // get Index trong status hóa đơn
+        function getIndexNumberByStatusBill(status){
+            console.log(status)
+            return statusBill.indexOf(status);
+        }
+
+        function setStatusBillByIndexNumber(index){
+            if (index < 0 || index >= statusBill.length) {
+                return "Index không hợp lệ"; // Xử lý khi index không hợp lệ
+            }
+            return statusBill[index]
+        }
 
         const loadHideShowBtnOrderDetail = (data) => {
             let billStatus = data.trangThai;
-            if (billStatus == "CHO_XAC_NHAN"){
+            let billType = data.loaiHoaDon;
+            if (billStatus == "CHO_XAC_NHAN" && billStatus != "HUY" ){
                 $("#btnCancel").show()
             }else {
                 $("#btnCancel").hide()
             }
-            if (billStatus == "HOAN_THANH"){
-                $("#btnAction").hide()
-                $("#btnActionBack").hide()
-            }else {
+
+            if (billStatus != "HOAN_THANH" && billStatus != "HUY"){
+                let statusPre = getIndexNumberByStatusBill(hoaDon.trangThai)
+                let statusNext = setStatusBillByIndexNumber(statusPre+1)
+                $("#btnAction").text(convertTypeInvoiceStatus(statusNext))
                 $("#btnAction").show()
-                $("#btnActionBack").show()
+            }else {
+                $("#btnAction").hide()
             }
+
+            if (billStatus != "CHO_XAC_NHAN" && billStatus != "HOAN_THANH"
+                && billStatus != "HUY"){
+                $("#btnActionBack").show()
+            }else {
+                $("#btnActionBack").hide()
+            }
+            if (billType == "OFFLINE" && billStatus == "DA_XAC_NHAN"){
+                $("#btnActionBack").hide()
+            }
+            if (billStatus == "DANG_GIAO" && hoaDon?.lstLichSuThanhToan?.length == 0){
+                $('#btnConfirmPaymentModal').show()
+            }else {
+                $('#btnConfirmPaymentModal').hide()
+            }
+
         }
+
+        function changeStatusOrder(data) {
+            $.ajax({
+                url: `/admin/order/change-status`,
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    ...data,
+                }),
+                success: function (data) {
+                    getDataBill()
+                    toastr.success('Thay đổi trạng thái thành công');
+                },
+                error: function () {
+                },
+            });
+        }
+
+
+        $('#btnCancel').on('click', function () {
+            Swal.fire({
+                title: 'Bạn có chắc muốn hủy đơn hàng này?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Xác nhận',
+                cancelButtonText: 'Hủy'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    let data = {
+                        codeBill: codeBill,
+                        status: "HUY",
+                        messenger: "",
+                    }
+                    changeStatusOrder(data)
+                }
+            });
+        })
+
+        $('#btnAction').on('click', function () {
+
+
+            Swal.fire({
+                title: 'Xác nhận đơn hàng',
+                input: 'textarea', // Thêm ô input
+                inputPlaceholder: 'Ghi chú',
+                inputAttributes: {
+                    maxlength: 500,
+                    rows: 5,
+                    autocapitalize: 'off',
+                    autocorrect: 'off'
+                },
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Xác nhận',
+                cancelButtonText: 'Hủy',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    let statusPre = getIndexNumberByStatusBill(hoaDon.trangThai)
+                    console.log(statusPre)
+                    let statusNext = setStatusBillByIndexNumber(statusPre+1)
+                    console.log(statusNext)
+                    if (statusNext == "HOAN_THANH" && hoaDon?.lstLichSuThanhToan?.length == 0){
+                        toastr.error('Vui lòng xác nhận thanh toán');
+                        return
+                    }
+
+                    let data = {
+                        codeBill: codeBill,
+                        status: statusNext,
+                        messenger: result.value, // Gán giá trị từ textarea,
+                    }
+                    changeStatusOrder(data)
+                }
+            });
+        })
+
+        $('#btnActionBack').on('click', function () {
+            Swal.fire({
+                title: 'Quay lại trạng thái trước',
+                input: 'textarea', // Thêm ô input
+                inputPlaceholder: 'Ghi chú',
+                inputAttributes: {
+                    maxlength: 500,
+                    rows: 5,
+                    autocapitalize: 'off',
+                    autocorrect: 'off'
+                },
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Xác nhận',
+                cancelButtonText: 'Hủy',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    let status = getIndexNumberByStatusBill(hoaDon.trangThai)
+                    let statusBack = setStatusBillByIndexNumber(status-1)
+                    let data = {
+                        codeBill: codeBill,
+                        status: statusBack,
+                        messenger: result.value, // Gán giá trị từ textarea,
+                    }
+                    changeStatusOrder(data)
+                }
+            });
+        })
+
+
+        function confirmPaymentOrder() {
+            let dec = $('#decConfirmPayment').val()
+            let money = parseFloat($('#paymentAmountCustomer').val()) || 0;
+            let totalAmount = parseFloat($('#paymentAmountInput').val()) || 0;
+            if (money < totalAmount){
+                toastr.info('Bạn chưa nhập đủ số tiền cần thanh toán');
+                return
+            }
+
+            $.ajax({
+                url: `/admin/order/confirm-payment`,
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    codeBill: codeBill,
+                    codePayment: "",
+                    type: "TIEN_MAT",
+                    description: dec,
+                }),
+                success: function (data) {
+                    $('#confirmPaymentModal').modal('hide');
+                    getDataBill()
+                    toastr.success('Xác nhận thanh toán thành công');
+                },
+                error: function () {
+                },
+            });
+        }
+
+        $('#btn-confirm-payment').on('click', function () {
+            confirmPaymentOrder();
+        })
+
+
+        $('#paymentAmountCustomer').on('input', function() {
+            console.log('Input event triggered');
+            let money = parseFloat($('#paymentAmountCustomer').val()) || 0;
+            let totalAmount = parseFloat($('#paymentAmountInput').val()) || 0;
+            let moneyResult = money -totalAmount;
+            $('#paymentAmountReturn').val(moneyResult);
+        });
+
     });
 </script>

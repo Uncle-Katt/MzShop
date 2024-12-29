@@ -18,10 +18,9 @@
         font-weight: 400;
     }
 </style>
-<div class=" order">
-    <h2 class="mb-4">Quản Lý Đơn Hàng</h2>
-
-    <div class="card mb-4" style="border: 1px solid #b85555; background-color: white;">
+<div class="order">
+    <h3 class="mb-4">Quản Lý Đơn Hàng</h3>
+    <div class="card mt-4" style="border: 1px solid #b85555; background-color: white;">
         <div class="card-body">
             <h5 class="mb-3">
                 <i class="fas fa-filter"></i> Bộ Lọc
@@ -62,9 +61,8 @@
 
         </div>
     </div>
-
     <!-- Thêm phần Tabs vào thẻ div cuối -->
-    <div class="card">
+    <div class="card mt-4">
         <div class="card-body">
             <h5>Danh sách đơn hàng</h5>
 
@@ -103,7 +101,6 @@
                         <th>#</th>
                         <th>Mã đơn hàng</th>
                         <th>Tên khách hàng</th>
-                        <th>Số điện thoại</th>
                         <th>Loại</th>
                         <th>Ngày tạo</th>
                         <th>Tổng tiền</th>
@@ -150,8 +147,7 @@
                         orderTable.row.add([
                             index + 1,
                             order.maHoaDon,
-                            order.tenNguoiNhan ? order.tenNguoiNhan : "Khách Lẻ",
-                            order.soDienThoaiNguoiNhan ? order.soDienThoaiNguoiNhan : "Khách Lẻ",
+                            order.khachHang ? order.khachHang.hoVaTen : "Khách Lẻ",
                             order.loaiHoaDon,
                             formatDate(order.ngayDat),
                             formatCurrency(order.thanhTien),

@@ -36,6 +36,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -203,7 +204,7 @@ public class SalesServiveImpl implements ISalesService {
                 .orElseThrow(() -> new AppException(ErrorCode.INVALID_REQUEST));
         modelMapper.map(dto, hoaDon);
         hoaDon.setLoaiHoaDon(BillType.OFFLINE.toString());
-        hoaDon.setNgayDat(new Date());
+        hoaDon.setNgayDat(LocalDateTime.now());
         LichSuHoaDon lichSuHoaDon = LichSuHoaDon.builder().hoaDon(hoaDon).build();
         if (dto.getIsGiaoHang()){
             hoaDon.setTrangThai(InvoiceStatus.DA_XAC_NHAN.getLabel());

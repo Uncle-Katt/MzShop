@@ -17,6 +17,8 @@ public class OrderBillListDTO {
 
     private String maHoaDon;
 
+    private KhachHang khachHang;
+
     private String phuongThucThanhToan;
 
     private String loaiHoaDon;

@@ -23,6 +23,7 @@ import lombok.Setter;
 import org.hibernate.annotations.DynamicUpdate;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Set;
 
@@ -76,16 +77,13 @@ public class HoaDon extends BaseEntity {
     private BigDecimal thanhTien;
 
     @Column(name = "ngay_dat")
-    @Temporal(TemporalType.DATE)
-    private Date ngayDat;
+    private LocalDateTime ngayDat;
 
     @Column(name = "ngay_giao")
-    @Temporal(TemporalType.DATE)
-    private Date ngayGiao;
+    private LocalDateTime ngayGiao;
 
     @Column(name = "ngay_hoan_thanh")
-    @Temporal(TemporalType.DATE)
-    private Date ngayHoanThanh;
+    private LocalDateTime ngayHoanThanh;
 
     @Column(name = "ten_nguoi_nhan")
     private String tenNguoiNhan;

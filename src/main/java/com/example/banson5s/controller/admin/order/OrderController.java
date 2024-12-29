@@ -3,6 +3,7 @@ package com.example.banson5s.controller.admin.order;
 import com.example.banson5s.dto.ResponseObject;
 import com.example.banson5s.dto.admin.order.OrderBillDTO;
 import com.example.banson5s.dto.admin.order.OrderChangeStatusDTO;
+import com.example.banson5s.dto.admin.order.OrderConfirmPaymentDTO;
 import com.example.banson5s.entity.admin.HoaDon;
 import com.example.banson5s.enums.BillType;
 import com.example.banson5s.enums.InvoiceStatus;
@@ -73,6 +74,13 @@ public class OrderController {
     @ResponseBody
     public ResponseEntity<?> changeStatus(@RequestBody OrderChangeStatusDTO dto) {
        orderService.changeStatusOrder(dto);
+        return new ResponseEntity<>(ResponseObject.builder().data(dto).build(), HttpStatus.OK);
+    }
+
+    @PostMapping("/confirm-payment")
+    @ResponseBody
+    public ResponseEntity<?> confirmPayment(@RequestBody OrderConfirmPaymentDTO dto) {
+        orderService.confirmPaymentOrder(dto);
         return new ResponseEntity<>(ResponseObject.builder().data(dto).build(), HttpStatus.OK);
     }
 }

@@ -30,11 +30,9 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 20%;
-            max-width: 300px;
-            z-index: 1000;
+            z-index: 1001;
             background-color: #b85555;
-            padding: 20px;
+            padding: 40px;
         }
         .content {
             margin-left: 20%;
@@ -156,7 +154,8 @@
 <div class="container-fluid">
     <div class="row">
         <!-- Sidebar -->
-        <nav class="col-md-2 d-none d-md-block sidebar">
+        <div style="width: 20%">
+            <nav class="sidebar">
             <div class="sidebar-sticky">
                 <div class="logo">
                     <img src="/img/Logo.jpg" alt="Logo" class="img-fluid" />
@@ -223,6 +222,5 @@
                     </li>
                 </ul>
             </div>
-        </nav>
-    </div>
-</div>
+             </nav>
+        </div>
