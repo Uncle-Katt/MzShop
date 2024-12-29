@@ -159,8 +159,9 @@
         <nav class="col-md-2 d-none d-md-block sidebar">
             <div class="sidebar-sticky">
                 <div class="logo">
-                    <img src="/img/Logo.jpg" alt="Logo" class="img-fluid" />
+                    <img src="/includes/images/1.jpg" alt="Logo" class="img-fluid" />
                 </div>
+
                 <ul class="nav flex-column">
                     <li class="nav-item">
                         <a class="nav-link active text-white h5" href="/admin/thongke" aria-label="Thống kê">

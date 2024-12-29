@@ -526,8 +526,6 @@
                                 '<td>' + formatCurrency(product.giaBan) + '</td>' +
                                 '<td>' + product.soLuong + '</td>' +
                                 '<td>' + formatCurrency(product.tongTien) + '</td>' +
-                                // '<td>' + product.sanPham.thuongHieu.tenThuongHieu + '</td>' +
-                                // '<td>' + product.sanPham.danhMuc.tenDanhMuc + '</td>' +
                                 '<td>' +
                                 '<button  type="button" class="btn btn-danger delete-btn-product" data-delete-product-id="' + product.id + '" >Xóa</button></td>' +
                                 '</tr>';

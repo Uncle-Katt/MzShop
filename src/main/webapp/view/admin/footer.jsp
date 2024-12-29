@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <footer class="text-center mt-4">
-    <p>&copy;All rights reserved.</p>
+    <p>@5sShop</p>
 </footer>
 
 
