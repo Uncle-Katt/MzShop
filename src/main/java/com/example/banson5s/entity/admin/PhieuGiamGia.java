@@ -20,6 +20,7 @@ import lombok.Setter;
 import org.hibernate.annotations.DynamicUpdate;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -48,12 +49,10 @@ public class PhieuGiamGia extends BaseEntity {
     private String dieuKienApDung;
 
     @Column(name = "ngay_bat_dau")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date ngayBatDau;
+    private LocalDateTime ngayBatDau;
 
     @Column(name = "ngay_ket_thuc")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date ngayKetThuc;
+    private LocalDateTime ngayKetThuc;
 
     @Column(name = "so_luong")
     private Integer soLuong;

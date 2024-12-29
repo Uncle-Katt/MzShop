@@ -3,9 +3,7 @@ package com.example.banson5s.dto.admin.order;
 import com.example.banson5s.entity.admin.KhachHang;
 import com.example.banson5s.entity.admin.NhanVien;
 import com.example.banson5s.entity.admin.PhieuGiamGia;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
@@ -14,18 +12,12 @@ import java.util.Set;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-public class OrderBillDTO {
+public class OrderBillListDTO {
     private Long id;
 
     private String maHoaDon;
 
     private KhachHang khachHang;
-
-    private NhanVien nhanVien;
-
-    private PhieuGiamGia phieuGiamGia;
 
     private String phuongThucThanhToan;
 
@@ -57,9 +49,4 @@ public class OrderBillDTO {
 
     private String moTa;
 
-    private Set<OrderBillDetailDTO> lstHoaDonChiTiet;
-
-    private Set<OrderHistoryBillDetailDTO> lstLichSuHoaDon;
-
-    private Set<OrderHistoryPaymentBillDetailDTO> lstLichSuThanhToan;
 }
