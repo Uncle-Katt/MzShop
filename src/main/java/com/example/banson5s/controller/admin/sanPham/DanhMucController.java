@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -22,6 +23,7 @@ import java.util.Map;
 public class DanhMucController {
     @Autowired
     private IDanhMucService danhMucService;
+
     @GetMapping()
     public String hienThi(Model model) {
         model.addAttribute("page", "SanPham/danh_muc/index");
