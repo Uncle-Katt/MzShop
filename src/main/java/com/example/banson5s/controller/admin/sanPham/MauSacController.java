@@ -22,7 +22,7 @@ public class MauSacController {
     private IMauSacService mauSacService;
     @GetMapping()
     public String hienThi(Model model) {
-        model.addAttribute("page", "SanPham/mau_sac/index");
+        model.addAttribute("page", "sanPham/mau_sac/index");
         return "admin/main";
     }
     @GetMapping("/list")
@@ -36,7 +36,7 @@ public class MauSacController {
         model.addAttribute("mauSac", new MauSacDTO());
         model.addAttribute("btnText", "Thêm màu sắc");
         model.addAttribute("action", "/admin/mausac/create");
-        model.addAttribute("page", "SanPham/mau_sac/form");
+        model.addAttribute("page", "sanPham/mau_sac/form");
         return "admin/main";
     }
     @PostMapping("/create")
@@ -56,7 +56,7 @@ public class MauSacController {
         }
         model.addAttribute("mauSac", mauSac);
         model.addAttribute("action", "/admin/mausac/update");
-        model.addAttribute("page", "SanPham/mau_sac/form");
+        model.addAttribute("page", "sanPham/mau_sac/form");
         return "admin/main";
     }
     @PostMapping("/update")

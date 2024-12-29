@@ -26,7 +26,7 @@ public class DanhMucController {
 
     @GetMapping()
     public String hienThi(Model model) {
-        model.addAttribute("page", "SanPham/danh_muc/index");
+        model.addAttribute("page", "sanPham/danh_muc/index");
         return "admin/main";
     }
     @GetMapping("/list")
@@ -40,7 +40,7 @@ public class DanhMucController {
         model.addAttribute("danhMuc", new DanhMucDTO());
         model.addAttribute("btnText", "Thêm danh mục");
         model.addAttribute("action", "/admin/danhmuc/create");
-        model.addAttribute("page", "SanPham/danh_muc/form");
+        model.addAttribute("page", "sanPham/danh_muc/form");
         return "admin/main";
     }
     @PostMapping("/create")
@@ -60,7 +60,7 @@ public class DanhMucController {
         }
         model.addAttribute("danhmuc", danhMuc);
         model.addAttribute("action", "/admin/danhmuc/update");
-        model.addAttribute("page", "SanPham/danh_muc/form");
+        model.addAttribute("page", "sanPham/danh_muc/form");
         return "admin/main";
     }
     @PostMapping("/update")

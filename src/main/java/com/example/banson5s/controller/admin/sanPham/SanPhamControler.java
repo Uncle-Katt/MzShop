@@ -26,7 +26,7 @@ public class SanPhamControler {
 
     @GetMapping()
     public String hienThi(Model model) {
-        model.addAttribute("page", "SanPham/san_pham/index");
+        model.addAttribute("page", "sanPham/san_pham/index");
 //        model.addAttribute("dsSanPham", spRepo.findAll());
 //        model.addAttribute("dsDanhMuc", dmRepo.findAll());
 //        model.addAttribute("dsXuatXu", xxRepo.findAll());

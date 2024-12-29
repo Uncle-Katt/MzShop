@@ -1,9 +1,7 @@
 package com.example.banson5s.controller.admin.sanpham;
 
 import com.example.banson5s.dto.ResponseObject;
-import com.example.banson5s.dto.admin.sanPham.ThuongHieuDTO;
 import com.example.banson5s.dto.admin.sanPham.XuatXuDTO;
-import com.example.banson5s.enums.Gender;
 import com.example.banson5s.service.admin.IXuatXuService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/admin/xuatxu")
@@ -27,7 +23,7 @@ public class XuatXuController {
     @GetMapping()
     public String hienThi(Model model) {
 
-        model.addAttribute("page", "SanPham/xuat_xu/index");
+        model.addAttribute("page", "sanPham/xuat_xu/index");
         return "admin/main";
     }
     @GetMapping("/list")
@@ -41,7 +37,7 @@ public class XuatXuController {
         model.addAttribute("xuatXu", new XuatXuDTO());
         model.addAttribute("btnText", "Thêm xuất xứ");
         model.addAttribute("action", "/admin/xuatxu/create");
-        model.addAttribute("page", "SanPham/xuat_xu/form");
+        model.addAttribute("page", "sanPham/xuat_xu/form");
         return "admin/main";
     }
     @PostMapping("/create")
@@ -61,7 +57,7 @@ public class XuatXuController {
         }
         model.addAttribute("xuatXu", xuatXu);
         model.addAttribute("action", "/admin/xuatxu/update");
-        model.addAttribute("page", "SanPham/xuat_xu/form");
+        model.addAttribute("page", "sanPham/xuat_xu/form");
         return "admin/main";
     }
     @PostMapping("/update")
