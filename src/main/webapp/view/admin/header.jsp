@@ -185,7 +185,7 @@
                         <div class="collapse" id="productManagement">
                             <ul class="nav flex-column ml-3">
                                 <li class="nav-item">
-                                    <a class="nav-link text-white h5" href="/admin/sanpham" aria-label="Sản phẩm">Sản phẩm</a>
+                                    <a class="nav-link text-white h5" href="/admin/product" aria-label="Sản phẩm">Sản phẩm</a>
                                 </li>
 
                                 <li class="nav-item">

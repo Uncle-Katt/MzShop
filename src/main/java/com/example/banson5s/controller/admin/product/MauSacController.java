@@ -1,4 +1,4 @@
-package com.example.banson5s.controller.admin.sanPham;
+package com.example.banson5s.controller.admin.product;
 
 import com.example.banson5s.dto.ResponseObject;
 import com.example.banson5s.dto.admin.sanPham.MauSacDTO;
