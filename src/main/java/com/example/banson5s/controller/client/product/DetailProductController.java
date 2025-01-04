@@ -5,11 +5,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/sanpham")
-public class ProductController {
+@RequestMapping("/detailproduct")
+public class DetailProductController {
     @GetMapping
-    public String sanPhamPage() {
-        return "client/SanPham/sanpham"; // Trả về tên view
+    public String DetailProductPage() {
+        return "client/SanPham/detailproduct"; // Trả về tên view
     }
 }
-

@@ -6,10 +6,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping()
+@RequestMapping("/")
 public class HomeController {
-    @GetMapping(value = { "", "/"})
-    public String home(Model model) {
+    @GetMapping(value = { "", "/" })
+    public String home() {
         return "client/index";
     }
 }
+
