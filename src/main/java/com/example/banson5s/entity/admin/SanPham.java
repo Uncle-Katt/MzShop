@@ -44,4 +44,7 @@ public class SanPham extends BaseEntity {
 
     @Column(name = "ten_san_pham")
     private String tenSanPham;
+
+    @Column(name = "trang_thai")
+    private String trangThai;
 }

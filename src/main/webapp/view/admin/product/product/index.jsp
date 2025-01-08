@@ -6,26 +6,44 @@
     <h2 class="mb-4">Quản Lý Sản Phẩm</h2>
 
     <!-- Bộ lọc tìm kiếm -->
-    <div class="card mb-4" style="border: 2px solid #b85555; background-color: white;">
+    <div class="card mt-4" style="border: 2px solid #b85555; background-color: white;">
         <div class="card-body">
             <h5 class="mb-3">
                 <i class="fas fa-filter"></i> Bộ Lọc
             </h5>
-
-            <div class="row justify-content-center mb-3">
+            <div class="row" style="align-items: center">
                 <div class="col-md-6">
-                    <form class="form-inline" method="GET" action="">
-                        <div class="input-group w-100">
-                            <input class="form-control" name="key" placeholder="Tìm kiếm sản phẩm ..."/>
-                            <button class="btn btn-red ml-2" type="submit"
-                                    style="background-color: #b85555; color: white;">
-                                <i class="fas fa-search"></i> Tìm kiếm
-                            </button>
+                    <div class="input-group mb-3">
+                        <input type="text" id="input_search_product" class="form-control"  name="key" placeholder="Nhập tên sản phẩm...">
+                        <button class="btn btn-outline-secondary" id="btn_search_product" type="button" style="background-color: #b85555; color: white;"><i class="fas fa-search"></i> Tìm kiếm</button>
+                    </div>
+                </div>
+                <div class="col-md-6 pl-4">
+                    <div class="col d-flex">
+                        <label style="font-size: 18px">Trạng Thái:</label>
+                        <div class="d-flex ml-4">
+                            <div class="form-check">
+                                <input class="form-check-input" id="order_type_all" type="radio" name="order_type"  value="" checked>
+                                <label class="form-check-label" for="order_type_all">
+                                    Tất Cả
+                                </label>
+                            </div>
+                            <div class="form-check ml-2">
+                                <input class="form-check-input" id="order_type_online" type="radio" name="order_type" value="">
+                                <label class="form-check-label" for="order_type_online">
+                                    Đang bán
+                                </label>
+                            </div>
+                            <div class="form-check ml-2">
+                                <input class="form-check-input" id="order_type_offline" type="radio" name="order_type" value="">
+                                <label class="form-check-label" for="order_type_offline">
+                                    Ngừng bán
+                                </label>
+                            </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
-
             <div class="form-row mb-4">
                 <div class="col">
                     <label for="danhMuc">Danh mục</label>
@@ -59,20 +77,19 @@
             </div>
         </div>
     </div>
-
     <!-- Danh sách sản phẩm -->
     <div class="card mt-4" style="border: 2px solid #b85555; background-color: white;">
         <div class="card-header bg-white">
             <div class="d-flex justify-content-between align-items-center">
                 <h5 class="mb-4">Danh Sách Sản Phẩm</h5>
-                <a href="/sanpham/create" class="btn btn-pink" style="background-color: #b85555; color: white;">
+                <a href="/admin/product/add" class="btn btn-pink" style="background-color: #b85555; color: white;">
                     + Thêm Sản Phẩm
                 </a>
             </div>
         </div>
 
         <div class="card-body bg-white">
-            <table class="table">
+            <table class="table" id="productTable">
                 <thead>
                 <tr>
                     <th>#</th>
@@ -91,3 +108,54 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+        let productTable = $('#productTable').DataTable({
+            "paging": true,        // Bật phân trang
+            "searching": false,     // Bật tìm kiếm
+            "ordering": false,      // Bật sắp xếp
+            "info": false,          // Bật thông tin tổng quan
+            "lengthChange": false,  // Cho phép thay đổi số lượng bản ghi hiển thị
+            "pageLength": 5,       // Số lượng bản ghi trên mỗi trang
+            "columnDefs": [
+                {"className": "text-center", "targets": "_all"}
+            ],
+        });
+
+        function loadTableProduct() {
+            const search = $('#input_search_product').val();
+            $.ajax({
+                url: '/admin/product/list',
+                method: 'GET',
+                dataType: 'json',
+                data: {search: search},
+                success: function (data) {
+                    productTable.clear();
+                    $.each(data.data, function (index, item) {
+                        productTable.row.add([
+                            index + 1,
+                            item.sanPham,
+                            item.danhMuc,
+                            item.thuongHieu,
+                            item.xuatXu,
+                            item.soLuong,
+                            item.soLuong,
+                            '<a  href="/admin/staff/detail/' + item.id + '"  class="btn btn-warning btn-sm mr-2"><i class="fa-solid fa-info"></i></a>' +
+                            '<a href="/admin/staff/update/' + item.id + '" class="btn btn-success btn-sm mr-2"><i class="fa-solid fa-pen"></i></a>'
+                        ]);
+                    });
+                    productTable.draw();
+                },
+                error: function (err) {
+                    // toastr.error('Lỗi khi lấy dữ liệu', err);
+                }
+            });
+        }
+
+        $(document).on('click', '#btn_search_product', function () {
+            loadTableProduct()
+        });
+        loadTableProduct()
+    })
+
+</script>
