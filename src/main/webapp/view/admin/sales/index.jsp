@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <div>
-    <h2>Bán Hàng Tại Quầy</h2>
+    <h3 class="mb-4">Bán Hàng Tại Quầy</h3>
     <div class="row">
         <div class="col-md-12">
             <button id="createInvoices" class="btn btn-primary mb-2"
@@ -368,7 +368,8 @@
                                 <p id="voucher-money">0 đ</p>
                                 <p><strong style="color: #b85555;" id="total-amount">0 đ</strong></p>
                                 <div class="input-group mb-3" style="border: 1px solid #b85555;">
-                                    <input type="number" class="form-control" id="moneyCustomerInput" placeholder="0 VND"
+                                    <input type="number" class="form-control" id="moneyCustomerInput"
+                                           placeholder="0 VND"
                                            style="border: none;">
                                     <div class="input-group-append">
                                         <span class="input-group-text" style="border: none;">
@@ -594,12 +595,16 @@
                         contentType: 'application/json',
                         data: JSON.stringify(idDelete),
                         success: function (response) {
-                            $('#loading').hide();
+                            setTimeout(() => {
+                                $('#loading').hide();
+                            }, 500);
                             loadInvoicesItem()
                             toastr.success('Xóa sản phẩm thành công');
                         },
                         error: function (err) {
-                            $('#loading').fadeOut();
+                            setTimeout(() => {
+                                $('#loading').hide();
+                            }, 500);
                             toastr.error('Xóa sản phẩm thất bại');
                         }
                     });
@@ -626,12 +631,16 @@
                         contentType: 'application/json',
                         data: JSON.stringify(billId),
                         success: function (response) {
-                            $('#loading').fadeOut();
+                            setTimeout(() => {
+                                $('#loading').hide();
+                            }, 500);
                             loadInvoicesItem()
                             toastr.success('Làm mới toàn bộ sản phẩm thành công');
                         },
                         error: function (err) {
-                            $('#loading').fadeOut();
+                            setTimeout(() => {
+                                $('#loading').hide();
+                            }, 500);
                             toastr.error('Làm mới toàn bộ sản phẩm thất bại');
                         }
                     });
@@ -799,14 +808,18 @@
                 }),
                 success: function (response) {
                     $('#customerModal').modal('hide');
-                    $('#loading').fadeOut();
+                    setTimeout(() => {
+                        $('#loading').hide();
+                    }, 500);
                     loadInvoices()
                     khachHang = customer
                     toastr.success('Chọn khách hàng thành công');
                     hideBtnAddressCustomer(customer)
                 },
                 error: function (err) {
-                    $('#loading').fadeOut();
+                    setTimeout(() => {
+                        $('#loading').hide();
+                    }, 500);
                     toastr.error('Chọn khách hàng thất bại');
                 }
             });
@@ -864,7 +877,8 @@
                 return
             }
             let money = $('#moneyCustomerInput').val();
-            if (money < totalAmount){
+            let isSwitchGiaoHang = $("#switchGiaoHang").is(":checked")
+            if (money < totalAmount && !isSwitchGiaoHang) {
                 toastr.error('Vui lòng nhập đủ số tiền cần thanh toán');
                 return;
             }
@@ -913,7 +927,9 @@
                         }),
                         success: function (response) {
                             loadDataInvoices()
-                            $('#loading').hide();
+                            setTimeout(() => {
+                                $('#loading').hide();
+                            }, 500);
                             resetcountTotalMoney();
                             $('#switchGiaoHang').prop('checked', false);
                             handelSwitchGiaoHang(false)
@@ -928,7 +944,9 @@
                         error: function (err) {
                             loadDataInvoices()
                             toastr.error('Đặt hàng thất bại');
-                            $('#loading').hide();
+                            setTimeout(() => {
+                                $('#loading').hide();
+                            }, 500);
                             setTimeout(() => {
                                 window.scrollTo({
                                     top: 0,
@@ -977,8 +995,8 @@
                             formatCurrency(voucher.dieuKienApDung),
                             formatCurrency(voucher.giaTriGiam),
                             voucher.soLuong,
-                            formatDateOnly(voucher.ngayBatDau),
-                            formatDateOnly(voucher.ngayKetThuc),
+                            formatDate(voucher.ngayBatDau),
+                            formatDate(voucher.ngayKetThuc),
                             '<button  type="button" class="btn btn-success select-btn-voucher" data-voucher-id="' + voucher.id + '" data-voucher-value="' + voucher.dieuKienApDung + '" >Chọn</button>'
                         ])
                         voucherTable.draw();
@@ -997,15 +1015,15 @@
         $(document).on('click', '.select-btn-voucher', function () {
             let voucherId = $(this).data('voucher-id');
             let voucherValue = $(this).data('voucher-value');
-            selectVoucher(voucherId,voucherValue)
+            selectVoucher(voucherId, voucherValue)
         });
         $(document).on('click', '.btn-voucher-null', function () {
             selectVoucher(null, null)
         });
 
-        function selectVoucher(voucherId,voucherValue) {
+        function selectVoucher(voucherId, voucherValue) {
             console.log(voucherValue)
-            if (voucherValue != null && voucherValue > totalMoney){
+            if (voucherValue != null && voucherValue > totalMoney) {
                 toastr.error('Đơn hàng của bạn không đủ điều kiện để sử dụng phiếu giảm giá này');
                 return;
             }
@@ -1019,13 +1037,17 @@
                 }),
                 success: function (response) {
                     $('#voucherModal').modal('hide');
-                    $('#loading').fadeOut();
+                    setTimeout(() => {
+                        $('#loading').hide();
+                    }, 500);
                     loadInvoices()
                     countTotalMoney();
                     toastr.success('Chọn phiếu giảm giá thành công');
                 },
                 error: function (err) {
-                    $('#loading').fadeOut();
+                    setTimeout(() => {
+                        $('#loading').hide();
+                    }, 500);
                     toastr.error('Chọn phiếu giảm giá thất bại');
                 }
             });
@@ -1041,8 +1063,8 @@
             } else {
                 $('#voucherInfo').show()
                 voucherMoney = data.giaTriGiam
-                $('#voucherInfoCode').text("Mã: "+data.maPhieuGiamGia);
-                $('#voucherInfoName').text("Tên: "+data.tenPhieuGiamGia);
+                $('#voucherInfoCode').text("Mã: " + data.maPhieuGiamGia);
+                $('#voucherInfoName').text("Tên: " + data.tenPhieuGiamGia);
             }
             countTotalMoney();
         }
@@ -1066,6 +1088,7 @@
                 $("#textTimeDhn").text("")
                 $("#boxInfoGiaoHang").hide()
             }
+            $('#moneyCustomerInput').prop('disabled', isCheck);
             hideBtnAddressCustomer(khachHang)
         }
 
@@ -1305,8 +1328,8 @@
                     },
                     success: function (response) {
                         const time = response.data.leadtime_order
-                        const fromDateOnly = formatDateOnly(time.from_estimate_date);
-                        const toDateOnly = formatDateOnly(time.to_estimate_date);
+                        const fromDateOnly = formatDate(time.from_estimate_date);
+                        const toDateOnly = formatDate(time.to_estimate_date);
                         $("#textTimeDhn").text("Dự kiến giao hàng từ: " + fromDateOnly + " đến: " + toDateOnly)
                     },
                     error: function (error) {
@@ -1348,10 +1371,14 @@
                 data: JSON.stringify(khachHang.id),
                 success: function (data) {
                     fillTableAddress(data.data)
-                    $('#loading').hide();
+                    setTimeout(() => {
+                        $('#loading').hide();
+                    }, 500);
                 },
                 error: function (err) {
-                    $('#loading').hide();
+                    setTimeout(() => {
+                        $('#loading').hide();
+                    }, 500);
                     toastr.error('Lỗi khi lấy dữ liệu address', err);
                 }
             });
@@ -1403,13 +1430,5 @@
 
 
         // address end
-
-        function formatDateOnly(isoString) {
-            const date = new Date(isoString);
-            const day = String(date.getUTCDate()).padStart(2, '0'); // Lấy ngày (2 chữ số)
-            const month = String(date.getUTCMonth() + 1).padStart(2, '0'); // Lấy tháng (2 chữ số, cộng thêm 1 vì tháng bắt đầu từ 0)
-            const year = date.getUTCFullYear(); // Lấy năm
-            return day + "/" + month + "/" + year;
-        }
     });
 </script>

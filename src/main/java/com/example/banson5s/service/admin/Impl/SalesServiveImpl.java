@@ -17,6 +17,7 @@ import com.example.banson5s.entity.admin.SanPhamChiTiet;
 import com.example.banson5s.enums.BillType;
 import com.example.banson5s.enums.CouponStatus;
 import com.example.banson5s.enums.InvoiceStatus;
+import com.example.banson5s.enums.PaymentMethod;
 import com.example.banson5s.exception.AppException;
 import com.example.banson5s.exception.ErrorCode;
 import com.example.banson5s.service.admin.IDiaChiService;
@@ -35,6 +36,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -201,6 +204,7 @@ public class SalesServiveImpl implements ISalesService {
                 .orElseThrow(() -> new AppException(ErrorCode.INVALID_REQUEST));
         modelMapper.map(dto, hoaDon);
         hoaDon.setLoaiHoaDon(BillType.OFFLINE.toString());
+        hoaDon.setNgayDat(LocalDateTime.now());
         LichSuHoaDon lichSuHoaDon = LichSuHoaDon.builder().hoaDon(hoaDon).build();
         if (dto.getIsGiaoHang()){
             hoaDon.setTrangThai(InvoiceStatus.DA_XAC_NHAN.getLabel());
@@ -210,6 +214,9 @@ public class SalesServiveImpl implements ISalesService {
             hoaDon.setTrangThai(InvoiceStatus.HOAN_THANH.getLabel());
             hoaDon.setHinhThucHoaDon(BillType.OFFLINE.toString());
             lichSuHoaDon.setLoai(InvoiceStatus.HOAN_THANH.getLabel());
+            LichSuThanhToan lichSuThanhToan = LichSuThanhToan.builder().soTienThanhToan(dto.getTongTien()).loaiThanhToan(
+                    PaymentMethod.TIEN_MAT.getLabel()).hoaDon(hoaDon).build();
+            lichSuThanhToanService.createNew(lichSuThanhToan);
         }
         if (hoaDon.getPhieuGiamGia() != null){
             PhieuGiamGia phieuGiamGia = hoaDon.getPhieuGiamGia();

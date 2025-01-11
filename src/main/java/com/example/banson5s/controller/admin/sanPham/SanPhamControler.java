@@ -1,10 +1,9 @@
-package com.example.banson5s.controller.admin.sanpham;
+package com.example.banson5s.controller.admin.sanPham;
 
 //import com.example.banson5s.repository.admin.IDanhMucRepo;
 //import com.example.banson5s.repository.admin.ISanPhamRepository;
 //import com.example.banson5s.repository.admin.IThuongHieuRepo;
 //import com.example.banson5s.repository.admin.IXuatXuRepo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +26,7 @@ public class SanPhamControler {
 
     @GetMapping()
     public String hienThi(Model model) {
-        model.addAttribute("page", "SanPham/san_pham/index");
+        model.addAttribute("page", "sanPham/san_pham/index");
 //        model.addAttribute("dsSanPham", spRepo.findAll());
 //        model.addAttribute("dsDanhMuc", dmRepo.findAll());
 //        model.addAttribute("dsXuatXu", xxRepo.findAll());

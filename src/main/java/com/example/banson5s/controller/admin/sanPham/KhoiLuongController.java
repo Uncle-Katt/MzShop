@@ -1,4 +1,4 @@
-package com.example.banson5s.controller.admin.sanpham;
+package com.example.banson5s.controller.admin.sanPham;
 
 import com.example.banson5s.dto.ResponseObject;
 import com.example.banson5s.dto.admin.sanPham.KhoiLuongDTO;
@@ -22,7 +22,7 @@ public class KhoiLuongController {
     private IKhoiLuongService khoiLuongService;
     @GetMapping()
     public String hienThi(Model model) {
-        model.addAttribute("page", "SanPham/khoi_luong/index");
+        model.addAttribute("page", "sanPham/khoi_luong/index");
         return "admin/main";
     }
     @GetMapping("/list")
@@ -36,7 +36,7 @@ public class KhoiLuongController {
         model.addAttribute("khoiLuong", new KhoiLuongDTO());
         model.addAttribute("btnText", "Thêm khối lượng");
         model.addAttribute("action", "/admin/khoiluong/create");
-        model.addAttribute("page", "SanPham/khoi_luong/form");
+        model.addAttribute("page", "sanPham/khoi_luong/form");
         return "admin/main";
     }
     @PostMapping("/create")
@@ -56,7 +56,7 @@ public class KhoiLuongController {
         }
         model.addAttribute("khoiLuong", khoiLuong);
         model.addAttribute("action", "/admin/khoiluong/update");
-        model.addAttribute("page", "SanPham/khoi_luong/form");
+        model.addAttribute("page", "sanPham/khoi_luong/form");
         return "admin/main";
     }
     @PostMapping("/update")

@@ -1,4 +1,4 @@
-package com.example.banson5s.controller.admin.thongke;
+package com.example.banson5s.controller.admin.thongKe;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

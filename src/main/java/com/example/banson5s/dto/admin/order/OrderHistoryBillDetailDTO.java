@@ -19,4 +19,6 @@ public class OrderHistoryBillDetailDTO {
     private Long id;
     private String loai;
     private String moTa;
+    private String ngayTao;
+    private String nguoiTao;
 }

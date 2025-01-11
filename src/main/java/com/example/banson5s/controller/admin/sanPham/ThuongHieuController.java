@@ -1,4 +1,4 @@
-package com.example.banson5s.controller.admin.sanpham;
+package com.example.banson5s.controller.admin.sanPham;
 
 import com.example.banson5s.dto.ResponseObject;
 import com.example.banson5s.dto.admin.sanPham.ThuongHieuDTO;
@@ -26,7 +26,7 @@ public class ThuongHieuController {
     // Hiển thị trang chính
     @GetMapping()
     public String hienThi(Model model) {
-        model.addAttribute("page", "SanPham/thuong_hieu/index");
+        model.addAttribute("page", "sanPham/thuong_hieu/index");
         return "admin/main";
     }
     @GetMapping("/list")
@@ -42,7 +42,7 @@ public class ThuongHieuController {
         model.addAttribute("thuongHieu", new ThuongHieuDTO());
         model.addAttribute("btnText", "Thêm thương hiệu");
         model.addAttribute("action", "/admin/thuonghieu/create");
-        model.addAttribute("page", "SanPham/thuong_hieu/form");
+        model.addAttribute("page", "sanPham/thuong_hieu/form");
         return "admin/main";
     }
 
@@ -66,7 +66,7 @@ public class ThuongHieuController {
         }
         model.addAttribute("thuongHieu", thuongHieu);
         model.addAttribute("action", "/admin/thuonghieu/update");
-        model.addAttribute("page", "SanPham/thuong_hieu/form");
+        model.addAttribute("page", "sanPham/thuong_hieu/form");
         return "admin/main";
     }
 
