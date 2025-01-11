@@ -1,8 +1,7 @@
-package com.example.banson5s.controller.admin.sanPham;
+package com.example.banson5s.controller.admin.product;
 
 import com.example.banson5s.dto.ResponseObject;
 import com.example.banson5s.dto.admin.sanPham.DanhMucDTO;
-import com.example.banson5s.enums.Gender;
 import com.example.banson5s.service.admin.IDanhMucService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/admin/danhmuc")

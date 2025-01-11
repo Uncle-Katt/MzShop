@@ -20,7 +20,7 @@
 </style>
 <div class="order">
     <h3 class="mb-4">Quản Lý Đơn Hàng</h3>
-    <div class="card mt-4" style="border: 1px solid #b85555; background-color: white;">
+    <div class="card mt-4" style="border: 2px solid #b85555; background-color: white;">
         <div class="card-body">
             <h5 class="mb-3">
                 <i class="fas fa-filter"></i> Bộ Lọc
@@ -62,7 +62,7 @@
         </div>
     </div>
     <!-- Thêm phần Tabs vào thẻ div cuối -->
-    <div class="card mt-4">
+    <div class="card mt-4" style="border: 2px solid #b85555; background-color: white;">
         <div class="card-body">
             <h5>Danh sách đơn hàng</h5>
 
