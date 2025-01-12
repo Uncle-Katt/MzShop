@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface ISanPhamChiTietService extends IBaseService<SanPhamChiTiet,Long> {
     List<SanPhamChiTiet> findLstSanPhamChiTiet(String search);
+
 }

@@ -57,6 +57,18 @@
                 return "Không Xác Định";
         }
     }
+
+    const convertStatusProduct = (type) =>
+    {
+        switch (type) {
+            case "HOAT_DONG":
+                return "Đang bán";
+            case "NGUNG_HOAT_DONG":
+                return "Ngừng bán";
+            default:
+                return "Không Xác Định";
+        }
+    }
 </script>
 </body>
 </html>

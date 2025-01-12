@@ -12,4 +12,6 @@ public interface IProductItem {
     String getDanhMuc();
 
     String getSoLuong();
+
+    String getTrangThai();
 }

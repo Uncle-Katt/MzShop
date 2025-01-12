@@ -149,7 +149,10 @@
         table.dataTable thead th, table.dataTable thead td {
             border-bottom: 1px solid #c2c6cc;
         }
-
+        .required::after {
+            content: ' *';
+            color: red;
+        }
     </style>
 </head>
 <body>

@@ -23,20 +23,20 @@
                         <label style="font-size: 18px">Trạng Thái:</label>
                         <div class="d-flex ml-4">
                             <div class="form-check">
-                                <input class="form-check-input" id="order_type_all" type="radio" name="order_type"  value="" checked>
-                                <label class="form-check-label" for="order_type_all">
+                                <input class="form-check-input" id="status_type_all" type="radio" name="status_type"  value="" checked>
+                                <label class="form-check-label" for="status_type_all">
                                     Tất Cả
                                 </label>
                             </div>
                             <div class="form-check ml-2">
-                                <input class="form-check-input" id="order_type_online" type="radio" name="order_type" value="">
-                                <label class="form-check-label" for="order_type_online">
+                                <input class="form-check-input" id="status_type_online" type="radio" name="status_type" value="HOAT_DONG">
+                                <label class="form-check-label" for="status_type_online">
                                     Đang bán
                                 </label>
                             </div>
                             <div class="form-check ml-2">
-                                <input class="form-check-input" id="order_type_offline" type="radio" name="order_type" value="">
-                                <label class="form-check-label" for="order_type_offline">
+                                <input class="form-check-input" id="status_type_offline" type="radio" name="status_type" value="NGUNG_HOAT_DONG">
+                                <label class="form-check-label" for="status_type_offline">
                                     Ngừng bán
                                 </label>
                             </div>
@@ -45,35 +45,35 @@
                 </div>
             </div>
             <div class="form-row mb-4">
-                <div class="col">
-                    <label for="danhMuc">Danh mục</label>
-                    <select class="form-control" id="danhMuc" name="danhMuc">
-                        <option value="">Chọn danh mục</option>
-                        <c:forEach items="${dsDanhMuc}" var="dm">
-                            <option value="${dm.id}">${dm.tenDanhMuc}</option>
-                        </c:forEach>
-                    </select>
-                </div>
+<%--                <div class="col">--%>
+<%--                    <label for="danhMuc">Danh mục</label>--%>
+<%--                    <select class="form-control" id="danhMuc" name="danhMuc">--%>
+<%--                        <option value="">Chọn danh mục</option>--%>
+<%--                        <c:forEach items="${dsDanhMuc}" var="dm">--%>
+<%--                            <option value="${dm.id}">${dm.tenDanhMuc}</option>--%>
+<%--                        </c:forEach>--%>
+<%--                    </select>--%>
+<%--                </div>--%>
 
-                <div class="col">
-                    <label for="xuatXu">Xuất xứ</label>
-                    <select class="form-control" id="xuatXu" name="xuatXu">
-                        <option value="">Chọn xuất xứ</option>
-                        <c:forEach items="${dsXuatXu}" var="xx">
-                            <option value="${xx.id}">${xx.tenXuatXu}</option>
-                        </c:forEach>
-                    </select>
-                </div>
+<%--                <div class="col">--%>
+<%--                    <label for="xuatXu">Xuất xứ</label>--%>
+<%--                    <select class="form-control" id="xuatXu" name="xuatXu">--%>
+<%--                        <option value="">Chọn xuất xứ</option>--%>
+<%--                        <c:forEach items="${dsXuatXu}" var="xx">--%>
+<%--                            <option value="${xx.id}">${xx.tenXuatXu}</option>--%>
+<%--                        </c:forEach>--%>
+<%--                    </select>--%>
+<%--                </div>--%>
 
-                <div class="col">
-                    <label for="thuongHieu">Thương hiệu</label>
-                    <select class="form-control" id="thuongHieu" name="thuongHieu">
-                        <option value="">Chọn thương hiệu</option>
-                        <c:forEach items="${dsThuongHieu}" var="th">
-                            <option value="${th.id}">${th.tenThuongHieu}</option>
-                        </c:forEach>
-                    </select>
-                </div>
+<%--                <div class="col">--%>
+<%--                    <label for="thuongHieu">Thương hiệu</label>--%>
+<%--                    <select class="form-control" id="thuongHieu" name="thuongHieu">--%>
+<%--                        <option value="">Chọn thương hiệu</option>--%>
+<%--                        <c:forEach items="${dsThuongHieu}" var="th">--%>
+<%--                            <option value="${th.id}">${th.tenThuongHieu}</option>--%>
+<%--                        </c:forEach>--%>
+<%--                    </select>--%>
+<%--                </div>--%>
             </div>
         </div>
     </div>
@@ -121,14 +121,21 @@
                 {"className": "text-center", "targets": "_all"}
             ],
         });
-
+        $('input[name="status_type"]').change(function () {
+            loadTableProduct();
+        });
         function loadTableProduct() {
             const search = $('#input_search_product').val();
+            const status = $('input[name="status_type"]:checked').val();
+
             $.ajax({
                 url: '/admin/product/list',
                 method: 'GET',
                 dataType: 'json',
-                data: {search: search},
+                data: {
+                    search: search,
+                    status: status
+                },
                 success: function (data) {
                     productTable.clear();
                     $.each(data.data, function (index, item) {
@@ -139,9 +146,9 @@
                             item.thuongHieu,
                             item.xuatXu,
                             item.soLuong,
-                            item.soLuong,
-                            '<a  href="/admin/staff/detail/' + item.id + '"  class="btn btn-warning btn-sm mr-2"><i class="fa-solid fa-info"></i></a>' +
-                            '<a href="/admin/staff/update/' + item.id + '" class="btn btn-success btn-sm mr-2"><i class="fa-solid fa-pen"></i></a>'
+                            convertStatusProduct(item.trangThai),
+                            '<a  href="/admin/product/detail/' + item.id + '"  class="btn btn-warning btn-sm mr-2"><i class="fa-solid fa-info"></i></a>' +
+                            '<a href="/admin/product/update/' + item.id + '" class="btn btn-success btn-sm mr-2"><i class="fa-solid fa-pen"></i></a>'
                         ]);
                     });
                     productTable.draw();
