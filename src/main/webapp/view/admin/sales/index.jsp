@@ -37,7 +37,7 @@
                                 <input type="text" class="form-control w-50" placeholder="Nhập tên Sản Phẩm"
                                        id="searchProduct">
                             </div>
-                            <table class="table">
+                            <table class="table" id="productTable">
                                 <thead>
                                 <tr>
                                     <th>STT</th>
@@ -50,7 +50,7 @@
                                     <th>Hành Động</th>
                                 </tr>
                                 </thead>
-                                <tbody id="productTableBody">
+                                <tbody>
 
                                 </tbody>
                             </table>
@@ -132,7 +132,7 @@
 
                     <div class="modal fade" id="customerModal" tabindex="-1" aria-labelledby="customerModalLabel"
                          aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" style="max-width: 60%">
+                        <div class="modal-dialog modal-dialog-centered" style="min-width: 70%">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="customerModalLabel">Chọn Khách Hàng</h5>
@@ -146,7 +146,7 @@
                                         <input type="text" class="form-control w-50"
                                                placeholder="Tìm kiếm tên hoặc số điện thoại" id="searchCustomer">
                                     </div>
-                                    <table class="table">
+                                    <table class="table"  id="customerTable">
                                         <thead>
                                         <tr>
                                             <th>STT</th>
@@ -158,7 +158,7 @@
                                             <th>Hành Động</th>
                                         </tr>
                                         </thead>
-                                        <tbody id="customerTable">
+                                        <tbody>
 
                                         </tbody>
                                     </table>
@@ -411,7 +411,6 @@
         let lstAddress = [];
         let isGiaoHang = false;
 
-        $('#myTable').DataTable();
 
         async function loadInvoices() {
             await $.ajax({
@@ -523,7 +522,15 @@
                         $.each(response.data, function (index, product) {
                             let item = '<tr>' +
                                 '<td>' + (index + 1) + '</td>' +
-                                '<td>' + product.tenSanPham + '</td>' +
+                                '<td>' +
+                                '<div class="d-flex">' +
+                                '<img style="max-width: 120px; height: 120px; object-fit: cover" class="img-thumbnail" src="'+product.urlAnh+'" alt="Image">' +
+                                '<div class="ml-2">' +
+                                '<div style="line-height: 1.5; word-break: break-word; max-width: 340px;">'+product.tenSanPham+'</div>' +
+                                '(' + product.tenMauSac + ' ' + product.tenKhoiLuong + ')' +
+                                '</div>' +
+                                '</div>' +
+                                '</td>' +
                                 '<td>' + formatCurrency(product.giaBan) + '</td>' +
                                 '<td>' + product.soLuong + '</td>' +
                                 '<td>' + formatCurrency(product.tongTien) + '</td>' +
@@ -651,7 +658,17 @@
         $('#searchProduct').on('input', function () {
             loadProduct();
         })
-
+        let productTable = $('#productTable').DataTable({
+            "paging": true,        // Bật phân trang
+            "searching": false,     // Bật tìm kiếm
+            "ordering": false,      // Bật sắp xếp
+            "info": false,          // Bật thông tin tổng quan
+            "lengthChange": false,  // Cho phép thay đổi số lượng bản ghi hiển thị
+            "pageLength": 5,       // Số lượng bản ghi trên mỗi trang
+            "columnDefs": [
+                {"className": "width-table", "targets": "_all"}
+            ],
+        });
         function loadProduct() {
             let search = $('#searchProduct').val();
 
@@ -661,23 +678,23 @@
                 dataType: 'json',
                 data: {search: search},
                 success: function (data) {
-                    var tableBody = $('#productTableBody');
-                    tableBody.empty();
-
-                    $.each(data.data, function (index, product) {
-                        let item = '<tr>' +
-                            '<td>' + (index + 1) + '</td>' +
-                            '<td>' + product.sanPham.tenSanPham + '(' + product.mauSac.tenMauSac + ' ' + product.khoiLuong.tenKhoiLuong + ')' + '</td>' +
-                            '<td>' + formatCurrency(product.giaBan) + '</td>' +
-                            '<td>' + product.soLuong + '</td>' +
-                            '<td>' + product.sanPham.xuatXu.tenXuatXu + '</td>' +
-                            '<td>' + product.sanPham.thuongHieu.tenThuongHieu + '</td>' +
-                            '<td>' + product.sanPham.danhMuc.tenDanhMuc + '</td>' +
-                            '<td>' +
-                            '<button  type="button" class="btn btn-success select-btn-product" data-product-id="' + product.id + '" >Chọn</button></td>' +
-                            '</tr>';
-                        tableBody.append(item);
+                    productTable.clear();
+                    $.each(data.data, function (index, item) {
+                        productTable.row.add([
+                            index + 1,
+                            '<div class="d-flex">' +
+                            '<img style="max-width: 120px; height: 120px; object-fit: cover" class="img-thumbnail mr-2" src="'+item.sanPham.urlAnh+'" alt="Image">' +
+                            item.sanPham.tenSanPham + ' (' + item.mauSac.tenMauSac + ' ' + item.khoiLuong.tenKhoiLuong + ')' +
+                            '</div>',
+                            formatCurrency(item.giaBan),
+                            item.soLuong,
+                            item.sanPham.xuatXu.tenXuatXu,
+                            item.sanPham.thuongHieu.tenThuongHieu,
+                            item.sanPham.danhMuc.tenDanhMuc,
+                            '<button  type="button" class="btn btn-success select-btn-product" data-product-id="' + item.id + '" >Chọn</button>'
+                        ]);
                     });
+                    productTable.draw();
                 },
                 error: function (err) {
                     toastr.error('Lỗi khi lấy dữ liệu sản phẩm', err);
@@ -750,7 +767,17 @@
         $('#customerModal').on('show.bs.modal', function (e) {
             loadTableCustomer()
         });
-
+        let customerTable = $('#customerTable').DataTable({
+            "paging": true,        // Bật phân trang
+            "searching": false,     // Bật tìm kiếm
+            "ordering": false,      // Bật sắp xếp
+            "info": false,          // Bật thông tin tổng quan
+            "lengthChange": false,  // Cho phép thay đổi số lượng bản ghi hiển thị
+            "pageLength": 5,       // Số lượng bản ghi trên mỗi trang
+            "columnDefs": [
+                {"className": "width-table", "targets": "_all"}
+            ],
+        });
         function loadTableCustomer() {
             const search = $('#searchCustomer').val();
             $.ajax({
@@ -759,21 +786,19 @@
                 dataType: 'json',
                 data: {search: search},
                 success: function (data) {
-                    var tableBody = $('#customerTable');
-                    tableBody.empty();
+                    customerTable.clear();
                     $.each(data.data, function (index, customer) {
-                        let item = '<tr>' +
-                            '<td>' + (index + 1) + '</td>' +
-                            '<td>' + customer.hoVaTen + '</td>' +
-                            '<td>' + customer.gioiTinh + '</td>' +
-                            '<td>' + customer.ngaySinh + '</td>' +
-                            '<td>' + customer.soDienThoai + '</td>' +
-                            '<td>' + customer.email + '</td>' +
-                            '<td>' +
-                            '<button  type="button" class="btn btn-success select-btn-customer" data-customer-id="' + customer.id + '" >Chọn</button></td>' +
-                            '</tr>';
-                        tableBody.append(item);
+                        customerTable.row.add([
+                            index + 1,
+                            customer.hoVaTen,
+                            customer.gioiTinh == 'Male'? 'Nam': 'Nữ',
+                            customer.ngaySinh,
+                            customer.soDienThoai,
+                            customer.email,
+                            '<button  type="button" class="btn btn-success select-btn-customer" data-customer-id="' + customer.id + '" >Chọn</button>'
+                        ]);
                     });
+                    customerTable.draw();
                 },
                 error: function (err) {
                     toastr.error('Lỗi khi lấy dữ liệu khách hàng', err);

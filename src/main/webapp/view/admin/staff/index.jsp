@@ -55,7 +55,7 @@
             "lengthChange": false,  // Cho phép thay đổi số lượng bản ghi hiển thị
             "pageLength": 5,       // Số lượng bản ghi trên mỗi trang
             "columnDefs": [
-                {"className": "text-center", "targets": "_all"}
+                {"className": "width-table", "targets": "_all"}
             ],
         });
 

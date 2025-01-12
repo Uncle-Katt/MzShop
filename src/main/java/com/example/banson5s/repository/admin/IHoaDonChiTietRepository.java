@@ -15,15 +15,20 @@ import java.util.Optional;
 public interface IHoaDonChiTietRepository extends IBaseRepository<HoaDonChiTiet, Long> {
 
     @Query(value = """
-                SELECT 
+                SELECT
                     hdct.id,
-                    sp.ten_san_pham, 
+                    sp.ten_san_pham,
+                    sp.url_anh,
+                    kl.ten_khoi_luong,
+                    ms.ten_mau_sac,
                     spct.gia_ban,
-                    hdct.so_luong, 
-                    spct.gia_ban * hdct.so_luong AS tong_tien 
-                FROM dbo.hoa_don_chi_tiet hdct 
-                JOIN dbo.san_pham_chi_tiet spct ON spct.id = hdct.id_san_pham_chi_tiet
-                JOIN dbo.san_pham sp ON sp.id = spct.id_san_pham 
+                    hdct.so_luong,
+                    spct.gia_ban * hdct.so_luong AS tong_tien
+                FROM dbo.hoa_don_chi_tiet hdct
+                    JOIN dbo.san_pham_chi_tiet spct ON spct.id = hdct.id_san_pham_chi_tiet
+                    JOIN dbo.san_pham sp ON sp.id = spct.id_san_pham
+                    JOIN dbo.mau_sac ms on ms.id = spct.id_mau_sac
+                    JOIN dbo.khoi_luong kl on spct.id_khoi_luong = kl.id 
                 WHERE hdct.id_hoa_don = :idHoaDon
             """, nativeQuery = true)
     List<IInvoiceItem> getLstIInvoiceItems(@Param("idHoaDon") Long idHoaDon);

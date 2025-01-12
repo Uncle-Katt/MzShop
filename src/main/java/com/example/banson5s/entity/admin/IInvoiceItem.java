@@ -8,5 +8,8 @@ public interface IInvoiceItem {
     Integer getSoLuong();
     BigDecimal getGiaBan();
     BigDecimal getTongTien();
+    String getUrlAnh();
+    String getTenKhoiLuong();
+    String getTenMauSac();
 
 }

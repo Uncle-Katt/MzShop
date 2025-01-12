@@ -153,6 +153,10 @@
             content: ' *';
             color: red;
         }
+        .width-table{
+            text-align: center;
+            width: auto!important;
+        }
     </style>
 </head>
 <body>

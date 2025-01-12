@@ -440,7 +440,10 @@
             $.each(data, function (index, item) {
                 orderTableProduct.row.add([
                     index + 1,
-                    item.sanPhamChiTiet.sanPham.tenSanPham,
+                    '<div class="d-flex">' +
+                    '<img style="max-width: 120px; height: 120px; object-fit: cover" class="img-thumbnail mr-2" src="'+item.sanPhamChiTiet.sanPham.urlAnh+'" alt="Image">' +
+                    item.sanPhamChiTiet.sanPham.tenSanPham + ' (' + item.sanPhamChiTiet.mauSac.tenMauSac + ' ' + item.sanPhamChiTiet.khoiLuong.tenKhoiLuong + ')' +
+                    '</div>',
                     formatCurrency(item.giaBan),
                     item.soLuong,
                     formatCurrency(item.giaBan*item.soLuong),
