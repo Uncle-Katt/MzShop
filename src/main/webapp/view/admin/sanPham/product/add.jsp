@@ -76,6 +76,11 @@
                 </div>
             </div>
         </div>
+        <div class="d-flex justify-content-end align-items-center mb-2 mr-4">
+            <button type="button" class="btn btn-primary ml-4 btn-gen-product-detail">
+                <i class="fa-solid fa-plus"></i> Thêm chi tiết sản phẩm
+            </button>
+        </div>
     </div>
 
     <!-- Danh sách sản phẩm -->
@@ -351,13 +356,17 @@
         $('#tenSanPham').change(function() {
             genDataProductDetail()
         })
-        $('#colorSelect').change(function() {
+        // $('#colorSelect').change(function() {
+        //     genDataProductDetail()
+        // })
+        // $('#massSelect').change(function() {
+        //     genDataProductDetail()
+        // })
+        $('.btn-gen-product-detail').click(function() {
             genDataProductDetail()
+            $('#colorSelect').val('').trigger('change'); // Reset select color
+            $('#massSelect').val('').trigger('change'); // Reset select mass
         })
-        $('#massSelect').change(function() {
-            genDataProductDetail()
-        })
-
         function genDataProductDetail(){
             let product =  $('#tenSanPham').val()
 
