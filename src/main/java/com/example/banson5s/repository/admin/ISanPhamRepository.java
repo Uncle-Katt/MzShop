@@ -2,6 +2,7 @@ package com.example.banson5s.repository.admin;
 
 import com.example.banson5s.entity.admin.IProductItem;
 import com.example.banson5s.entity.admin.SanPham;
+import com.example.banson5s.entity.client.IProductItemClient;
 import com.example.banson5s.repository.common.IBaseRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -34,7 +35,20 @@ public interface ISanPhamRepository extends IBaseRepository<SanPham, Long> {
             """, nativeQuery = true)
     List<IProductItem> getLstProductGroup(@Param("search") String search,@Param("status") String status);
 
-
-
+    @Query(value = """
+            select sp.id,
+                   sp.ten_san_pham as tenSanPham,
+                   sp.url_anh,
+                   sp.ngay_tao,
+                   MIN(spct.gia_ban) as giaBanMin,
+                   MAX(spct.gia_ban) as giaBanMax,
+                   sp.trang_thai
+            from san_pham sp
+            JOIN san_pham_chi_tiet spct on sp.id = spct.id_san_pham and spct.xoa_mem = 'false'
+            WHERE sp.xoa_mem = 'false' and sp.trang_thai = 'HOAT_DONG'
+            GROUP BY sp.id, sp.ten_san_pham, sp.ngay_tao, sp.trang_thai, sp.url_anh
+            ORDER BY sp.ngay_tao DESC
+            """, nativeQuery = true)
+    List<IProductItemClient> getLstProcutSiteClient();
 
 }

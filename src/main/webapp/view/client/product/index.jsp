@@ -22,105 +22,69 @@
 
         <div class="col-md-8 right-column">
             <div class="container">
-                <div style="display: flex; flex-wrap: wrap">
-                    <div class="col-3 mb-4">
-                        <div class="product-item text-center p-3 border rounded">
-                            <img src="https://via.placeholder.com/150" alt="Sản phẩm 1" class="img-fluid mb-2">
-                            <h6 class="text-truncate">Sản phẩm 1</h6>
-                            <p class="text-danger fw-bold">425,000₫</p>
-                        </div>
-                    </div>
-                    <div class="col-3 mb-4">
-                        <div class="product-item text-center p-3 border rounded">
-                            <img src="https://via.placeholder.com/150" alt="Sản phẩm 2" class="img-fluid mb-2">
-                            <h6 class="text-truncate">Sản phẩm 2</h6>
-                            <p class="text-danger fw-bold">380,000₫</p>
-                        </div>
-                    </div>
-                    <div class="col-3 mb-4">
-                        <div class="product-item text-center p-3 border rounded">
-                            <img src="https://via.placeholder.com/150" alt="Sản phẩm 1" class="img-fluid mb-2">
-                            <h6 class="text-truncate">Sản phẩm 1</h6>
-                            <p class="text-danger fw-bold">425,000₫</p>
-                            <button class="btn btn-sm btn-primary">Thêm vào giỏ</button>
-                        </div>
-                    </div>
-                    <div class="col-3 mb-4">
-                        <div class="product-item text-center p-3 border rounded">
-                            <img src="https://via.placeholder.com/150" alt="Sản phẩm 2" class="img-fluid mb-2">
-                            <h6 class="text-truncate">Sản phẩm 2</h6>
-                            <p class="text-danger fw-bold">380,000₫</p>
-                            <button class="btn btn-sm btn-primary">Thêm vào giỏ</button>
-                        </div>
-                    </div>
-                    <div class="col-3 mb-4">
-                        <div class="product-item text-center p-3 border rounded">
-                            <img src="https://via.placeholder.com/150" alt="Sản phẩm 1" class="img-fluid mb-2">
-                            <h6 class="text-truncate">Sản phẩm 1</h6>
-                            <p class="text-danger fw-bold">425,000₫</p>
-                            <button class="btn btn-sm btn-primary">Thêm vào giỏ</button>
-                        </div>
-                    </div>
-                    <div class="col-3 mb-4">
-                        <div class="product-item text-center p-3 border rounded">
-                            <img src="https://via.placeholder.com/150" alt="Sản phẩm 2" class="img-fluid mb-2">
-                            <h6 class="text-truncate">Sản phẩm 2</h6>
-                            <p class="text-danger fw-bold">380,000₫</p>
-                            <button class="btn btn-sm btn-primary">Thêm vào giỏ</button>
-                        </div>
-                    </div>
-                    <div class="col-3 mb-4">
-                        <div class="product-item text-center p-3 border rounded">
-                            <img src="https://via.placeholder.com/150" alt="Sản phẩm 1" class="img-fluid mb-2">
-                            <h6 class="text-truncate">Sản phẩm 1</h6>
-                            <p class="text-danger fw-bold">425,000₫</p>
-                            <button class="btn btn-sm btn-primary">Thêm vào giỏ</button>
-                        </div>
-                    </div>
-                    <div class="col-3 mb-4">
-                        <div class="product-item text-center p-3 border rounded">
-                            <img src="https://via.placeholder.com/150" alt="Sản phẩm 2" class="img-fluid mb-2">
-                            <h6 class="text-truncate">Sản phẩm 2</h6>
-                            <p class="text-danger fw-bold">380,000₫</p>
-                            <button class="btn btn-sm btn-primary">Thêm vào giỏ</button>
-                        </div>
-                    </div>
-                    <div class="col-3 mb-4">
-                        <div class="product-item text-center p-3 border rounded">
-                            <img src="https://via.placeholder.com/150" alt="Sản phẩm 1" class="img-fluid mb-2">
-                            <h6 class="text-truncate">Sản phẩm 1</h6>
-                            <p class="text-danger fw-bold">425,000₫</p>
-                            <button class="btn btn-sm btn-primary">Thêm vào giỏ</button>
-                        </div>
-                    </div>
-                    <div class="col-3 mb-4">
-                        <div class="product-item text-center p-3 border rounded">
-                            <img src="https://via.placeholder.com/150" alt="Sản phẩm 2" class="img-fluid mb-2">
-                            <h6 class="text-truncate">Sản phẩm 2</h6>
-                            <p class="text-danger fw-bold">380,000₫</p>
-                            <button class="btn btn-sm btn-primary">Thêm vào giỏ</button>
-                        </div>
-                    </div>
+                <div id="product-list" style="display: flex; flex-wrap: wrap">
+
+
                 </div>
-                <div class="d-flex justify-content-center mt-4">
-                    <nav aria-label="Page navigation">
-                        <ul class="pagination">
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
+<%--                <div class="d-flex justify-content-center mt-4">--%>
+<%--                    <nav aria-label="Page navigation">--%>
+<%--                        <ul class="pagination">--%>
+<%--                            <li class="page-item">--%>
+<%--                                <a class="page-link" href="#" aria-label="Previous">--%>
+<%--                                    <span aria-hidden="true">&laquo;</span>--%>
+<%--                                </a>--%>
+<%--                            </li>--%>
+<%--                            <li class="page-item"><a class="page-link" href="#">1</a></li>--%>
+<%--                            <li class="page-item"><a class="page-link" href="#">2</a></li>--%>
+<%--                            <li class="page-item">--%>
+<%--                                <a class="page-link" href="#" aria-label="Next">--%>
+<%--                                    <span aria-hidden="true">&raquo;</span>--%>
+<%--                                </a>--%>
+<%--                            </li>--%>
+<%--                        </ul>--%>
+<%--                    </nav>--%>
+<%--                </div>--%>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+
+    $(document).ready(function () {
+        function getDataProduct(){
+            $.ajax({
+                url: `/product/list`,
+                method: 'GET',
+                success: function (rep) {
+                    let html = '';
+                    rep.data.forEach(product => {
+                        const priceText = product.giaBanMin == product.giaBanMax
+                            ? formatCurrency(product.giaBanMin)
+                            : formatCurrency(product.giaBanMin) + ' - '+ formatCurrency(product.giaBanMax);
+                        html +=
+                            '<div class="col-4 mb-4">'+
+                            '<a href="/product/'+product.id+'" style="text-decoration: none; color: black">'+
+                                '<div class="product-item text-center border rounded">'+
+                                    '<img src="'+product.urlAnh+'" alt="img" class="img-fluid mb-2" style="height: 120px">'+
+                                    '<h6 class="text-truncate">'+product.tenSanPham+'</h6>'+
+                                    '<p class="text-danger fw-bold">'+priceText+'</p>'+
+                                '</div>'+
+                            '</a>'+
+                            '</div>'
+                    });
+
+                    $('#product-list').html(html);
+                },
+                error: function () {
+
+                },
+            });
+        }
+        getDataProduct()
+
+    });
+
+
+</script>
+

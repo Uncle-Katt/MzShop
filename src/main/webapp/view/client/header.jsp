@@ -118,8 +118,9 @@
             background-color: #ffffff;
             border: 1px solid #b85555;
             border-radius: 20px;
-            padding: 20px;
+            padding: 10px;
             margin-bottom: 20px;
+            cursor: pointer;
         }
 
         .product-image {
@@ -131,7 +132,8 @@
         /* Căn giữa các phần tử chữ */
         .product-name, .product-description, .product-price {
             color: #b85555;
-            text-align: center; /* Căn giữa chữ */
+            font-size: 18px;
+            /*text-align: center; !* Căn giữa chữ *!*/
         }
 
         .product-rating {
@@ -228,8 +230,9 @@
         }
 
         .product-actions {
+            margin-top: 20px;
             display: flex;
-            justify-content: center;
+            /*justify-content: center;*/
             align-items: center;
             margin-top: 10px;
         }

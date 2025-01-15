@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <footer>
     <div class="footer-info">
         <p>Địa chỉ: Số 2 Kiều Mai, Nam Từ Liêm, Hà Nội</p>
@@ -91,6 +92,23 @@
                 return "Không Xác Định";
         }
     }
+
+    // Lưu dữ liệu vào localStorage
+    const setProductToCart = (data) => {
+        localStorage.setItem('cart', JSON.stringify(data)); // Lưu mảng hoặc đối tượng
+    };
+    // Hàm lấy dữ liệu từ localStorage
+    const getProductFromCart = () => {
+        let data = localStorage.getItem('cart'); // Lấy dữ liệu từ localStorage
+        if (data) {
+            // Nếu có dữ liệu, chuyển đổi từ chuỗi JSON thành đối tượng
+            return JSON.parse(data);
+        } else {
+            // Nếu không có dữ liệu, trả về mảng rỗng
+            return [];
+        }
+    }
+
 </script>
 </body>
 </html>
