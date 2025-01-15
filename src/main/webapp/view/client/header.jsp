@@ -118,7 +118,7 @@
             background-color: #ffffff;
             border: 1px solid #b85555;
             border-radius: 20px;
-            padding: 10px;
+            padding: 6px;
             margin-bottom: 20px;
             cursor: pointer;
         }
@@ -346,7 +346,10 @@
             transform: scale(1.2); /* Phóng to nhẹ khi hover */
         }
 
-
+        .required::after {
+            content: ' *';
+            color: red;
+        }
 
     </style>
 </head>

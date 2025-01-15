@@ -6,11 +6,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/cart")
+@RequestMapping()
 public class CartController {
-    @GetMapping
-    public String sanPhamPage(Model model) {
+    @GetMapping("/cart")
+    public String cartIndex(Model model) {
         model.addAttribute("page", "cart/index");
+        return "client/main";
+    }
+
+    @GetMapping("/check-out")
+    public String checkOut(Model model) {
+        model.addAttribute("page", "cart/check-out");
         return "client/main";
     }
 }
