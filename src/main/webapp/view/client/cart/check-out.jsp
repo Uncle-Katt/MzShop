@@ -518,7 +518,60 @@
                 toastr.error("Vui lòng nhập đầy đủ thông tin giao hàng");
                 return;
             }
-            console.log(address)
+            let lstProduct = getProductFromCart();
+            let lstProductDetail = lstProduct.map(item => {
+                return {
+                    id: item.id,
+                    quantity: Number(item.soLuongMua),
+                }
+            })
+            let req = {
+                nameAddress: nameAddress,
+                phoneAddress: phoneAddress,
+                address: address,
+                lstProductDetail: lstProductDetail,
+                shipMoney: shipMoney,
+
+            }
+            Swal.fire({
+                title: 'Xác nhận đặt hàng ?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Xác nhận',
+                cancelButtonText: 'Hủy'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $('#loading').show();
+                    $.ajax({
+                        url: '/payment-cart',
+                        method: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify(req),
+                        success: function (response) {
+                            toastr.success('Đặt hàng thành công');
+                            setTimeout(() => {
+                                $('#loading').hide();
+                                setProductToCart([])
+                                window.location.href = '/product';
+                            }, 1000);
+                        },
+                        error: function (err) {
+                            // toastr.error('Đặt hàng thất bại!, số lượng không đủ hoặc không tìm thấy sản phẩm');
+                            toastr.error(err.responseJSON.message)
+                            toastr.error("Đẫ xóa toàn bộ giỏ hàng vui lòng thêm lại sản phẩm")
+                            setProductToCart([])
+                            setTimeout(() => {
+                                window.location.href = '/cart';
+                                $('#loading').hide();
+                            }, 1500);
+
+
+                        }
+                    });
+                }
+            });
         })
 
     });

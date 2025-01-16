@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Set;
 
@@ -33,11 +34,11 @@ public class OrderBillListDTO {
 
     private BigDecimal thanhTien;
 
-    private Date ngayDat;
+    private LocalDateTime ngayDat;
 
-    private Date ngayGiao;
+    private LocalDateTime ngayGiao;
 
-    private Date ngayHoanThanh;
+    private LocalDateTime ngayHoanThanh;
 
     private String tenNguoiNhan;
 

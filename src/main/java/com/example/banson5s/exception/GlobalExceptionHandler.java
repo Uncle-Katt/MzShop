@@ -16,5 +16,14 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(responseObject);
     }
 
+    @ExceptionHandler(value = AppException.class)
+    ResponseEntity<ResponseObject> handlingAppException(AppException exception){
+        ErrorCode errorCode = exception.getErrorCode();
+        ResponseObject responseObject = ResponseObject.builder()
+                .errCode(errorCode.getCode())
+                .message(errorCode.getMessage())
+                .build();
+        return ResponseEntity.badRequest().body(responseObject);
+    }
 
 }

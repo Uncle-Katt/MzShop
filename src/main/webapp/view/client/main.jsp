@@ -4,7 +4,7 @@
 <main>
     <jsp:include page="${page}.jsp" />
     <div id="loading" class="loading-overlay" style="display: none">
-        <div style="width: 20%"></div>
+        <div></div>
         <div class="loader"></div>
     </div>
 </main>
