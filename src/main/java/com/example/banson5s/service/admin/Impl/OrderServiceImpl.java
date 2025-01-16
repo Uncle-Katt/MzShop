@@ -64,7 +64,7 @@ public class OrderServiceImpl implements IOrderService {
         LichSuThanhToan lichSuThanhToan = LichSuThanhToan.builder()
                 .hoaDon(hoaDon).loaiThanhToan(dto.getType())
                 .moTa(dto.getDescription())
-                .soTienThanhToan(hoaDon.getTongTien())
+                .soTienThanhToan(hoaDon.getThanhTien())
                 .build();
         LichSuHoaDon lichSuHoaDon = LichSuHoaDon.builder().hoaDon(hoaDon).loai(InvoiceStatus.DA_THANH_TOAN.getLabel()).build();
         lichSuHoaDonService.createNew(lichSuHoaDon);
