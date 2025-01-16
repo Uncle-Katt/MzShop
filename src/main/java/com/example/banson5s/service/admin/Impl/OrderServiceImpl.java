@@ -6,13 +6,17 @@ import com.example.banson5s.dto.admin.order.OrderBillListDTO;
 import com.example.banson5s.dto.admin.order.OrderChangeStatusDTO;
 import com.example.banson5s.dto.admin.order.OrderConfirmPaymentDTO;
 import com.example.banson5s.entity.admin.HoaDon;
+import com.example.banson5s.entity.admin.HoaDonChiTiet;
 import com.example.banson5s.entity.admin.LichSuHoaDon;
 import com.example.banson5s.entity.admin.LichSuThanhToan;
+import com.example.banson5s.entity.admin.SanPhamChiTiet;
+import com.example.banson5s.enums.BillType;
 import com.example.banson5s.enums.InvoiceStatus;
 import com.example.banson5s.service.admin.IHoaDonService;
 import com.example.banson5s.service.admin.ILichSuHoaDonService;
 import com.example.banson5s.service.admin.ILichSuThanhToanService;
 import com.example.banson5s.service.admin.IOrderService;
+import com.example.banson5s.service.admin.ISanPhamChiTietService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,6 +39,9 @@ public class OrderServiceImpl implements IOrderService {
     @Autowired
     private ILichSuThanhToanService lichSuThanhToanService;
 
+    @Autowired
+    private ISanPhamChiTietService sanPhamChiTietService;
+
     @Override
     public OrderBillDTO getHoaDonByCode(String code) {
         HoaDon hoaDon = hoaDonService.findHoaDonByCode(code);
@@ -52,6 +59,25 @@ public class OrderServiceImpl implements IOrderService {
     @Override
     public void changeStatusOrder(OrderChangeStatusDTO dto){
         HoaDon hoaDon = hoaDonService.findHoaDonByCode(dto.getCodeBill());
+        if (hoaDon.getLoaiHoaDon().equals(BillType.ONLINE.getLabel())
+                && dto.getStatus().equals(InvoiceStatus.DA_XAC_NHAN.getLabel())){
+            List<HoaDonChiTiet> lstHoaDonChiTiet = hoaDon.getLstHoaDonChiTiet().stream().toList();
+            lstHoaDonChiTiet.forEach(item ->{
+                SanPhamChiTiet sanPhamChiTiet = item.getSanPhamChiTiet();
+                sanPhamChiTiet.setSoLuong(sanPhamChiTiet.getSoLuong() - item.getSoLuong());
+                sanPhamChiTietService.update(sanPhamChiTiet);
+            });
+        }
+
+        if (hoaDon.getLoaiHoaDon().equals(BillType.ONLINE.getLabel())
+                && dto.getStatus().equals(InvoiceStatus.CHO_XAC_NHAN.getLabel())){
+            List<HoaDonChiTiet> lstHoaDonChiTiet = hoaDon.getLstHoaDonChiTiet().stream().toList();
+            lstHoaDonChiTiet.forEach(item ->{
+                SanPhamChiTiet sanPhamChiTiet = item.getSanPhamChiTiet();
+                sanPhamChiTiet.setSoLuong(sanPhamChiTiet.getSoLuong() + item.getSoLuong());
+                sanPhamChiTietService.update(sanPhamChiTiet);
+            });
+        }
         hoaDon.setTrangThai(dto.getStatus());
         LichSuHoaDon lichSuHoaDon = LichSuHoaDon.builder().hoaDon(hoaDon).loai(dto.getStatus()).moTa(dto.getMessenger()).build();
         hoaDonService.update(hoaDon);
