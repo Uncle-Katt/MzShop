@@ -13,8 +13,8 @@
                 <div class="col-md-6">
                     <form class="form-inline" method="GET" action="">
                         <div class="input-group w-100">
-                            <input class="form-control" name="key" placeholder="Tìm kiếm tên khối lượng ..." />
-                            <button class="btn btn-red ml-2" type="submit" style="background-color: #b85555; color: white;">
+                            <input id="input_search" class="form-control" name="key" placeholder="Tìm kiếm tên khối lượng ..." />
+                            <button id="btn_search" class="btn btn-red ml-2" type="submit" style="background-color: #b85555; color: white;">
                                 <i class="fas fa-search"></i> Tìm kiếm
                             </button>
                         </div>
@@ -98,7 +98,7 @@
         });
 
         function loadTableWeight() {
-            const search = $('#inputCustomer').val();
+            const search = $('#input_search').val();
             $.ajax({
                 url: '/admin/khoiluong/list',  // Đổi URL để lấy dữ liệu khối lượng
                 method: 'GET',
@@ -123,7 +123,7 @@
             });
         }
 
-        $(document).on('click', '#searchCustomer', function () {
+        $(document).on('click', '#btn_search', function () {
             loadTableWeight();  // Gọi hàm loadTableWeight
         });
         loadTableWeight();  // Gọi lần đầu để load khối lượng

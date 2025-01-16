@@ -13,8 +13,8 @@
                 <div class="col-md-6">
                     <form class="form-inline" method="GET" action="">
                         <div class="input-group w-100">
-                            <input id="inputCustomer" class="form-control" name="key" placeholder="Tìm kiếm tên thương hiệu ..." />
-                            <button id="searchCustomer" class="btn btn-red ml-2" type="button" style="background-color: #b85555; color: white;">
+                            <input id="input_search" class="form-control" name="key" placeholder="Tìm kiếm tên thương hiệu ..." />
+                            <button id="btn_search" class="btn btn-red ml-2" type="button" style="background-color: #b85555; color: white;">
                                 <i class="fas fa-search"></i> Tìm kiếm
                             </button>
                         </div>
@@ -95,7 +95,7 @@
 
         // Hàm load dữ liệu thương hiệu
         function loadTableBrand() {
-            const search = $('#inputCustomer').val();
+            const search = $('#input_search').val();
             $.ajax({
                 url: '/admin/thuonghieu/list',
                 method: 'GET',
@@ -120,7 +120,7 @@
         }
 
         // Xử lý tìm kiếm
-        $('#searchCustomer').on('click', function () {
+        $('#btn_search').on('click', function () {
             loadTableBrand();
         });
 

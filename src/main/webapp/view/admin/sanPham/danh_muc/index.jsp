@@ -14,8 +14,8 @@
                 <div class="col-md-6">
                     <form class="form-inline" method="GET" action="">
                         <div class="input-group w-100">
-                            <input class="form-control" name="key" placeholder="Tìm kiếm tên danh mục ..." />
-                            <button class="btn btn-red ml-2" type="submit" style="background-color: #b85555; color: white;">
+                            <input id="input_search" class="form-control" name="key" placeholder="Tìm kiếm tên danh mục ..." />
+                            <button id="btn_search" class="btn btn-red ml-2" type="submit" style="background-color: #b85555; color: white;">
                                 <i class="fas fa-search"></i> Tìm kiếm
                             </button>
                         </div>
@@ -123,7 +123,7 @@
         });
 
         function loadTableCategory() {
-            const search = $('#inputCustomer').val();
+            const search = $('#input_search').val();
             $.ajax({
                 url: '/admin/danhmuc/list',  // Đổi URL để lấy dữ liệu danh mục
                 method: 'GET',
@@ -148,7 +148,7 @@
             });
         }
 
-        $(document).on('click', '#searchCustomer', function () {
+        $(document).on('click', '#btn_search', function () {
             loadTableCategory();  // Gọi hàm loadTableCategory
         });
         loadTableCategory();  // Gọi lần đầu để load danh mục
