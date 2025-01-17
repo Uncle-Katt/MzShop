@@ -87,7 +87,7 @@
                             voucher.ngayKetThuc,
                             convertStatusVoucher(voucher.trangThai),
                             '<a  href="/admin/voucher/detail/' + voucher.id + '"  class="btn btn-warning btn-sm mr-2"><i class="fa-solid fa-info"></i></a>' +
-                            (voucher.trangThai !== 'DA_HUY' ? // Kiểm tra trạng thái và ẩn nút "Chỉnh sửa" nếu trạng thái là "HỦY"
+                            (voucher.trangThai === 'SAP_DIEN_RA' ? // Kiểm tra trạng thái và ẩn nút "Chỉnh sửa" nếu trạng thái là "HỦY"
                                 '<a href="/admin/voucher/update/' + voucher.id + '" class="btn btn-success btn-sm mr-2"><i class="fa-solid fa-pen"></i></a>' : '') +
                             (voucher.trangThai !== 'DA_HUY' ? // Kiểm tra trạng thái và ẩn nút "Chỉnh sửa" nếu trạng thái là "HỦY"
                                 '<button class="btn btn-danger btn-sm btn-delete-voucher" data-voucher-id="' + voucher.id + '"><i class="fa-solid fa-trash"></i></button>' : '')
@@ -112,7 +112,7 @@
         $(document).on('click', '.btn-delete-voucher', function () {
             let voucherId = $(this).data('voucher-id');
             Swal.fire({
-                title: 'Bạn có chắc muốn xóa?',
+                title: 'Bạn có chắc muốn hủy?',
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',

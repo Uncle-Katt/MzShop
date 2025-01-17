@@ -57,14 +57,14 @@
                     <textarea class="form-control" name="moTa" id="moTa" placeholder="Nhập mô tả" >${voucher.moTa}</textarea>
                 </div>
 
-                <div class="mb-3">
-                    <label for="moTa" class="form-label required">Trạng Thái</label>
-                    <select class="form-control" name="trangThai" id="trangThai">
-                        <option value="SAP_DIEN_RA" ${voucher.trangThai == 'SAP_DIEN_RA' ? 'selected' : ''}>Sắp Diễn Ra</option>
-                        <option value="DANG_DIEN_RA" ${voucher.trangThai == 'DANG_DIEN_RA' ? 'selected' : ''}>Đang Diễn Ra</option>
-                        <option value="DA_KET_THUC" ${voucher.trangThai == 'DA_KET_THUC' ? 'selected' : ''}>Đã Kết Thúc</option>
-                    </select>
-                </div>
+<%--                <div class="mb-3">--%>
+<%--                    <label for="moTa" class="form-label required">Trạng Thái</label>--%>
+<%--                    <select class="form-control" name="trangThai" id="trangThai">--%>
+<%--                        <option value="SAP_DIEN_RA" ${voucher.trangThai == 'SAP_DIEN_RA' ? 'selected' : ''}>Sắp Diễn Ra</option>--%>
+<%--                        <option value="DANG_DIEN_RA" ${voucher.trangThai == 'DANG_DIEN_RA' ? 'selected' : ''}>Đang Diễn Ra</option>--%>
+<%--                        <option value="DA_KET_THUC" ${voucher.trangThai == 'DA_KET_THUC' ? 'selected' : ''}>Đã Kết Thúc</option>--%>
+<%--                    </select>--%>
+<%--                </div>--%>
 
                 <!-- Submit Button -->
                 <button type="submit" class="btn btn-primary">Lưu</button>
