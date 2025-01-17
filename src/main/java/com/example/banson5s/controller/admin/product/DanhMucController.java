@@ -16,7 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 @Controller
-@RequestMapping("/admin/danhmuc")
+@RequestMapping("/admin/category")
 public class DanhMucController {
     @Autowired
     private IDanhMucService danhMucService;
@@ -36,50 +36,40 @@ public class DanhMucController {
     public String formCreate(Model model) {
         model.addAttribute("danhMuc", new DanhMucDTO());
         model.addAttribute("btnText", "Thêm danh mục");
-        model.addAttribute("action", "/admin/danhmuc/create");
+        model.addAttribute("action", "/admin/category/create");
         model.addAttribute("page", "sanPham/danh_muc/form");
         return "admin/main";
     }
     @PostMapping("/create")
-    public String create(@Valid @ModelAttribute DanhMucDTO req, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors()) {
-            return "admin/main";
-        }
+    public String create(@Valid @ModelAttribute DanhMucDTO req) {
         danhMucService.createDanhMuc(req);
-        redirectAttributes.addFlashAttribute("successMessage", "Thêm danh mục thành công!");
-        return "redirect:/admin/danhmuc";
+        return "redirect:/admin/category";
     }
     @GetMapping("/update/{id}")
     public String formUpdate(@PathVariable Long id, Model model) {
         DanhMucDTO danhMuc = danhMucService.detailDanhMuc(id);
         if (danhMuc == null) {
-            return "redirect:/admin/danhmuc";
+            return "redirect:/admin/category";
         }
-        model.addAttribute("danhmuc", danhMuc);
-        model.addAttribute("action", "/admin/danhmuc/update");
+        model.addAttribute("danhMuc", danhMuc);
+        model.addAttribute("action", "/admin/category/update");
+        model.addAttribute("btnText","Cập Nhật");
         model.addAttribute("page", "sanPham/danh_muc/form");
         return "admin/main";
     }
     @PostMapping("/update")
-    public String update(@Valid @ModelAttribute DanhMucDTO req, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors()) {
-            return "admin/main";
-        }
-        try {
-            danhMucService.updateDanhMuc(req);
-            redirectAttributes.addFlashAttribute("successMessage", "Cập nhật danh mục thành công!");
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("errorMessage", "Cập nhật danh mục thất bại!");
-        }
-        return "redirect:/admin/danhmuc";
+    public String update(@ModelAttribute DanhMucDTO req) {
+        danhMucService.updateDanhMuc(req);
+        return "redirect:/admin/category";
     }
     @GetMapping("/detail/{id}")
     public String detail(@PathVariable Long id, Model model) {
         DanhMucDTO danhMuc = danhMucService.detailDanhMuc(id);
         if (danhMuc == null) {
-            return "redirect:/admin/danhmuc";
+            return "redirect:/admin/category";
         }
         model.addAttribute("danhMuc", danhMuc);
+        model.addAttribute("page", "sanPham/danh_muc/detail");
         return "admin/main";
     }
     @PutMapping("/delete")

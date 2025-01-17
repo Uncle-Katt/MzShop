@@ -17,7 +17,7 @@ import java.util.List;
 
 
 @Controller
-@RequestMapping("/admin/thuonghieu")
+@RequestMapping("/admin/brand")
 public class ThuongHieuController {
 
     @Autowired
@@ -40,21 +40,17 @@ public class ThuongHieuController {
     @GetMapping("/create")
     public String formCreate(Model model) {
         model.addAttribute("thuongHieu", new ThuongHieuDTO());
-        model.addAttribute("btnText", "Thêm thương hiệu");
-        model.addAttribute("action", "/admin/thuonghieu/create");
+        model.addAttribute("btnText", "Thêm Thương Hiệu");
+        model.addAttribute("action", "/admin/brand/create");
         model.addAttribute("page", "sanPham/thuong_hieu/form");
         return "admin/main";
     }
 
     // Xử lý thêm thương hiệu
     @PostMapping("/create")
-    public String create(@Valid @ModelAttribute ThuongHieuDTO req, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors()) {
-            return "admin/main";
-        }
+    public String create(@ModelAttribute ThuongHieuDTO req) {
         thuongHieuService.createThuongHieu(req);
-        redirectAttributes.addFlashAttribute("successMessage", "Thêm thương hiệu thành công!");
-        return "redirect:/admin/thuonghieu";
+        return "redirect:/admin/brand";
     }
 
     // Hiển thị form cập nhật thương hiệu
@@ -62,29 +58,20 @@ public class ThuongHieuController {
     public String formUpdate(@PathVariable Long id, Model model) {
         ThuongHieuDTO thuongHieu = thuongHieuService.detailThuongHieu(id);
         if (thuongHieu == null) {
-            return "redirect:/admin/thuonghieu";
+            return "redirect:/admin/brand";
         }
         model.addAttribute("thuongHieu", thuongHieu);
-        model.addAttribute("action", "/admin/thuonghieu/update");
+        model.addAttribute("action", "/admin/brand/update");
+        model.addAttribute("btnText","Cập Nhật");
         model.addAttribute("page", "sanPham/thuong_hieu/form");
         return "admin/main";
     }
 
     // Xử lý cập nhật thương hiệu
     @PostMapping("/update")
-    public String update(@Valid @ModelAttribute ThuongHieuDTO req, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors()) {
-            return "admin/main"; // Trả lại form khi có lỗi
-        }
-
-        try {
-            thuongHieuService.updateThuongHieu(req);
-            redirectAttributes.addFlashAttribute("successMessage", "Cập nhật thương hiệu thành công!");
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("errorMessage", "Cập nhật thương hiệu thất bại!");
-        }
-
-        return "redirect:/admin/thuonghieu"; // Điều hướng lại trang danh sách
+    public String update(@ModelAttribute ThuongHieuDTO req) {
+        thuongHieuService.updateThuongHieu(req);
+        return "redirect:/admin/brand"; // Điều hướng lại trang danh sách
     }
 
     // Chi tiết thương hiệu
@@ -92,9 +79,10 @@ public class ThuongHieuController {
     public String detail(@PathVariable Long id, Model model) {
         ThuongHieuDTO thuongHieu = thuongHieuService.detailThuongHieu(id);
         if (thuongHieu == null) {
-            return "redirect:/admin/thuonghieu";
+            return "redirect:/admin/brand";
         }
         model.addAttribute("thuongHieu", thuongHieu);
+        model.addAttribute("page", "sanPham/thuong_hieu/detail");
         return "admin/main";
     }
 

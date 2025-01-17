@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<div class="container mt-4">
+<div class="mt-4">
     <h2 class="mb-4">Quản Lý Thương Hiệu</h2>
 
     <!-- Form tìm kiếm thương hiệu -->
@@ -11,14 +11,12 @@
             </h5>
             <div class="row justify-content-center mb-3">
                 <div class="col-md-6">
-                    <form class="form-inline" method="GET" action="">
-                        <div class="input-group w-100">
-                            <input id="input_search" class="form-control" name="key" placeholder="Tìm kiếm tên thương hiệu ..." />
-                            <button id="btn_search" class="btn btn-red ml-2" type="button" style="background-color: #b85555; color: white;">
-                                <i class="fas fa-search"></i> Tìm kiếm
-                            </button>
-                        </div>
-                    </form>
+                    <div class="input-group w-100">
+                        <input id="input_search" class="form-control" name="key" placeholder="Tìm kiếm tên thương hiệu ..." />
+                        <button id="btn_search" class="btn btn-red" type="button" style="background-color: #b85555; color: white;">
+                            <i class="fas fa-search"></i> Tìm kiếm
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -30,11 +28,11 @@
         <div class="card-body">
             <div class="d-flex justify-content-between mb-3">
                 <h5 class="card-title">Danh sách thương hiệu</h5>
-                <a href="/admin/thuonghieu/create" class="btn btn-pink" style="background-color: #b85555; color: white;">
+                <a href="/admin/brand/create" class="btn btn-pink" style="background-color: #b85555; color: white;">
                     <i class="fa-solid fa-plus"></i> Thêm thương hiệu
                 </a>
             </div>
-            <table class="table" id="customerTable">
+            <table class="table" id="brandTable">
                 <thead>
                 <tr>
                     <th>STT</th>
@@ -78,7 +76,7 @@
 <script>
     $(document).ready(function () {
         // Khởi tạo DataTable
-        let brandTable = $('#customerTable').DataTable({
+        let brandTable = $('#brandTable').DataTable({
             "paging": true,
             "searching": false,
             "ordering": false,
@@ -97,7 +95,7 @@
         function loadTableBrand() {
             const search = $('#input_search').val();
             $.ajax({
-                url: '/admin/thuonghieu/list',
+                url: '/admin/brand/list',
                 method: 'GET',
                 dataType: 'json',
                 data: {search: search},
@@ -107,7 +105,8 @@
                         brandTable.row.add([
                             index + 1,
                             brand.tenThuongHieu,
-                            '<a href="/admin/thuonghieu/detail/' + brand.id + '" class="btn btn-warning btn-sm mr-2"><i class="fa-solid fa-info"></i></a>' +
+                            '<a href="/admin/brand/detail/' + brand.id + '" class="btn btn-warning btn-sm mr-2"><i class="fa-solid fa-info"></i></a>' +
+                            '<a href="/admin/brand/update/' + brand.id + '" class="btn btn-success btn-sm mr-2"><i class="fa-solid fa-pen"></i></a>' +
                             '<button class="btn btn-danger btn-sm btn-delete-brand" data-brand-id="' + brand.id + '"><i class="fa-solid fa-trash"></i></button>'
                         ]);
                     });
@@ -138,7 +137,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        url: '/admin/thuonghieu/delete',
+                        url: '/admin/brand/delete',
                         method: 'PUT',
                         contentType: 'application/json',
                         data: JSON.stringify(brandId),

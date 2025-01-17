@@ -11,14 +11,12 @@
             </h5>
             <div class="row justify-content-center mb-3">
                 <div class="col-md-6">
-                    <form class="form-inline" method="GET" action="">
-                        <div class="input-group w-100">
-                            <input id="inputOrigin" class="form-control" name="key" placeholder="Tìm kiếm tên xuất xứ ..." />
-                            <button id="searchOrigin" class="btn btn-red ml-2" type="button" style="background-color: #b85555; color: white;">
-                                <i class="fas fa-search"></i> Tìm kiếm
-                            </button>
-                        </div>
-                    </form>
+                    <div class="input-group w-100">
+                        <input id="inputOrigin" class="form-control" name="key" placeholder="Tìm kiếm tên xuất xứ ..." />
+                        <button id="searchOrigin" class="btn btn-red" type="button" style="background-color: #b85555; color: white;">
+                            <i class="fas fa-search"></i> Tìm kiếm
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -29,7 +27,7 @@
         <div class="card-body">
             <div class="d-flex justify-content-between mb-3">
                 <h5 class="card-title">Danh sách xuất xứ</h5>
-                <a href="/admin/xuatxu/create" class="btn btn-pink" style="background-color: #b85555; color: white;">
+                <a href="/admin/origin/create" class="btn btn-pink" style="background-color: #b85555; color: white;">
                     <i class="fa-solid fa-plus"></i> Thêm xuất xứ
                 </a>
             </div>
@@ -96,7 +94,7 @@
         function loadTableOrigin() {
             const search = $('#inputOrigin').val();
             $.ajax({
-                url: '/admin/xuatxu/list', // Chỉnh URL theo xuất xứ
+                url: '/admin/origin/list', // Chỉnh URL theo xuất xứ
                 method: 'GET',
                 dataType: 'json',
                 data: {search: search},
@@ -105,8 +103,9 @@
                     $.each(data.data, function (index, origin) {
                         originTable.row.add([
                             index + 1,
-                            origin.tenXuatXu, // Thay "tenThuongHieu" thành "tenXuatXu"
-                            '<a href="/admin/xuatxu/detail/' + origin.id + '" class="btn btn-warning btn-sm mr-2"><i class="fa-solid fa-info"></i></a>' +
+                            origin.tenXuatXu,
+                            '<a href="/admin/origin/detail/' + origin.id + '" class="btn btn-warning btn-sm mr-2"><i class="fa-solid fa-info"></i></a>' +
+                            '<a href="/admin/origin/update/' + origin.id + '" class="btn btn-success btn-sm mr-2"><i class="fa-solid fa-pen"></i></a>' +
                             '<button class="btn btn-danger btn-sm btn-delete-origin" data-origin-id="' + origin.id + '"><i class="fa-solid fa-trash"></i></button>'
                         ]);
                     });
@@ -137,7 +136,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        url: '/admin/xuatxu/delete', // Chỉnh URL cho xóa xuất xứ
+                        url: '/admin/origin/delete', // Chỉnh URL cho xóa xuất xứ
                         method: 'PUT',
                         contentType: 'application/json',
                         data: JSON.stringify(originId),

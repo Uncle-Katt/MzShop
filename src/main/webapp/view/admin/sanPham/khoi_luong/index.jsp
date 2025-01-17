@@ -11,14 +11,12 @@
 
             <div class="row justify-content-center mb-3">
                 <div class="col-md-6">
-                    <form class="form-inline" method="GET" action="">
-                        <div class="input-group w-100">
-                            <input id="input_search" class="form-control" name="key" placeholder="Tìm kiếm tên khối lượng ..." />
-                            <button id="btn_search" class="btn btn-red ml-2" type="submit" style="background-color: #b85555; color: white;">
-                                <i class="fas fa-search"></i> Tìm kiếm
-                            </button>
-                        </div>
-                    </form>
+                    <div class="input-group w-100">
+                        <input id="input_search" class="form-control" name="key" placeholder="Tìm kiếm tên khối lượng ..." />
+                        <button id="btn_search" class="btn btn-red" id="btn_search" style="background-color: #b85555; color: white;">
+                            <i class="fas fa-search"></i> Tìm kiếm
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -29,9 +27,9 @@
         <div class="card-body">
             <div class="d-flex justify-content-between mb-3">
                 <h5 class="card-title">Danh sách khối lượng</h5>
-                <a href="/admin/khoiluong/create" class="btn btn-pink" style="background-color: #b85555; color: white;"><i class="fa-solid fa-plus" ></i> Thêm Khối lượng</a>
+                <a href="/admin/weight/create" class="btn btn-pink" style="background-color: #b85555; color: white;"><i class="fa-solid fa-plus" ></i> Thêm Khối lượng</a>
             </div>
-            <table class="table" id="customerTable">
+            <table class="table" id="weightTable">
                 <thead>
                 <tr>
                     <th>STT</th>
@@ -82,7 +80,7 @@
 </style>
 <script>
     $(document).ready(function () {
-        let weightTable = $('#customerTable').DataTable({
+        let weightTable = $('#weightTable').DataTable({
             "paging": true,        // Bật phân trang
             "searching": false,    // Bật tìm kiếm
             "ordering": false,     // Bật sắp xếp
@@ -100,7 +98,7 @@
         function loadTableWeight() {
             const search = $('#input_search').val();
             $.ajax({
-                url: '/admin/khoiluong/list',  // Đổi URL để lấy dữ liệu khối lượng
+                url: '/admin/weight/list',  // Đổi URL để lấy dữ liệu khối lượng
                 method: 'GET',
                 dataType: 'json',
                 data: {search: search},
@@ -110,8 +108,8 @@
                         weightTable.row.add([
                             index + 1,
                             weight.tenKhoiLuong,
-                            '<a href="/admin/khoiluong/detail/' + weight.id + '" class="btn btn-warning btn-sm mr-2"><i class="fa-solid fa-info"></i></a>' +
-                            '<a href="/admin/khoiluong/update/' + weight.id + '" class="btn btn-success btn-sm mr-2"><i class="fa-solid fa-pen"></i></a>' +
+                            '<a href="/admin/weight/detail/' + weight.id + '" class="btn btn-warning btn-sm mr-2"><i class="fa-solid fa-info"></i></a>' +
+                            '<a href="/admin/weight/update/' + weight.id + '" class="btn btn-success btn-sm mr-2"><i class="fa-solid fa-pen"></i></a>' +
                             '<button class="btn btn-danger btn-sm btn-delete-weight" data-weight-id="' + weight.id + '"><i class="fa-solid fa-trash"></i></button>'
                         ]);
                     });
@@ -142,7 +140,7 @@
                 if (result.isConfirmed) {
                     $('#loading').show();
                     $.ajax({
-                        url: '/admin/khoiluong/delete',  // Đổi URL để xóa khối lượng
+                        url: '/admin/weight/delete',  // Đổi URL để xóa khối lượng
                         method: 'PUT',
                         contentType: 'application/json',
                         data: JSON.stringify(weightId),

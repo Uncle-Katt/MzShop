@@ -16,7 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 @Controller
-@RequestMapping("/admin/mausac")
+@RequestMapping("/admin/color")
 public class MauSacController {
     @Autowired
     private IMauSacService mauSacService;
@@ -34,54 +34,42 @@ public class MauSacController {
     @GetMapping("/create")
     public String formCreate(Model model) {
         model.addAttribute("mauSac", new MauSacDTO());
-        model.addAttribute("btnText", "Thêm màu sắc");
-        model.addAttribute("action", "/admin/mausac/create");
+        model.addAttribute("btnText", "Thêm Màu Sắc");
+        model.addAttribute("action", "/admin/color/create");
         model.addAttribute("page", "sanPham/mau_sac/form");
         return "admin/main";
     }
     @PostMapping("/create")
-    public String create(@Valid @ModelAttribute MauSacDTO req, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors()) {
-            return "admin/main";
-        }
+    public String create(@ModelAttribute MauSacDTO req) {
         mauSacService.createMauSac(req);
-        redirectAttributes.addFlashAttribute("successMessage", "Thêm màu sắc thành công!");
-        return "redirect:/admin/mausac";
+        return "redirect:/admin/color";
     }
     @GetMapping("/update/{id}")
     public String formUpdate(@PathVariable Long id, Model model) {
         MauSacDTO mauSac = mauSacService.detailMauSac(id);
         if (mauSac == null) {
-            return "redirect:/admin/mausac";
+            return "redirect:/admin/color";
         }
         model.addAttribute("mauSac", mauSac);
-        model.addAttribute("action", "/admin/mausac/update");
+        model.addAttribute("btnText","Cập Nhật");
+        model.addAttribute("action", "/admin/color/update");
         model.addAttribute("page", "sanPham/mau_sac/form");
         return "admin/main";
     }
     @PostMapping("/update")
-    public String update(@Valid @ModelAttribute MauSacDTO req, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors()) {
-            return "admin/main";
-        }
-
-        try {
-            mauSacService.updateMauSac(req);
-            redirectAttributes.addFlashAttribute("successMessage", "Cập nhật màu sắc thành công!");
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("errorMessage", "Cập nhật màu sắc thất bại!");
-        }
-
-        return "redirect:/admin/mausac";
+    public String update(@ModelAttribute MauSacDTO req) {
+        mauSacService.updateMauSac(req);
+        return "redirect:/admin/color";
     }
 
     @GetMapping("/detail/{id}")
     public String detail(@PathVariable Long id, Model model) {
         MauSacDTO mauSac = mauSacService.detailMauSac(id);
         if (mauSac == null) {
-            return "redirect:/admin/mausac";
+            return "redirect:/admin/color";
         }
         model.addAttribute("mauSac", mauSac);
+        model.addAttribute("page", "sanPham/mau_sac/detail");
         return "admin/main";
     }
 
