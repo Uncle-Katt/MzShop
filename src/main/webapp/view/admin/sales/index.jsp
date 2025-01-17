@@ -305,7 +305,7 @@
                             </div>
                             <div class="modal fade" id="voucherModal" tabindex="-1" aria-labelledby="voucherModalLabel"
                                  aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered" style="max-width: 70%">
+                                <div class="modal-dialog modal-dialog-centered" style="max-width: 80%">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="voucherModalLabel">Chọn phiếu giảm giá</h5>
@@ -325,7 +325,7 @@
                                                     <th>STT</th>
                                                     <th>Mã</th>
                                                     <th>Tên</th>
-                                                    <th>Giá trị tối thiểu</th>
+                                                    <th>Đơn tối thiểu</th>
                                                     <th>Giá trị giảm</th>
                                                     <th>Số lượng</th>
                                                     <th>Ngày bắt đầu</th>
@@ -1076,8 +1076,8 @@
                             formatDate(voucher.ngayKetThuc),
                             '<button  type="button" class="btn btn-success select-btn-voucher" data-voucher-id="' + voucher.id + '" data-voucher-value="' + voucher.dieuKienApDung + '" >Chọn</button>'
                         ])
-                        voucherTable.draw();
                     });
+                    voucherTable.draw();
                 },
                 error: function (err) {
                     toastr.error('Lỗi khi lấy dữ liệu', err);

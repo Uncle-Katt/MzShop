@@ -7,6 +7,7 @@ import com.example.banson5s.dto.admin.sales.CustomerInvoicesDTO;
 import com.example.banson5s.dto.admin.sales.PaymentInvoiceDTO;
 import com.example.banson5s.dto.admin.sales.ProductInvoicesDTO;
 import com.example.banson5s.dto.admin.sales.VoucherInvoicesDTO;
+import com.example.banson5s.dto.admin.voucher.VoucherDTO;
 import com.example.banson5s.entity.admin.HoaDon;
 import com.example.banson5s.entity.admin.KhachHang;
 import com.example.banson5s.entity.admin.PhieuGiamGia;
@@ -117,7 +118,7 @@ public class SalesController {
     @GetMapping("/voucher")
     @ResponseBody
     public ResponseEntity<?> getVoucher(@RequestParam String search) {
-        List<PhieuGiamGia> lst = salesService.findAllVoucherSales(search);
+        List<VoucherDTO> lst = salesService.findAllVoucherSales(search);
         return new ResponseEntity<>(ResponseObject.builder().data(lst).build(), HttpStatus.OK);
     }
 

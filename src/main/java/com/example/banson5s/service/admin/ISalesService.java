@@ -6,6 +6,7 @@ import com.example.banson5s.dto.admin.sales.CustomerInvoicesDTO;
 import com.example.banson5s.dto.admin.sales.PaymentInvoiceDTO;
 import com.example.banson5s.dto.admin.sales.ProductInvoicesDTO;
 import com.example.banson5s.dto.admin.sales.VoucherInvoicesDTO;
+import com.example.banson5s.dto.admin.voucher.VoucherDTO;
 import com.example.banson5s.entity.admin.HoaDon;
 import com.example.banson5s.entity.admin.HoaDonChiTiet;
 import com.example.banson5s.entity.admin.IInvoiceItem;
@@ -41,7 +42,7 @@ public interface ISalesService {
 
     HoaDon paymentInvoice(PaymentInvoiceDTO paymentInvoiceDTO);
 
-    List<PhieuGiamGia> findAllVoucherSales(String search);
+    List<VoucherDTO> findAllVoucherSales(String search);
 
     List<DiaChiDTO> findAddressByCustomer(Long customerId);
 

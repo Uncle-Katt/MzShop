@@ -220,7 +220,7 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white h5" href="/phieu-giam-gia/list" aria-label="Giảm giá">
+                        <a class="nav-link text-white h5" href="/admin/voucher" aria-label="Giảm giá">
                             Giảm giá
                         </a>
                     </li>

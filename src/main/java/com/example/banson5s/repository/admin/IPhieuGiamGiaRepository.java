@@ -16,8 +16,20 @@ public interface IPhieuGiamGiaRepository  extends IBaseRepository<PhieuGiamGia,L
     where 
     pgg.xoaMem = false
     and pgg.soLuong > 0 
-    and pgg.trangThai =:sts
+    and pgg.trangThai = :sts
     and (pgg.tenPhieuGiamGia like %:search% or pgg.maPhieuGiamGia like %:search%)
+    order by pgg.ngayTao desc 
 """)
     List<PhieuGiamGia> findAllVoucherSales(@Param("sts") String sts,@Param("search") String search);
+
+    @Query("""
+    select 
+    pgg 
+    from PhieuGiamGia pgg 
+    where 
+    pgg.xoaMem = false
+    and (pgg.tenPhieuGiamGia like %:search% or pgg.maPhieuGiamGia like %:search%)
+    order by pgg.ngayTao desc 
+""")
+    List<PhieuGiamGia> findAllVoucher(@Param("search") String search);
 }

@@ -83,6 +83,22 @@
                 return "Không Xác Định";
         }
     }
+
+    const convertStatusVoucher = (type) =>
+    {
+        switch (type) {
+            case "SAP_DIEN_RA":
+                return "Sắp Diễn Ra";
+            case "DANG_DIEN_RA":
+                return "Đang Diễn Ra";
+            case "DA_KET_THUC":
+                return "Đã Kết Thúc";
+            case "DA_HUY":
+                return "Đã Hủy";
+            default:
+                return "Không Xác Định";
+        }
+    }
 </script>
 </body>
 </html>

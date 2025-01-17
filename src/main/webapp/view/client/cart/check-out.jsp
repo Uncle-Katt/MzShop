@@ -12,13 +12,13 @@
             </div>
             <div class="col-4">
                 <div>
-                    <div style="display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 10px">
-                        <div>Phiếu giảm giá</div>
-                        <button class="btn btn-danger" data-toggle="modal" data-target="#voucherModal"
-                                style="background-color: #b85555; color: white; border: none;">
-                            + Phiếu giảm giá
-                        </button>
-                    </div>
+<%--                    <div style="display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 10px">--%>
+<%--                        <div>Phiếu giảm giá</div>--%>
+<%--                        <button class="btn btn-danger" data-toggle="modal" data-target="#voucherModal"--%>
+<%--                                style="background-color: #b85555; color: white; border: none;">--%>
+<%--                            + Phiếu giảm giá--%>
+<%--                        </button>--%>
+<%--                    </div>--%>
                     <div class="alert alert-warning" role="alert" id="voucherInfo" style="display: none">
                         <div id="voucherInfoCode"></div>
                         <div id="voucherInfoName"></div>

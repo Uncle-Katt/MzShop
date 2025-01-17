@@ -6,6 +6,7 @@ import com.example.banson5s.dto.admin.sales.CustomerInvoicesDTO;
 import com.example.banson5s.dto.admin.sales.PaymentInvoiceDTO;
 import com.example.banson5s.dto.admin.sales.ProductInvoicesDTO;
 import com.example.banson5s.dto.admin.sales.VoucherInvoicesDTO;
+import com.example.banson5s.dto.admin.voucher.VoucherDTO;
 import com.example.banson5s.entity.admin.HoaDon;
 import com.example.banson5s.entity.admin.HoaDonChiTiet;
 import com.example.banson5s.entity.admin.IInvoiceItem;
@@ -234,7 +235,7 @@ public class SalesServiveImpl implements ISalesService {
     }
 
     @Override
-    public List<PhieuGiamGia> findAllVoucherSales(String search) {
+    public List<VoucherDTO> findAllVoucherSales(String search) {
         return phieuGiamGiaService.findAllVoucherSales(CouponStatus.DANG_DIEN_RA.getLabel(), search);
     }
 
