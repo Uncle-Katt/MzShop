@@ -128,7 +128,7 @@
             $('#danhMucSelect').empty();
             $('#danhMucSelect').append('<option value="" selected disabled>Chọn danh mục</option>');
             $.ajax({
-                url: '/admin/danhmuc/list',
+                url: '/admin/category/list',
                 method: 'GET',
                 dataType: 'json',
                 data: {search: ''},
@@ -150,7 +150,7 @@
             $('#thuongHieuSelect').empty();
             $('#thuongHieuSelect').append('<option value="" selected disabled>Chọn thương hiệu</option>');
             $.ajax({
-                url: '/admin/thuonghieu/list',
+                url: '/admin/brand/list',
                 method: 'GET',
                 dataType: 'json',
                 data: {search: ''},
@@ -172,7 +172,7 @@
             $('#xuatXuSelect').empty();
             $('#xuatXuSelect').append('<option value="" selected disabled>Chọn xuất xứ</option>');
             $.ajax({
-                url: '/admin/xuatxu/list',
+                url: '/admin/origin/list',
                 method: 'GET',
                 dataType: 'json',
                 data: {search: ''},
@@ -193,7 +193,7 @@
         function getDataMauSac() {
             $('#colorSelect').empty();
             $.ajax({
-                url: '/admin/mausac/list',
+                url: '/admin/color/list',
                 method: 'GET',
                 dataType: 'json',
                 data: {search: ''},
@@ -215,7 +215,7 @@
         function getDataKhoiLuong() {
             $('#massSelect').empty();
             $.ajax({
-                url: '/admin/khoiluong/list',
+                url: '/admin/weight/list',
                 method: 'GET',
                 dataType: 'json',
                 data: {search: ''},
@@ -380,6 +380,7 @@
 
         function loadTableProductDetail(data) {
             console.log(data)
+            data.sort((a, b) => a.mauSac.id - b.mauSac.id);
             productTable.clear();
             $.each(data, function (index, item) {
                 productTable.row.add([
