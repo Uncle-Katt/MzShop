@@ -554,7 +554,7 @@
         const loadHideShowBtnOrderDetail = (data) => {
             let billStatus = data.trangThai;
             let billType = data.loaiHoaDon;
-            if (billStatus == "CHO_XAC_NHAN" && billStatus != "HUY" ){
+            if ((billStatus == "CHO_XAC_NHAN" || billStatus == "DA_XAC_NHAN") && billStatus != "HUY" ){
                 $("#btnCancel").show()
             }else {
                 $("#btnCancel").hide()

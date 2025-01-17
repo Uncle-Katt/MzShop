@@ -203,37 +203,37 @@
                         </div>
                         <div>
                             <div class="mb-3">
-                                <label for="nameAddress" class="form-label">Họ và tên</label>
+                                <label for="nameAddress" class="form-label required">Họ và tên</label>
                                 <input type="text" class="form-control" id="nameAddress"
                                        placeholder="Nhập tên người nhận">
                             </div>
                             <div class="mb-3">
-                                <label for="phoneAddress" class="form-label">Số điện thoại</label>
+                                <label for="phoneAddress" class="form-label required">Số điện thoại</label>
                                 <input type="text" class="form-control" id="phoneAddress"
                                        placeholder="Nhập Số điện thoại">
                             </div>
                             <div class="mb-3 row">
                                 <div class="col-4">
-                                    <label for="provinceAddress" class="form-label">Tỉnh/Thành</label>
+                                    <label for="provinceAddress" class="form-label required">Tỉnh/Thành</label>
                                     <select class="form-select" id="provinceAddress">
                                         <option value="" selected disabled>Chọn tỉnh</option>
                                     </select>
                                 </div>
                                 <div class="col-4">
-                                    <label class="form-label" for="districtAddress">Quận/Huyện</label>
+                                    <label class="form-label required" for="districtAddress">Quận/Huyện</label>
                                     <select class="form-select" id="districtAddress">
                                         <option value="" selected disabled>Chọn huyện</option>
                                     </select>
                                 </div>
                                 <div class="col-4">
-                                    <label for="wardAddress" class="form-label">Xã/Phường</label>
+                                    <label for="wardAddress" class="form-label required">Xã/Phường</label>
                                     <select class="form-select" id="wardAddress">
                                         <option value="" selected disabled>Chọn xã</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <label for="detailAddress" class="form-label">Địa chỉ chi tiết</label>
+                                <label for="detailAddress" class="form-label required">Địa chỉ chi tiết</label>
                                 <input type="text" class="form-control" id="detailAddress"
                                        placeholder="Nhập địa chỉ chi tiết">
                             </div>
@@ -911,6 +911,30 @@
         });
 
         function paymentInvoice() {
+
+            let nameAddress = $('#nameAddress').val();
+            let phoneAddress = $('#phoneAddress').val();
+            let provinceAddress = $('#provinceAddress option:selected').text();
+            let districtAddress = $('#districtAddress option:selected').text();
+            let wardAddress = $('#wardAddress option:selected').text();
+            let detailAddress = $('#detailAddress').val();
+
+            let provinceAddressValue = $('#provinceAddress option:selected').val();
+            let districtAddressValue = $('#districtAddress option:selected').val();
+            let wardAddressValue = $('#wardAddress option:selected').val();
+
+
+            let address = null;
+            if (isGiaoHang) {
+                // Kiểm tra nếu có bất kỳ trường nào bị bỏ trống
+                if (!nameAddress || !phoneAddress || !provinceAddressValue ||
+                    !districtAddressValue || !wardAddressValue || !detailAddress) {
+                    toastr.error("Vui lòng nhập đầy đủ thông tin giao hàng");
+                    return;
+                }
+                address = detailAddress + ", " + wardAddress + ", " + districtAddress + ", " + provinceAddress
+            }
+
             Swal.fire({
                 title: 'Xác nhận đặt hàng ?',
                 icon: 'warning',
@@ -921,18 +945,6 @@
                 cancelButtonText: 'Hủy'
             }).then((result) => {
                 if (result.isConfirmed) {
-
-                    let nameAddress = $('#nameAddress').val();
-                    let phoneAddress = $('#phoneAddress').val();
-                    let provinceAddress = $('#provinceAddress option:selected').text();
-                    let districtAddress = $('#districtAddress option:selected').text();
-                    let wardAddress = $('#wardAddress option:selected').text();
-                    let detailAddress = $('#detailAddress').val();
-                    let address = null;
-                    if (isGiaoHang) {
-                        address = detailAddress + ", " + wardAddress + ", " + districtAddress + ", " + provinceAddress
-                    }
-
                     $('#loading').show();
                     $.ajax({
                         url: '/admin/sales/payment-invoices',

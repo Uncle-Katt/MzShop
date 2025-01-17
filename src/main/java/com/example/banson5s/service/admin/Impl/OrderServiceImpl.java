@@ -77,6 +77,16 @@ public class OrderServiceImpl implements IOrderService {
             });
         }
 
+        if (!hoaDon.getTrangThai().equals(InvoiceStatus.CHO_XAC_NHAN.getLabel())
+                && dto.getStatus().equals(InvoiceStatus.HUY.getLabel())){
+            List<HoaDonChiTiet> lstHoaDonChiTiet = hoaDon.getLstHoaDonChiTiet().stream().toList();
+            lstHoaDonChiTiet.forEach(item ->{
+                SanPhamChiTiet sanPhamChiTiet = item.getSanPhamChiTiet();
+                sanPhamChiTiet.setSoLuong(sanPhamChiTiet.getSoLuong() + item.getSoLuong());
+                sanPhamChiTietService.update(sanPhamChiTiet);
+            });
+        }
+
         if (hoaDon.getLoaiHoaDon().equals(BillType.ONLINE.getLabel())
                 && dto.getStatus().equals(InvoiceStatus.CHO_XAC_NHAN.getLabel())){
             List<HoaDonChiTiet> lstHoaDonChiTiet = hoaDon.getLstHoaDonChiTiet().stream().toList();
