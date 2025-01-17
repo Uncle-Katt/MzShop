@@ -14,7 +14,8 @@ import java.util.Optional;
 public interface ISanPhamChiTietRepository extends IBaseRepository<SanPhamChiTiet, Long> {
     @Query("""
             select spct from SanPhamChiTiet spct
-            where spct.xoaMem = false 
+            where spct.xoaMem = false
+            and spct.sanPham.xoaMem = false
             and spct.soLuong > 0 
             and spct.sanPham.trangThai LIKE :sts%
             and (spct.sanPham.tenSanPham LIKE %:search% OR spct.maVach LIKE %:search%)

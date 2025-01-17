@@ -69,7 +69,7 @@
 
         // Kiểm tra email
         var email = $("#email").val();
-        var emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]$/;
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!email.match(emailRegex)) {
             toastr.error("Email không hợp lệ.");
             return false;

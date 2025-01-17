@@ -12,7 +12,7 @@
                     <input type="text" class="form-control" name="hoVaTen" id="nameKh" placeholder="Nhập tên khách hàng" value="${customer.hoVaTen}">
                 </div>
                 <div class="mb-3">
-                    <label for="gender" class="form-label">Giới tính</label>
+                    <label class="form-label">Giới tính</label>
                     <div class="d-flex">
                         <c:forEach var="entry" items="${gender}">
                             <div class="mr-4">
@@ -65,7 +65,7 @@
 
         // Kiểm tra email
         var email = $("#emailKh").val();
-        var emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!email.match(emailRegex)) {
             toastr.error("Email không hợp lệ.");
             return false;
