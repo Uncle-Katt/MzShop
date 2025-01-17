@@ -127,7 +127,7 @@
             $('#danhMucSelect').empty();
             $('#danhMucSelect').append('<option value="" selected disabled>Chọn danh mục</option>');
             $.ajax({
-                url: '/admin/danhmuc/list',
+                url: '/admin/category/list',
                 method: 'GET',
                 dataType: 'json',
                 data: {search: ''},
@@ -149,7 +149,7 @@
             $('#thuongHieuSelect').empty();
             $('#thuongHieuSelect').append('<option value="" selected disabled>Chọn thương hiệu</option>');
             $.ajax({
-                url: '/admin/thuonghieu/list',
+                url: '/admin/brand/list',
                 method: 'GET',
                 dataType: 'json',
                 data: {search: ''},
@@ -171,7 +171,7 @@
             $('#xuatXuSelect').empty();
             $('#xuatXuSelect').append('<option value="" selected disabled>Chọn xuất xứ</option>');
             $.ajax({
-                url: '/admin/xuatxu/list',
+                url: '/admin/origin/list',
                 method: 'GET',
                 dataType: 'json',
                 data: {search: ''},
@@ -192,7 +192,7 @@
         function getDataMauSac() {
             $('#colorSelect').empty();
             $.ajax({
-                url: '/admin/mausac/list',
+                url: '/admin/color/list',
                 method: 'GET',
                 dataType: 'json',
                 data: {search: ''},
@@ -214,7 +214,7 @@
         function getDataKhoiLuong() {
             $('#massSelect').empty();
             $.ajax({
-                url: '/admin/khoiluong/list',
+                url: '/admin/weight/list',
                 method: 'GET',
                 dataType: 'json',
                 data: {search: ''},
@@ -337,7 +337,7 @@
         });
 
         function loadTableProductDetail(data) {
-            console.log(data)
+            data.sort((a, b) => a.color.id - b.color.id);
             productTable.clear();
             $.each(data, function (index, item) {
                 productTable.row.add([
@@ -368,7 +368,7 @@
             $('#massSelect').val('').trigger('change'); // Reset select mass
         })
         function genDataProductDetail(){
-            let product =  $('#tenSanPham').val()
+            let tenSanPham =  $('#tenSanPham').val()
 
             let colorSelectId = $('#colorSelect').val()
             let colorArr = colorData.filter(item => colorSelectId.includes(String(item.id)));
@@ -378,20 +378,26 @@
             if (!colorArr.length || !massArr.length) {
                 return;
             }
-            let productArr = []
+            let productArr = [];
             colorArr.forEach(color => {
                 massArr.forEach(mass => {
-                    let productDetail = {
-                        product: product,
-                        color: color,
-                        mass: mass,
-                        quantity: 1,
-                        price: 100000,
-                    };
-                    productArr.push(productDetail);
+                    console.log(productDetailArr)
+                    // Kiểm tra xem sản phẩm với màu sắc và khối lượng đã tồn tại hay chưa
+                    let exists = productDetailArr.some(product => product.color.id === color.id && product.mass.id === mass.id);
+                    console.log(exists)
+                    if (!exists) { // Nếu chưa tồn tại, thêm vào mảng mới
+                        let productDetail = {
+                            product: tenSanPham,
+                            color: color,
+                            mass: mass,
+                            quantity: 1,
+                            price: 100000
+                        };
+                        productArr.push(productDetail);
+                    }
                 });
             });
-            productDetailArr = productArr
+            productDetailArr = [...productDetailArr, ...productArr]
             loadTableProductDetail(productDetailArr)
         }
 

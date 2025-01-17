@@ -148,7 +148,8 @@
                             item.soLuong,
                             convertStatusProduct(item.trangThai),
                             '<a  href="/admin/product/detail/' + item.id + '"  class="btn btn-warning btn-sm mr-2"><i class="fa-solid fa-info"></i></a>' +
-                            '<a href="/admin/product/update/' + item.id + '" class="btn btn-success btn-sm mr-2"><i class="fa-solid fa-pen"></i></a>'
+                            '<a href="/admin/product/update/' + item.id + '" class="btn btn-success btn-sm mr-2"><i class="fa-solid fa-pen"></i></a>'+
+                            '<button class="btn btn-danger btn-sm btn-delete-product" data-product-id="' + item.id + '"><i class="fa-solid fa-trash"></i></button>'
                         ]);
                     });
                     productTable.draw();
@@ -163,6 +164,36 @@
             loadTableProduct()
         });
         loadTableProduct()
+
+        // Xóa thương hiệu
+        $(document).on('click', '.btn-delete-product', function () {
+            let id = $(this).data('product-id');
+            Swal.fire({
+                title: 'Bạn có chắc muốn xóa sản phẩm này?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Xác nhận',
+                cancelButtonText: 'Hủy'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '/admin/product/delete',
+                        method: 'PUT',
+                        contentType: 'application/json',
+                        data: JSON.stringify(id),
+                        success: function () {
+                            toastr.success('Xóa sản phẩm thành công');
+                            loadTableProduct();
+                        },
+                        error: function () {
+                            toastr.error('Xóa sản phẩm lỗi');
+                        }
+                    });
+                }
+            });
+        });
     })
 
 </script>
