@@ -90,6 +90,11 @@
             <artifactId>spring-security-core</artifactId>
             <version>5.8.2</version> <!-- Chọn phiên bản phù hợp -->
         </dependency>
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>itext7-core</artifactId> <!-- Dùng iText 7 -->
+            <version>7.2.2</version> <!-- Thay đổi phiên bản nếu cần -->
+        </dependency>
 
     </dependencies>
 

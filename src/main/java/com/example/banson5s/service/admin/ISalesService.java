@@ -39,7 +39,7 @@ public interface ISalesService {
 
     Boolean voucherInvoices(VoucherInvoicesDTO voucherInvoicesDTO);
 
-    Boolean paymentInvoice(PaymentInvoiceDTO paymentInvoiceDTO);
+    HoaDon paymentInvoice(PaymentInvoiceDTO paymentInvoiceDTO);
 
     List<PhieuGiamGia> findAllVoucherSales(String search);
 

@@ -116,10 +116,14 @@
                    </button>
                </div>
                 <div>
-                    <button class="btn btn-primary mb-2"
+                    <button class="btn btn-primary mb-2" id="printInvoiceBtn"
+                            style="background-color: #b85555; color: white; border: none;"
+                    >In Hóa Đơn</button>
+                    <button class="btn btn-primary mb-2 ml-2"
                             data-toggle="modal" data-target="#historyBillModal"
                             style="background-color: #b85555; color: white; border: none;">Chi tiết
                     </button>
+
                     <div class="modal fade" id="historyBillModal" tabindex="-1" aria-labelledby="historyBillModalLabel"
                          aria-hidden="true">
                         <div class="modal-dialog" style="max-width: 50%">
@@ -731,6 +735,28 @@
             let totalAmount = parseFloat($('#paymentAmountInput').val()) || 0;
             let moneyResult = money -totalAmount;
             $('#paymentAmountReturn').val(moneyResult);
+        });
+
+        $("#printInvoiceBtn").click(function() {
+            // Gửi yêu cầu GET để in hóa đơn
+            $.ajax({
+                url: "http://localhost:8080/invoice/print/" + codeBill,
+                type: "GET",
+                xhrFields: {
+                    responseType: "blob" // Đặt phản hồi là blob (PDF)
+                },
+                success: function(response, status, xhr) {
+                    // Tạo một đối tượng URL cho file PDF trả về
+                    var blob = response;
+                    var link = document.createElement("a");
+                    link.href = URL.createObjectURL(blob);
+                    link.download = "bill_" + codeBill + ".pdf"; // Đặt tên file tải về
+                    link.click(); // Tự động tải về file PDF
+                },
+                error: function(xhr, status, error) {
+                    console.error("Lỗi: " + status + ", " + error);
+                }
+            });
         });
 
     });

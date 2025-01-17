@@ -959,12 +959,9 @@
                             $('#switchGiaoHang').prop('checked', false);
                             handelSwitchGiaoHang(false)
                             toastr.success('Đặt hàng thành công');
-                            setTimeout(() => {
-                                window.scrollTo({
-                                    top: 0,
-                                    behavior: 'smooth'
-                                });
-                            }, 500);
+                            console.log(response.data)
+                            printBill(response.data.maHoaDon);
+
                         },
                         error: function (err) {
                             loadDataInvoices()
@@ -985,7 +982,50 @@
         }
 
         //     Thanh Toán end
+        // start in hao Đơn
 
+        function printBill(codeBill){
+            Swal.fire({
+                title: 'Xác nhận in hóa đơn ?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Xác nhận',
+                cancelButtonText: 'Hủy'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "http://localhost:8080/invoice/print/" + codeBill,
+                        type: "GET",
+                        xhrFields: {
+                            responseType: "blob" // Đặt phản hồi là blob (PDF)
+                        },
+                        success: function(response, status, xhr) {
+                            // Tạo một đối tượng URL cho file PDF trả về
+                            var blob = response;
+                            var link = document.createElement("a");
+                            link.href = URL.createObjectURL(blob);
+                            link.download = "bill_" + codeBill + ".pdf"; // Đặt tên file tải về
+                            link.click(); // Tự động tải về file PDF
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("Lỗi: " + status + ", " + error);
+                        }
+                    });
+                }
+                setTimeout(() => {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                }, 500);
+
+
+            });
+        }
+
+        // end in hóa đơn
 
         //     Voucher start
 

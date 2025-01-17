@@ -110,8 +110,8 @@ public class SalesController {
     @PostMapping("/payment-invoices")
     @ResponseBody
     public ResponseEntity<?> paymentInvoice(@RequestBody PaymentInvoiceDTO paymentInvoiceDTO) {
-        salesService.paymentInvoice(paymentInvoiceDTO);
-        return new ResponseEntity<>(ResponseObject.builder().data(paymentInvoiceDTO).build(), HttpStatus.OK);
+        HoaDon data = salesService.paymentInvoice(paymentInvoiceDTO);
+        return new ResponseEntity<>(ResponseObject.builder().data(data).build(), HttpStatus.OK);
     }
 
     @GetMapping("/voucher")

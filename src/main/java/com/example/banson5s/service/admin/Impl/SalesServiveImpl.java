@@ -199,7 +199,7 @@ public class SalesServiveImpl implements ISalesService {
     }
 
     @Override
-    public Boolean paymentInvoice(PaymentInvoiceDTO dto) {
+    public HoaDon paymentInvoice(PaymentInvoiceDTO dto) {
         HoaDon hoaDon = hoaDonService.findById(dto.getBillId())
                 .orElseThrow(() -> new AppException(ErrorCode.INVALID_REQUEST));
         modelMapper.map(dto, hoaDon);
@@ -230,7 +230,7 @@ public class SalesServiveImpl implements ISalesService {
         }
         lichSuHoaDonService.createNew(lichSuHoaDon);
         hoaDonService.update(hoaDon);
-        return true;
+        return hoaDon;
     }
 
     @Override
