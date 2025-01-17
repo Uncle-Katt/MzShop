@@ -9,26 +9,26 @@
         <div class="col-md-3">
             <div class="card mb-4">
                 <div class="card-body text-center">
-                    <h5 class="card-title">Tổng Doanh Thu</h5>
-                    <h4 class="text-success" id="totalRevenue">0 VNĐ</h4>
+                    <h5 class="card-title">Tổng Doanh Thu Hôm Nay</h5>
+                    <h4 class="text-success" id="moneyDay"></h4>
                 </div>
             </div>
         </div>
-        <!-- Tổng số lượng bán -->
+        <!-- Tổng doanh thu -->
         <div class="col-md-3">
             <div class="card mb-4">
                 <div class="card-body text-center">
-                    <h5 class="card-title">Tổng Số Lượng Bán</h5>
-                    <h4 class="text-primary" id="totalSales">0</h4>
+                    <h5 class="card-title">Tổng Doanh Thu Tháng Này</h5>
+                    <h4 class="text-success" id="moneyMonth"></h4>
                 </div>
             </div>
         </div>
-        <!-- Sản phẩm bán chạy -->
+        <!-- Tổng doanh thu -->
         <div class="col-md-3">
             <div class="card mb-4">
                 <div class="card-body text-center">
-                    <h5 class="card-title">Sản Phẩm Bán Chạy</h5>
-                    <h4 class="text-danger" id="bestSeller">Chưa có dữ liệu</h4>
+                    <h5 class="card-title">Tổng Doanh Thu Năm Nay</h5>
+                    <h4 class="text-success" id="moneyYear"></h4>
                 </div>
             </div>
         </div>
@@ -37,10 +37,32 @@
             <div class="card mb-4">
                 <div class="card-body text-center">
                     <h5 class="card-title">Số Lượng Tồn Kho</h5>
-                    <h4 class="text-warning" id="stockRemaining">0</h4>
+                    <h4 class="text-warning" id="soLuongTon"></h4>
                 </div>
             </div>
         </div>
+
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Doanh Thu Theo Khoảng Ngày</h5>
+                    <h4 class="text-warning" id="doanhThuTheoKhoang">0</h4>
+                    <div class="my-2" style="padding-top: 40px">
+                        <label class="form-label">Chọn Ngày: </label>
+                        <div style="display: flex">
+                            <input type="date" class="form-control" id="dateInputStr" name="date">
+                            <input type="date" class="form-control ml-2" id="dateInputEnd" name="date">
+                            <div class="col-12">
+                                <button class="btn btn-primary" type="submit" id="btn_search">Tìm Kiếm</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
     </div>
 
     <!-- Biểu đồ thống kê -->
@@ -64,27 +86,27 @@
             </div>
         </div>
     </div>
+    <div class="card mb-4">
+        <div style="padding: 20px">
+            <h5 class="card-title">Thống Kê Theo Tháng</h5>
+            <table class="table col-12" id="doanhThuTable" >
+                <thead>
+                <tr style="width: 100%">
+                    <th>Tháng</th>
+                    <th>Doanh Thu</th>
+                    <th>Số Lượng Bán</th>
+                </tr>
+                </thead>
+                <tbody>
 
+                </tbody>
+            </table>
+        </div>
+    </div>
     <!-- Thống kê theo thời gian -->
     <div class="row">
         <div class="col-md-12">
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h5 class="card-title">Thống Kê Theo Tháng</h5>
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th>Tháng</th>
-                            <th>Doanh Thu</th>
-                            <th>Số Lượng Bán</th>
-                        </tr>
-                        </thead>
-                        <tbody>
 
-                        </tbody>
-                    </table>
-                </div>
-            </div>
         </div>
     </div>
 </div>
@@ -178,5 +200,106 @@
         $('#totalSales').text('0');
         $('#bestSeller').text('Chưa có dữ liệu');
         $('#stockRemaining').text('0');
+
+        loadDoanhThu()
+        function loadDoanhThu() {
+            $.ajax({
+                url: '/admin/doanh-thu',
+                method: 'GET',
+                success: function (data) {
+                    let result = data.data
+                    $('#moneyDay').text(formatCurrency(result.day));
+                    $('#moneyMonth').text(formatCurrency(result.month));
+                    $('#moneyYear').text(formatCurrency(result.year));
+                    $('#soLuongTon').text(result.soLuongTon);
+                },
+                error: function (err) {
+
+                }
+            });
+        }
+
+
+        let doanhThuTable = $('#doanhThuTable').DataTable({
+            "paging": true,        // Bật phân trang
+            "searching": false,     // Bật tìm kiếm
+            "ordering": false,      // Bật sắp xếp
+            "info": false,          // Bật thông tin tổng quan
+            "lengthChange": false,  // Cho phép thay đổi số lượng bản ghi hiển thị
+            "pageLength": 5,       // Số lượng bản ghi trên mỗi trang
+            "columnDefs": [
+                {"className": "width-table", "targets": "_all"}
+            ],
+        });
+        loadTableDoanhThu()
+        function loadTableDoanhThu() {
+            $.ajax({
+                url: '/admin/doanh-thu-table',
+                method: 'GET',
+                success: function (response) {
+                    let data = response.data.sort((a, b) => a.month - b.month);
+
+                    doanhThuTable.clear();
+                    $.each(response.data, function (index, item) {
+                        doanhThuTable.row.add([
+                            item.month,
+                            formatCurrency(item.doanhThu),
+                            item.soLuongBan
+                        ]);
+                    });
+                    doanhThuTable.draw();
+
+
+                    // Dữ liệu trả về từ API
+                    const months = data.map(item => 'Tháng ' + item.month);
+                    const revenueData = data.map(item => item.doanhThu);
+                    const salesData = data.map(item => item.soLuongBan);
+
+                    // Cập nhật biểu đồ doanh thu
+                    revenueChart.data.labels = months;
+                    revenueChart.data.datasets[0].data = revenueData;
+                    revenueChart.update();
+
+                    // Cập nhật biểu đồ số lượng bán
+                    salesChart.data.labels = months;
+                    salesChart.data.datasets[0].data = salesData;
+                    salesChart.update();
+                },
+                error: function (err) {
+                    // toastr.error('Lỗi khi lấy dữ liệu nhân viên', err);
+                }
+            });
+        }
+        function getDoanhThuTheoKhoangNgay(startDate, endDate) {
+            $.ajax({
+                url: '/admin/doanh-thu-khoang-ngay',
+                method: 'GET',
+                data: {
+                    startDate: startDate,
+                    endDate: endDate
+                },
+                success: function(response) {
+                    // Hiển thị kết quả doanh thu
+                    $('#doanhThuTheoKhoang').text(formatCurrency(response.data));
+                },
+                error: function(xhr, status, error) {
+                    console.error('Có lỗi xảy ra: ' + error);
+                }
+            });
+        }
+
+        $('#btn_search').click(function() {
+            // Lấy giá trị ngày bắt đầu và ngày kết thúc từ input
+            const startDate = $('#dateInputStr').val();
+            const endDate = $('#dateInputEnd').val();
+
+            // Kiểm tra xem người dùng có chọn đầy đủ ngày hay không
+            if (!startDate || !endDate) {
+                toastr.error("Vui lòng chọn đầy đủ ngày bắt đầu và kết thúc.");
+                return;
+            }
+            // Gọi hàm AJAX để lấy doanh thu
+            getDoanhThuTheoKhoangNgay(startDate, endDate);
+        });
     });
 </script>
