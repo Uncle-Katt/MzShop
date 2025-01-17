@@ -19,6 +19,7 @@ public interface ISanPhamChiTietRepository extends IBaseRepository<SanPhamChiTie
             and spct.soLuong > 0 
             and spct.sanPham.trangThai LIKE :sts%
             and (spct.sanPham.tenSanPham LIKE %:search% OR spct.maVach LIKE %:search%)
+            order by spct.sanPham.ngayTao desc 
             """)
     List<SanPhamChiTiet> findLstSanPhamChiTiet(@Param("search") String value, @Param("sts") String sts);
 

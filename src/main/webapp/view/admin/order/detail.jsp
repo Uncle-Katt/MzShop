@@ -217,7 +217,7 @@
                     <thead>
                     <tr>
                         <th>STT</th>
-                        <th>Mã giao dịch</th>
+<%--                        <th>Mã giao dịch</th>--%>
                         <th>Loại</th>
                         <th>Số tiền</th>
                         <th>Mô tả</th>
@@ -273,10 +273,10 @@
                             </span>
                         </div>
                     </div>
-                    <div class="d-flex mt-2">
-                        <div class="order-title">Mô tả</div>
-                        <div id="orderDec" class="order-sub"></div>
-                    </div>
+<%--                    <div class="d-flex mt-2">--%>
+<%--                        <div class="order-title">Mô tả</div>--%>
+<%--                        <div id="orderDec" class="order-sub"></div>--%>
+<%--                    </div>--%>
                 </div>
             </div>
         </div>
@@ -498,7 +498,7 @@
             $.each(data, function (index, item) {
                 historyPayBillTable.row.add([
                     index + 1,
-                    item.maGiaoDich,
+                    // item.maGiaoDich,
                     convertPaymentMethod(item.loaiThanhToan),
                     formatCurrency(item.soTienThanhToan),
                     item.moTa,
@@ -598,7 +598,8 @@
                     getDataBill()
                     toastr.success('Thay đổi trạng thái thành công');
                 },
-                error: function () {
+                error: function (err) {
+                    toastr.error(err.responseJSON.message)
                 },
             });
         }

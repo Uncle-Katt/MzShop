@@ -12,6 +12,7 @@ import com.example.banson5s.entity.admin.LichSuThanhToan;
 import com.example.banson5s.entity.admin.SanPhamChiTiet;
 import com.example.banson5s.enums.BillType;
 import com.example.banson5s.enums.InvoiceStatus;
+import com.example.banson5s.exception.AppException;
 import com.example.banson5s.service.admin.IHoaDonService;
 import com.example.banson5s.service.admin.ILichSuHoaDonService;
 import com.example.banson5s.service.admin.ILichSuThanhToanService;
@@ -24,6 +25,8 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.banson5s.exception.ErrorCode.OUT_OF_STOCK;
 
 @Service
 public class OrderServiceImpl implements IOrderService {
@@ -60,10 +63,15 @@ public class OrderServiceImpl implements IOrderService {
     public void changeStatusOrder(OrderChangeStatusDTO dto){
         HoaDon hoaDon = hoaDonService.findHoaDonByCode(dto.getCodeBill());
         if (hoaDon.getLoaiHoaDon().equals(BillType.ONLINE.getLabel())
-                && dto.getStatus().equals(InvoiceStatus.DA_XAC_NHAN.getLabel())){
+                && dto.getStatus().equals(InvoiceStatus.DA_XAC_NHAN.getLabel())
+                && hoaDon.getTrangThai().equals(InvoiceStatus.CHO_XAC_NHAN.getLabel())
+        ){
             List<HoaDonChiTiet> lstHoaDonChiTiet = hoaDon.getLstHoaDonChiTiet().stream().toList();
             lstHoaDonChiTiet.forEach(item ->{
                 SanPhamChiTiet sanPhamChiTiet = item.getSanPhamChiTiet();
+                if (item.getSoLuong() > sanPhamChiTiet.getSoLuong()){
+                    throw new AppException(OUT_OF_STOCK);
+                }
                 sanPhamChiTiet.setSoLuong(sanPhamChiTiet.getSoLuong() - item.getSoLuong());
                 sanPhamChiTietService.update(sanPhamChiTiet);
             });
