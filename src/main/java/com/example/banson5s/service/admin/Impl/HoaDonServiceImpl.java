@@ -2,6 +2,8 @@ package com.example.banson5s.service.admin.Impl;
 
 import com.example.banson5s.entity.admin.HoaDon;
 import com.example.banson5s.enums.InvoiceStatus;
+import com.example.banson5s.exception.AppException;
+import com.example.banson5s.exception.ErrorCode;
 import com.example.banson5s.repository.admin.IHoaDonRepository;
 import com.example.banson5s.service.admin.IHoaDonService;
 import com.example.banson5s.service.common.impl.BaseServiceImpl;
@@ -19,7 +21,8 @@ public class HoaDonServiceImpl extends BaseServiceImpl<HoaDon, Long, IHoaDonRepo
 
     @Override
     public HoaDon findHoaDonByCode(String code) {
-        return repository.findHoaDonByMaHoaDon(code);
+        HoaDon hoaDon = repository.findHoaDonByMaHoaDon(code).orElseThrow(() -> new AppException(ErrorCode.INVALID_REQUEST));
+        return hoaDon;
     }
 
     @Override

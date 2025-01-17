@@ -416,15 +416,12 @@
                 </ul>
 
                 <!-- Search Bar -->
-                <form class="d-flex search-bar">
-                    <input class="form-control me-2" type="search" placeholder="Tìm kiếm sản phẩm..." aria-label="Search">
-                    <button class="btn btn-outline-light" type="submit"><i class="fas fa-search"></i></button>
-                </form>
+                <a href="/look-up-order" style="color: black; text-decoration: none; font-size: 20px; margin-right: 10px">Tra cứu đơn hàng</a>
 
                 <!-- Icons -->
                 <div class="icons d-flex">
                     <a href="/cart"><i class="fas fa-shopping-cart"></i></a>
-                    <a href="/login"><i class="fas fa-user"></i></a>
+                    <a href="/login">Login</a>
                 </div>
             </div>
         </div>
