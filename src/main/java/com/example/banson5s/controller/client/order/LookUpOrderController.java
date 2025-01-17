@@ -34,6 +34,13 @@ public class LookUpOrderController {
         return "client/main";
     }
 
+    @GetMapping("/show-bill/{maHd}")
+    public String lookUpOrder(@PathVariable("maHd") String maHd, Model model) {
+        model.addAttribute("codeBill", maHd);
+        model.addAttribute("page", "cart/order-success");
+        return "client/main";
+    }
+
     @PostMapping("/look-up-order")
     @ResponseBody
     public ResponseEntity<?> getBill(@RequestBody String code) {

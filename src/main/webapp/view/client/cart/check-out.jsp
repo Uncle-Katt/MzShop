@@ -551,10 +551,11 @@
                         data: JSON.stringify(req),
                         success: function (response) {
                             toastr.success('Đặt hàng thành công');
+
                             setTimeout(() => {
                                 $('#loading').hide();
                                 setProductToCart([])
-                                window.location.href = '/product';
+                                window.location.href = '/show-bill/'+response.data.maHoaDon;
                             }, 1000);
                         },
                         error: function (err) {
