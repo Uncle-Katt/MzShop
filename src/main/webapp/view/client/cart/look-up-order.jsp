@@ -152,10 +152,10 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="d-flex mt-2">
-                            <div class="order-title">Mô tả</div>
-                            <div id="orderDec" class="order-sub"></div>
-                        </div>
+<%--                        <div class="d-flex mt-2">--%>
+<%--                            <div class="order-title">Mô tả</div>--%>
+<%--                            <div id="orderDec" class="order-sub"></div>--%>
+<%--                        </div>--%>
                     </div>
                 </div>
             </div>

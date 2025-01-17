@@ -106,6 +106,19 @@
             return [];
         }
     }
+    const convertTypeBill = (type) =>
+    {
+        switch (type) {
+            case "OFFLINE":
+                return "Tại Quầy";
+            case "ONLINE":
+                return "Trực Tuyến";
+            case "DELIVERY":
+                return "Giao Hàng";
+            default:
+                return "Không Xác Định";
+        }
+    }
 
 </script>
 </body>

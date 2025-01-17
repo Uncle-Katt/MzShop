@@ -52,7 +52,7 @@ public interface IThongKeRepository extends IBaseRepository<HoaDon,Long> {
     SELECT COALESCE(SUM(spct.so_luong), 0) AS so_luong
     FROM san_pham_chi_tiet spct
     join san_pham sp on sp.id = spct.id_san_pham
-    WHERE sp.trang_thai = 'HOAT_DONG'
+    WHERE sp.xoa_mem = 'false' and spct.xoa_mem = 'false'
 """, nativeQuery = true)
     Integer getSoLuongTonKho();
 
