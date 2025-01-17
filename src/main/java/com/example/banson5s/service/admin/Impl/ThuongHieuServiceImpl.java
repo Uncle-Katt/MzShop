@@ -2,6 +2,7 @@ package com.example.banson5s.service.admin.Impl;
 
 import com.example.banson5s.dto.admin.nhanVien.NhanVienDTO;
 import com.example.banson5s.dto.admin.sanPham.ThuongHieuDTO;
+import com.example.banson5s.entity.admin.KhoiLuong;
 import com.example.banson5s.entity.admin.NhanVien;
 import com.example.banson5s.entity.admin.ThuongHieu;
 import com.example.banson5s.exception.AppException;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 @Service
@@ -55,10 +57,10 @@ public class ThuongHieuServiceImpl extends BaseServiceImpl<ThuongHieu, Long, ITh
     }
     @Override
     public ThuongHieuDTO detailThuongHieu(Long id) {
-        // Tìm thực thể ThuongHieu theo id, nếu không có thì ném ngoại lệ
-        ThuongHieu entity = findById(id)
-                .orElseThrow(() -> new AppException(ErrorCode.INVALID_REQUEST));
-
+        Optional<ThuongHieu> entity = findById(id);
+        if (entity.isEmpty()){
+            return null;
+        }
         // Ánh xạ thực thể sang DTO
         ThuongHieuDTO data = modelMapper.map(entity, ThuongHieuDTO.class);
         return data;

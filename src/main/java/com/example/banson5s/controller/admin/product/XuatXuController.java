@@ -1,4 +1,4 @@
-package com.example.banson5s.controller.admin.sanpham;
+package com.example.banson5s.controller.admin.product;
 
 import com.example.banson5s.dto.ResponseObject;
 import com.example.banson5s.dto.admin.sanPham.XuatXuDTO;
@@ -16,7 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 @Controller
-@RequestMapping("/admin/xuatxu")
+@RequestMapping("/admin/origin")
 public class XuatXuController {
     @Autowired
     private IXuatXuService xuatXuService;
@@ -35,54 +35,42 @@ public class XuatXuController {
     @GetMapping("/create")
     public String formCreate(Model model) {
         model.addAttribute("xuatXu", new XuatXuDTO());
-        model.addAttribute("btnText", "Thêm xuất xứ");
-        model.addAttribute("action", "/admin/xuatxu/create");
+        model.addAttribute("btnText", "Thêm Xuất Xứ");
+        model.addAttribute("action", "/admin/origin/create");
         model.addAttribute("page", "sanPham/xuat_xu/form");
         return "admin/main";
     }
     @PostMapping("/create")
-    public String create(@Valid @ModelAttribute XuatXuDTO req, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors()) {
-            return "admin/main";
-        }
+    public String create(@Valid @ModelAttribute XuatXuDTO req) {
         xuatXuService.createXuatXu(req);
-        redirectAttributes.addFlashAttribute("successMessage", "Thêm xuất xứ thành công!");
-        return "redirect:/admin/xuatxu";
+        return "redirect:/admin/origin";
     }
     @GetMapping("/update/{id}")
     public String formUpdate(@PathVariable Long id, Model model) {
         XuatXuDTO xuatXu = xuatXuService.detailXuatXu(id);
         if (xuatXu == null) {
-            return "redirect:/admin/xuatxu";
+            return "redirect:/admin/origin";
         }
         model.addAttribute("xuatXu", xuatXu);
-        model.addAttribute("action", "/admin/xuatxu/update");
+        model.addAttribute("btnText","Cập Nhật");
+        model.addAttribute("action", "/admin/origin/update");
         model.addAttribute("page", "sanPham/xuat_xu/form");
         return "admin/main";
     }
     @PostMapping("/update")
-    public String update(@Valid @ModelAttribute XuatXuDTO req, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors()) {
-            return "admin/main";
-        }
-
-        try {
-            xuatXuService.updateXuatXu(req);
-            redirectAttributes.addFlashAttribute("successMessage", "Cập nhật xuất xứ thành công!");
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("errorMessage", "Cập nhật xuất xứ thất bại!");
-        }
-
-        return "redirect:/admin/xuatxu";
+    public String update(@ModelAttribute XuatXuDTO req) {
+        xuatXuService.updateXuatXu(req);
+        return "redirect:/admin/origin";
     }
 
     @GetMapping("/detail/{id}")
     public String detail(@PathVariable Long id, Model model) {
         XuatXuDTO xuatXu = xuatXuService.detailXuatXu(id);
         if (xuatXu == null) {
-            return "redirect:/admin/xuatxu";
+            return "redirect:/admin/origin";
         }
         model.addAttribute("xuatXu", xuatXu);
+        model.addAttribute("page", "sanPham/xuat_xu/detail");
         return "admin/main";
     }
 

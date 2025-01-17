@@ -16,7 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 @Controller
-@RequestMapping("/admin/khoiluong")
+@RequestMapping("/admin/weight")
 public class KhoiLuongController {
     @Autowired
     private IKhoiLuongService khoiLuongService;
@@ -34,51 +34,41 @@ public class KhoiLuongController {
     @GetMapping("/create")
     public String formCreate(Model model) {
         model.addAttribute("khoiLuong", new KhoiLuongDTO());
-        model.addAttribute("btnText", "Thêm khối lượng");
-        model.addAttribute("action", "/admin/khoiluong/create");
+        model.addAttribute("btnText", "Thêm Khối Lượng");
+        model.addAttribute("action", "/admin/weight/create");
         model.addAttribute("page", "sanPham/khoi_luong/form");
         return "admin/main";
     }
     @PostMapping("/create")
-    public String create(@Valid @ModelAttribute KhoiLuongDTO req, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors()) {
-            return "admin/main";
-        }
+    public String create(@ModelAttribute KhoiLuongDTO req) {
         khoiLuongService.createKhoiLuong(req);
-        redirectAttributes.addFlashAttribute("successMessage", "Thêm khối lượng thành công!");
-        return "redirect:/admin/khoiluong";
+        return "redirect:/admin/weight";
     }
     @GetMapping("/update/{id}")
     public String formUpdate(@PathVariable Long id, Model model) {
         KhoiLuongDTO khoiLuong = khoiLuongService.detailKhoiLuong(id);
         if (khoiLuong == null) {
-            return "redirect:/admin/khoiluong";
+            return "redirect:/admin/weight";
         }
         model.addAttribute("khoiLuong", khoiLuong);
-        model.addAttribute("action", "/admin/khoiluong/update");
+        model.addAttribute("btnText","Cập Nhật");
+        model.addAttribute("action", "/admin/weight/update");
         model.addAttribute("page", "sanPham/khoi_luong/form");
         return "admin/main";
     }
     @PostMapping("/update")
-    public String update(@Valid @ModelAttribute KhoiLuongDTO req, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors()) {
-            return "admin/main";
-        }
-        try {
-            khoiLuongService.updateKhoiLuong(req);
-            redirectAttributes.addFlashAttribute("successMessage", "Cập nhật khối lượng thành công!");
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("errorMessage", "Cập nhật khối lượng thất bại!");
-        }
-        return "redirect:/admin/khoiluong";
+    public String update(@ModelAttribute KhoiLuongDTO req) {
+        khoiLuongService.updateKhoiLuong(req);
+        return "redirect:/admin/weight";
     }
     @GetMapping("/detail/{id}")
     public String detail(@PathVariable Long id, Model model) {
         KhoiLuongDTO khoiLuong = khoiLuongService.detailKhoiLuong(id);
         if (khoiLuong == null) {
-            return "redirect:/admin/khoiluong";
+            return "redirect:/admin/weight";
         }
         model.addAttribute("khoiLuong", khoiLuong);
+        model.addAttribute("page", "sanPham/khoi_luong/detail");
         return "admin/main";
     }
     @PutMapping("/delete")

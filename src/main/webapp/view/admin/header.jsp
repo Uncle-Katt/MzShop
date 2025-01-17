@@ -172,7 +172,7 @@
 
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link active text-white h5" href="/admin/thongke" aria-label="Thống kê">
+                        <a class="nav-link active text-white h5" href="/admin" aria-label="Thống kê">
                             Thống kê
                         </a>
                     </li>
@@ -198,19 +198,19 @@
                                 </li>
 
                                 <li class="nav-item">
-                                    <a class="nav-link text-white h5" href="/admin/khoiluong" aria-label="Khối lượng">Khối lượng</a>
+                                    <a class="nav-link text-white h5" href="/admin/weight" aria-label="Khối lượng">Khối lượng</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-white h5" href="/admin/mausac" aria-label="Màu Sắc">Màu Sắc</a>
+                                    <a class="nav-link text-white h5" href="/admin/color" aria-label="Màu Sắc">Màu Sắc</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-white h5" href="/admin/xuatxu" aria-label="Xuất Xứ">Xuất Xứ</a>
+                                    <a class="nav-link text-white h5" href="/admin/origin" aria-label="Xuất Xứ">Xuất Xứ</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-white h5" href="/admin/thuonghieu" aria-label="Thương Hiệu">Thương Hiệu</a>
+                                    <a class="nav-link text-white h5" href="/admin/brand" aria-label="Thương Hiệu">Thương Hiệu</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-white h5" href="/admin/danhmuc" aria-label="Danh Mục">Danh Mục</a>
+                                    <a class="nav-link text-white h5" href="/admin/category" aria-label="Danh Mục">Danh Mục</a>
                                 </li>
                             </ul>
                         </div>

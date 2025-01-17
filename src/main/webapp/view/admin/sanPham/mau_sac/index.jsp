@@ -11,14 +11,12 @@
 
             <div class="row justify-content-center mb-3">
                 <div class="col-md-6">
-                    <form class="form-inline" method="GET" action="">
-                        <div class="input-group w-100">
-                            <input class="form-control" name="key" placeholder="Tìm kiếm tên màu sắc ..." />
-                            <button class="btn btn-red ml-2" type="submit" style="background-color: #b85555; color: white;">
-                                <i class="fas fa-search"></i> Tìm kiếm
-                            </button>
-                        </div>
-                    </form>
+                    <div class="input-group w-100">
+                        <input id="input_search"  class="form-control" name="key" placeholder="Tìm kiếm tên màu sắc ..." />
+                        <button id="btn_search" class="btn btn-red" id="btn_search" style="background-color: #b85555; color: white;">
+                            <i class="fas fa-search"></i> Tìm kiếm
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -28,11 +26,11 @@
         <div class="card-body">
             <div class="d-flex justify-content-between mb-3">
                 <h5 class="card-title">Danh sách màu sắc</h5>
-                <a href="/admin/mausac/create" class="btn btn-pink" style="background-color: #b85555; color: white;">
+                <a href="/admin/color/create" class="btn btn-pink" style="background-color: #b85555; color: white;">
                     <i class="fa-solid fa-plus"></i> Thêm màu sắc
                 </a>
             </div>
-            <table class="table" id="customerTable">
+            <table class="table" id="colorTable">
                 <thead>
                 <tr>
                     <th>STT</th>
@@ -82,7 +80,7 @@
 
 <script>
     $(document).ready(function () {
-        let colorTable = $('#customerTable').DataTable({
+        let colorTable = $('#colorTable').DataTable({
             "paging": true,        // Bật phân trang
             "searching": false,    // Bật tìm kiếm
             "ordering": false,     // Bật sắp xếp
@@ -98,9 +96,9 @@
         });
 
         function loadTableColor() {
-            const search = $('#inputCustomer').val();
+            const search = $('#input_search').val();
             $.ajax({
-                url: '/admin/mausac/list',  // Đổi URL để lấy dữ liệu màu sắc
+                url: '/admin/color/list',  // Đổi URL để lấy dữ liệu màu sắc
                 method: 'GET',
                 dataType: 'json',
                 data: {search: search},
@@ -110,8 +108,8 @@
                         colorTable.row.add([
                             index + 1,
                             color.tenMauSac,
-                            '<a href="/admin/mausac/detail/' + color.id + '" class="btn btn-warning btn-sm mr-2"><i class="fa-solid fa-info"></i></a>' +
-                            '<a href="/admin/mausac/update/' + color.id + '" class="btn btn-success btn-sm mr-2"><i class="fa-solid fa-pen"></i></a>' +
+                            '<a href="/admin/color/detail/' + color.id + '" class="btn btn-warning btn-sm mr-2"><i class="fa-solid fa-info"></i></a>' +
+                            '<a href="/admin/color/update/' + color.id + '" class="btn btn-success btn-sm mr-2"><i class="fa-solid fa-pen"></i></a>' +
                             '<button class="btn btn-danger btn-sm btn-delete-color" data-color-id="' + color.id + '"><i class="fa-solid fa-trash"></i></button>'
                         ]);
                     });
@@ -123,7 +121,7 @@
             });
         }
 
-        $(document).on('click', '#searchCustomer', function () {
+        $(document).on('click', '#btn_search', function () {
             loadTableColor();  // Gọi hàm loadTableColor
         });
         loadTableColor();  // Gọi lần đầu để load màu sắc
@@ -142,7 +140,7 @@
                 if (result.isConfirmed) {
                     $('#loading').show();
                     $.ajax({
-                        url: '/admin/mausac/delete',  // Đổi URL để xóa màu sắc
+                        url: '/admin/color/delete',  // Đổi URL để xóa màu sắc
                         method: 'PUT',
                         contentType: 'application/json',
                         data: JSON.stringify(colorId),

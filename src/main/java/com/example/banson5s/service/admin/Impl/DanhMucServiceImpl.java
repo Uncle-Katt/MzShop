@@ -2,6 +2,7 @@ package com.example.banson5s.service.admin.Impl;
 
 import com.example.banson5s.dto.admin.sanPham.DanhMucDTO;
 import com.example.banson5s.entity.admin.DanhMuc;
+import com.example.banson5s.entity.admin.KhoiLuong;
 import com.example.banson5s.exception.AppException;
 import com.example.banson5s.exception.ErrorCode;
 import com.example.banson5s.repository.admin.IDanhMucRepository;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DanhMucServiceImpl extends BaseServiceImpl<DanhMuc, Long, IDanhMucRepository>
@@ -44,8 +46,10 @@ public class DanhMucServiceImpl extends BaseServiceImpl<DanhMuc, Long, IDanhMucR
 
     @Override
     public DanhMucDTO detailDanhMuc(Long id) {
-        DanhMuc entity = findById(id).
-                orElseThrow(() -> new AppException(ErrorCode.INVALID_REQUEST));
+        Optional<DanhMuc> entity = findById(id);
+        if (entity.isEmpty()){
+            return null;
+        }
         DanhMucDTO data = modelMapper.map(entity, DanhMucDTO.class);
         return data;
     }

@@ -12,14 +12,12 @@
 
             <div class="row justify-content-center mb-3">
                 <div class="col-md-6">
-                    <form class="form-inline" method="GET" action="">
-                        <div class="input-group w-100">
-                            <input id="input_search" class="form-control" name="key" placeholder="Tìm kiếm tên danh mục ..." />
-                            <button id="btn_search" class="btn btn-red ml-2" type="submit" style="background-color: #b85555; color: white;">
-                                <i class="fas fa-search"></i> Tìm kiếm
-                            </button>
-                        </div>
-                    </form>
+                    <div class="input-group w-100">
+                        <input id="input_search" class="form-control" name="key" placeholder="Tìm kiếm tên danh mục ..." />
+                        <button id="btn_search" class="btn btn-red" type="submit" style="background-color: #b85555; color: white;">
+                            <i class="fas fa-search"></i> Tìm kiếm
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -30,7 +28,7 @@
         <div class="card-body">
             <div class="d-flex justify-content-between mb-3">
                 <h5 class="card-title">Danh sách danh mục</h5>
-                <a href="/admin/danhmuc/create" class="btn btn-pink" style="background-color: #b85555; color: white;"><i class="fa-solid fa-plus" ></i> Thêm danh mục</a>
+                <a href="/admin/category/create" class="btn btn-pink" style="background-color: #b85555; color: white;"><i class="fa-solid fa-plus" ></i> Thêm danh mục</a>
             </div>
             <table class="table" id="customerTable">
                 <thead>
@@ -125,7 +123,7 @@
         function loadTableCategory() {
             const search = $('#input_search').val();
             $.ajax({
-                url: '/admin/danhmuc/list',  // Đổi URL để lấy dữ liệu danh mục
+                url: '/admin/category/list',  // Đổi URL để lấy dữ liệu danh mục
                 method: 'GET',
                 dataType: 'json',
                 data: {search: search},
@@ -135,8 +133,8 @@
                         categoryTable.row.add([
                             index + 1,
                             category.tenDanhMuc,
-                            '<a href="/admin/danhmuc/detail/' + category.id + '" class="btn btn-warning btn-sm mr-2"><i class="fa-solid fa-info"></i></a>' +
-                            '<a href="/admin/danhmuc/update/' + category.id + '" class="btn btn-success btn-sm mr-2"><i class="fa-solid fa-pen"></i></a>' +
+                            '<a href="/admin/category/detail/' + category.id + '" class="btn btn-warning btn-sm mr-2"><i class="fa-solid fa-info"></i></a>' +
+                            '<a href="/admin/category/update/' + category.id + '" class="btn btn-success btn-sm mr-2"><i class="fa-solid fa-pen"></i></a>' +
                             '<button class="btn btn-danger btn-sm btn-delete-category" data-category-id="' + category.id + '"><i class="fa-solid fa-trash"></i></button>'
                         ]);
                     });
@@ -167,7 +165,7 @@
                 if (result.isConfirmed) {
                     $('#loading').show();
                     $.ajax({
-                        url: '/admin/danhmuc/delete',  // Đổi URL để xóa danh mục
+                        url: '/admin/category/delete',  // Đổi URL để xóa danh mục
                         method: 'PUT',
                         contentType: 'application/json',
                         data: JSON.stringify(categoryId),
