@@ -9,6 +9,7 @@ import com.example.banson5s.entity.admin.KhachHang;
 import com.example.banson5s.entity.admin.NhanVien;
 import com.example.banson5s.exception.AppException;
 import com.example.banson5s.exception.ErrorCode;
+import com.example.banson5s.repository.admin.IChucVuRepository;
 import com.example.banson5s.repository.admin.INhanVienRepository;
 import com.example.banson5s.service.admin.IKhachHangService;
 import com.example.banson5s.service.admin.INhanVienService;
@@ -22,6 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 @Service
@@ -40,6 +42,9 @@ public class NhanVienServiceImpl extends BaseServiceImpl<NhanVien, Long, INhanVi
     @Autowired
     private IMailService mailService;
 
+    @Autowired
+    private IChucVuRepository chucVuRepository;
+
     @Override
     public List<NhanVienDTO> findAllNhanVien(String value) {
         List<NhanVienDTO> lst = repository.findAllStaff(value).stream()
@@ -50,11 +55,14 @@ public class NhanVienServiceImpl extends BaseServiceImpl<NhanVien, Long, INhanVi
     @Override
     @Transactional
     public NhanVienDTO createNhanVien(NhanVienDTO dto) {
+        ChucVu entityCV = chucVuRepository.findChucVuByTenChucVu("NHAN_VIEN").get();
         String password = randomStringGenerator.generateRandomString(8);
         CompletableFuture<NhanVienDTO> saveTask = CompletableFuture.supplyAsync(() -> {
             NhanVien entity = modelMapper.map(dto, NhanVien.class);
-            entity.setChucVu(ChucVu.builder().id(Long.valueOf(2)).build());
-            entity.setMatKhau(passwordEncoder.encode(password));
+
+            entity.setChucVu(entityCV);
+//            entity.setMatKhau(passwordEncoder.encode(password));
+            entity.setMatKhau(password);
             createNew(entity);
             return dto;
         });
