@@ -45,13 +45,13 @@
                         <div class="form-check ml-2">
                             <input class="form-check-input" id="order_type_online" type="radio" name="order_type" value="${ONLINE}">
                             <label class="form-check-label" for="order_type_online">
-                                Online
+                                Trực Tuyến
                             </label>
                         </div>
                         <div class="form-check ml-2">
                             <input class="form-check-input" id="order_type_offline" type="radio" name="order_type" value="${OFFLINE}">
                             <label class="form-check-label" for="order_type_offline">
-                                Offline
+                                Tại Quầy
                             </label>
                         </div>
                     </div>
@@ -86,9 +86,9 @@
                 <li class="nav-item">
                     <a class="nav-link tab-btn" data-value="${HOAN_THANH}">Hoàn Thành</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link tab-btn" data-value="${CHO_THANH_TOAN}">Chờ Thanh Toán</a>
-                </li>
+<%--                <li class="nav-item">--%>
+<%--                    <a class="nav-link tab-btn" data-value="${CHO_THANH_TOAN}">Chờ Thanh Toán</a>--%>
+<%--                </li>--%>
                 <li class="nav-item">
                     <a class="nav-link tab-btn" data-value="${HUY}">Hủy</a>
                 </li>
@@ -148,7 +148,7 @@
                             index + 1,
                             order.maHoaDon,
                             order.khachHang ? order.khachHang.hoVaTen : "Khách Lẻ",
-                            order.loaiHoaDon,
+                            convertTypeBill(order.loaiHoaDon),
                             formatDate(order.ngayDat),
                             formatCurrency(order.thanhTien),
                             '<a  href="/admin/order/' + order.maHoaDon + '"  class="btn btn-warning btn-sm mr-2"><i class="fa-solid fa-info"></i></a>'
