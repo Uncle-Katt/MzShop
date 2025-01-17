@@ -88,11 +88,13 @@ public class PhieuGiamGiaServiceImpl extends BaseServiceImpl<PhieuGiamGia, Long,
     public VoucherDTO updateVoucher(VoucherDTO dto) {
         PhieuGiamGia entity = findById(dto.getId()).
                 orElseThrow(() -> new AppException(ErrorCode.INVALID_REQUEST));
+        String status = entity.getTrangThai();
         modelMapper.map(dto, entity);
         LocalDateTime strDate = LocalDateTime.parse(dto.getNgayBatDau());
         LocalDateTime endDate = LocalDateTime.parse(dto.getNgayKetThuc());
         entity.setNgayBatDau(strDate);
         entity.setNgayKetThuc(endDate);
+        entity.setTrangThai(status);
         update(entity);
         return dto;
     }

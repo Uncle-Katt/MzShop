@@ -413,6 +413,12 @@
             var indexToUpdate = $(this).data('index'); // Lấy index của item cần cập nhật
             var newQuantity = $(this).val(); // Lấy giá trị mới của số lượng
 
+            // Kiểm tra xem giá trị nhập vào có phải là số và không phải số âm
+            if (isNaN(newQuantity) || newQuantity < 0) {
+                $(this).val(1); // Đặt lại giá trị trong input thành 100000
+                newQuantity = 1; // Cập nhật số lượng trong mảng dữ liệu
+            }
+
             // Cập nhật số lượng trong mảng dữ liệu
             productDetailArr[indexToUpdate].quantity = newQuantity;
             console.log(productDetailArr);
@@ -421,11 +427,17 @@
             loadTableProductDetail(productDetailArr);
         });
 
+
         // Lắng nghe sự kiện thay đổi giá
         $('#productTable').on('change', '.price-input', function () {
             var indexToUpdate = $(this).data('index'); // Lấy index của item cần cập nhật
             var newPrice = $(this).val(); // Lấy giá trị mới của giá
 
+            // Kiểm tra xem giá trị nhập vào có phải là số và không phải số âm
+            if (isNaN(newPrice) || newPrice < 0) {
+                $(this).val(1); // Đặt lại giá trị trong input thành 100000
+                newPrice = 1; // Cập nhật số lượng trong mảng dữ liệu
+            }
             // Cập nhật giá trong mảng dữ liệu
             productDetailArr[indexToUpdate].price = newPrice;
             console.log(productDetailArr);
