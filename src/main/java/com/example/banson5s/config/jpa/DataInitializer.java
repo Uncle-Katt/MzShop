@@ -1,7 +1,9 @@
 package com.example.banson5s.config.jpa;
 
 import com.example.banson5s.entity.admin.ChucVu;
+import com.example.banson5s.entity.admin.NhanVien;
 import com.example.banson5s.repository.admin.IChucVuRepository;
+import com.example.banson5s.repository.admin.INhanVienRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -13,6 +15,9 @@ public class DataInitializer implements CommandLineRunner {
 
     @Autowired
     IChucVuRepository chucVuRepository;
+
+    @Autowired
+    INhanVienRepository nhanVienRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -32,5 +37,19 @@ public class DataInitializer implements CommandLineRunner {
             chucVuRepository.save(cv);
             System.out.println("Chuc vu 'ADMIN' created");
         }
+
+        Optional<NhanVien> nhanVienOpt = nhanVienRepository.findNhanVienByEmail("admin@admin.com");
+        if (nhanVienOpt.isEmpty()) {
+            Optional<ChucVu> adminpt = chucVuRepository.findChucVuByTenChucVu("ADMIN");
+            NhanVien nv = NhanVien.builder()
+                    .tenNhanVien("ADMIN")
+                    .chucVu(adminpt.get())
+                    .email("admin@admin.com")
+                    .matKhau("admin")
+                    .build();
+            nhanVienRepository.save(nv);
+            System.out.println("ADMIN' created");
+        }
+
     }
 }

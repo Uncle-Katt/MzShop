@@ -424,7 +424,7 @@
             $("#orderName").text(data.tenNguoiNhan ? data.tenNguoiNhan : "");
             $("#orderPhone").text(data.soDienThoaiNguoiNhan ? data.soDienThoaiNguoiNhan : "");
             $("#orderAddress").text(data.diaChiNguoiNhan)
-            $("#orderType").text(data.hinhThucHoaDon)
+            $("#orderType").text(convertTypeBill(data.hinhThucHoaDon))
             $("#orderStatus").text(convertTypeInvoiceStatus(data.trangThai))
             $("#orderDec").text(data.moTa)
             $("#labelBillCode").text(data.maHoaDon)

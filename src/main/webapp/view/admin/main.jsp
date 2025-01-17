@@ -10,4 +10,22 @@
 </main>
 </div>
 </div>
+
+<script>
+
+    $(document).ready(function () {
+        function checkAuth(){
+            let account = JSON.parse(localStorage.getItem("account"))
+            console.log(account)
+            if (!account) {
+                console.log("Account found: " + account);
+                localStorage.removeItem("account");
+                window.location.href = "/admin/login";
+            }
+        }
+        checkAuth()
+    });
+
+
+</script>
 <%@ include file="footer.jsp" %>

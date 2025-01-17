@@ -168,7 +168,11 @@
             <div class="sidebar-sticky">
                 <div class="logo">
                     <img src="/includes/images/1.jpg" alt="Logo" class="img-fluid" />
+                    <div class="text-white mb-2">
+                        <div  id="nameUserBlock" style="display: none; font-size: 14px">Xin Chào <span id="nameUser"></span></div>
+                    </div>
                 </div>
+
 
                 <ul class="nav flex-column">
                     <li class="nav-item">
@@ -230,7 +234,37 @@
                             Nhân Viên
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white h5" href="#" aria-label="Nhân Viên" id="logoutBtn">
+                            Đăng Xuất
+                        </a>
+                    </li>
                 </ul>
             </div>
              </nav>
         </div>
+
+
+        <script>
+
+            $(document).ready(function () {
+                function logout(){
+                    console.log("aaa")
+                    let account = localStorage.getItem("account");
+                    localStorage.removeItem("account");
+                    window.location.href = "/admin/login";
+                }
+                $("#logoutBtn").click(function (e) {
+                    logout()
+                });
+                getNameUser()
+                function getNameUser(){
+                    let account = JSON.parse(localStorage.getItem("account"))
+                    if (account){
+                        console.log(account)
+                        $("#nameUser").text(account.tenNhanVien)
+                        $("#nameUserBlock").show()
+                    }
+                }
+            });
+        </script>
